@@ -1,0 +1,36 @@
+{
+  "name": "pf",
+  "version": "1.0.0",
+  "description": "//readme",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon index.js -L",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexTRDev/pf-back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexTRDev/pf-back/issues"
+  },
+  "homepage": "https://github.com/AlexTRDev/pf-back#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "sequelize": "^6.21.3"
+  },
+  "devDependencies": {
+    "axios": "^0.27.2",
+    "eslint": "^8.21.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.19",
+    "supertest": "^6.2.4",
+    "supertest-session": "^4.1.0"
+  }
+}
