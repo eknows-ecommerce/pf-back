@@ -52,6 +52,9 @@ Libro.belongsToMany(Pedido, { through: Detalle })
 // Libros 1=>N Media
 Libro.hasMany(Media)
 Media.belongsTo(Libro)
+// Usuario 1=>N Pedido
+Usuario.hasMany(Pedido)
+Pedido.belongsTo(Usuario)
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
