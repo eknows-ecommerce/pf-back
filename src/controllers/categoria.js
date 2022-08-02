@@ -5,7 +5,7 @@ const axios = require('axios')
 const getAll = async (req, res, next) => {
   try {
     const categorias = await Categoria.findAll()
-    if (!categorias)
+    if (!categorias.length)
       return res.status(404).json({ msg: 'Categorias no encontradas' })
     res.status(200).json({ categorias })
   } catch (error) {
@@ -27,14 +27,14 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { name, miniatura } = req.body
+  const { nombre, miniatura } = req.body
   try {
-    if (!name)
+    if (!nombre)
       return res.status(400).json({ msg: 'Nombre de categoria no provisto' })
-    const categoria = await Categoria.create({ name, miniatura })
+    const categoria = await Categoria.create({ nombre, miniatura })
     if (!categoria)
-      return res.status(404).json({ msg: 'No se pudo crear la categoria' })
-    res.status(201).json({ categoria, msg: 'No se pudo crear la categoria' })
+      return res.status(200).json({ msg: 'No se pudo crear la categoria' })
+    res.status(201).json({ categoria, msg: 'Categoria creada' })
   } catch (error) {
     next(error)
   }
@@ -42,18 +42,20 @@ const create = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   const { id } = req.params
-  const { name } = req.body
+  const { nombre, miniatura } = req.body
   try {
-    if (!id) return res.status(404).json({ msg: 'Id no provisto' })
+    if (!id) return res.status(400).json({ msg: 'Id no provisto' })
+    if (!nombre)
+      return res.status(400).json({ msg: 'Nombre de categoria no provisto' })
     const categoria = await Categoria.findByPk(id)
     if (!categoria)
       return res.status(404).json({ msg: 'Categoria no encontrada' })
-    const updatedCategoria = await Categoria.update({ name })
-    if (!updatedCategoria.length > 0)
-      res.status(200).json({ msg: 'No se pudo crear la categoria' })
+    const updatedCategoria = await categoria.update({ nombre, miniatura })
+    if (!updatedCategoria)
+      return res.status(200).json({ msg: 'No se pudo actualizar la categoria' })
     res
       .status(200)
-      .json({ categoria: updatedCategoria[0], msg: 'Categoria actualizada' })
+      .json({ categoria: updatedCategoria, msg: 'Categoria actualizada' })
   } catch (error) {
     next(error)
   }
@@ -62,15 +64,14 @@ const update = async (req, res, next) => {
 const deleteById = async (req, res, next) => {
   const { id } = req.params
   try {
-    if (!id) return res.status(404).json({ msg: 'Id no provisto' })
+    if (!id) return res.status(400).json({ msg: 'Id no provisto' })
     const categoria = await Categoria.findByPk(id)
-    if (!categoria) return res.status(404).json({ msg: 'Id no provisto' })
-    const deleteCategoria = await Categoria.destroy()
+    if (!categoria)
+      return res.status(404).json({ msg: 'Categoria no encotrada' })
+    const deleteCategoria = await categoria.destroy()
     if (!deleteCategoria)
-      return res.status(200).json({ msg: 'Categoria no encotrada' })
-    res
-      .status(200)
-      .json({ categoria: deleteCategoria, msg: 'Categoria eliminada' })
+      return res.status(200).json({ msg: 'No se pudo eliminar categoria' })
+    res.status(200).json({ categoria, msg: 'Categoria eliminada' })
   } catch (error) {
     next(error)
   }
@@ -78,16 +79,18 @@ const deleteById = async (req, res, next) => {
 
 // Solo para desarrollo
 const createBulk = async (req, res, next) => {
-  const { bulk } = req.body
+  const { categorias } = req.body
   try {
-    if (!bulk)
+    if (!categorias.length > 0)
       return res.status(400).json({ msg: 'Lista de categorias no provistas' })
-    const categorias = await Categoria.bulkCreate(bulk)
-    if (!categorias.length)
+    const newCategorias = await Categoria.bulkCreate(categorias)
+    if (!newCategorias.length > 0)
       return res
         .status(200)
         .json({ msg: 'No se pudo crear la lista de categorias' })
-    res.status(201).json({ categorias, msg: 'Lista de categorias creadas' })
+    res
+      .status(201)
+      .json({ categorias: newCategorias, msg: 'Lista de categorias creadas' })
   } catch (error) {
     next(error)
   }
