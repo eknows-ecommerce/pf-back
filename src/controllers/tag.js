@@ -5,9 +5,8 @@ const { Tag } = require('../conexion/db.js')
 const getAll = async (req, res, next) => {
   try {
     const tags = await Tag.findAll()
-    tags.length
-      ? res.status(200).json({ tags })
-      : res.status(404).json({ msg: 'No hay tags' })
+    if (!tags.length > 0) return res.status(404).json({ msg: 'No hay tags' })
+    res.status(200).json({ tags })
   } catch (error) {
     next(error)
   }
@@ -18,20 +17,20 @@ const getById = async (req, res, next) => {
   try {
     if (!id) return res.status(404).json({ msg: 'Id no provisto' })
     const tag = await Tag.findByPk(id)
-    tag
-      ? res.status(200).json({ tag })
-      : res.status(404).json({ msg: 'Tag no encontrado' })
+    if (!tag) return res.status(404).json({ msg: 'Tag no encontrado' })
+    res.status(200).json({ tag })
   } catch (error) {
     next(error)
   }
 }
 
 const create = async (req, res, next) => {
-  const { name } = req.body
+  const { nombre } = req.body
   try {
-    if (!name) return res.status(404).json({ msg: 'Nombre no provisto' })
-    const tag = await Tag.create({ name })
-    res.status(201).json({ tag }, { msg: 'Tag creado' })
+    if (!nombre) return res.status(400).json({ msg: 'Nombre no provisto' })
+    const tag = await Tag.create({ nombre })
+    if (!tag) return res.status(200).json({ msg: 'No se pudo crear el tag' })
+    res.status(201).json({ tag, msg: 'Tag creado' })
   } catch (error) {
     next(error)
   }
@@ -40,8 +39,11 @@ const create = async (req, res, next) => {
 const createBulk = async (req, res, next) => {
   const { tags } = req.body
   try {
-    if (!tags) return res.status(404).json({ msg: 'Tags no provistos' })
+    if (!tags.length > 0)
+      return res.status(404).json({ msg: 'Tags no provistos' })
     const newTags = await Tag.bulkCreate(tags)
+    if (!newTags.length > 0)
+      return res.status(200).json({ msg: 'No se pudo crear los tags' })
     res.status(201).json({ tags: newTags, msg: 'Tags creados' })
   } catch (error) {
     next(error)
@@ -50,13 +52,16 @@ const createBulk = async (req, res, next) => {
 
 const updateById = async (req, res, next) => {
   const { id } = req.params
-  const { name } = req.body
+  const { nombre } = req.body
   try {
     if (!id) return res.status(404).json({ msg: 'Id no provisto' })
+    if (!nombre) return res.status(400).json({ msg: 'Nombre no provisto' })
     const tag = await Tag.findByPk(id)
     if (!tag) return res.status(404).json({ msg: 'Tag no encontrado' })
-    const updatedTag = await tag.update({ name })
-    res.status(200).json({ tag: updatedTag[0], msg: 'Tag actualizado' })
+    const updatedTag = await tag.update({ nombre })
+    if (!updatedTag)
+      return res.status(200).json({ msg: 'No se pudo actualizar el tag' })
+    res.status(200).json({ tag: updatedTag, msg: 'Tag actualizado' })
   } catch (error) {
     next(error)
   }
@@ -69,7 +74,9 @@ const deleteById = async (req, res, next) => {
     const tag = await Tag.findByPk(id)
     if (!tag) return res.status(404).json({ msg: 'Tag no encontrado' })
     const deleteTag = await tag.destroy()
-    res.status(200).json({ tag: deleteTag, msg: 'Tag eliminado' })
+    if (!deleteTag)
+      return res.status(200).json({ msg: 'No se pudo eliminar el tag' })
+    res.status(200).json({ tag, msg: 'Tag eliminado' })
   } catch (error) {
     next(error)
   }
