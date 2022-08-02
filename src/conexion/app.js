@@ -1,6 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
-// const routes = require("routes/index.js");
+const routes = require('../routes/index.js')
 
 require('./db')
 
@@ -21,11 +21,7 @@ server.use((req, res, next) => {
   next()
 })
 
-// server.use("/", routes);
-
-server.get('/', (req, res) => {
-  res.send('Hello World')
-})
+server.use('/', routes)
 
 // Error catching endware.
 server.use((err, req, res, next) => {
