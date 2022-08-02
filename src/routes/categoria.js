@@ -6,7 +6,7 @@ const {
   createBulk,
   update,
   deleteById,
-} = require('../controllers/recipeController')
+} = require('../controllers/categoria.js')
 
 const router = Router()
 
