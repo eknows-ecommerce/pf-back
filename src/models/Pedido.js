@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 module.exports = (sequelize) => {
   sequelize.define('Pedido', {
     precioTotal: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     direccionEnvio: {
@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM('Pendiente', 'Enviado', 'Entregado'),
       allowNull: false,
     },
-    descuento: DataTypes.NUMBER,
+    descuento: DataTypes.FLOAT,
     fechaEntraga: DataTypes.DATE,
   })
 }
