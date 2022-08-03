@@ -1,0 +1,67 @@
+{
+    "usuario":
+    [
+       {
+        "email":"yoshi.vuik@example.com ",
+        "contraseña": "12312312312",
+        "rol": "usuario",
+        "telefono":"(043)-299-3248",
+        "nombreCompleto":"Yoshi Vuik ",
+        "pais":"Netherlands",
+        "ciudad":"Utrecht"
+       },
+       {
+        "email":"dorico.moraes@example.com ",
+        "contraseña": "shaolin23123",
+        "rol": "usuario",
+        "telefono":"(63) 2841-1926",
+        "nombreCompleto":"Dorico Moraes ",
+        "pais":"Netherlands",
+        "ciudad":"Utrecht"
+       },
+
+       {
+        "email":"bernt.habel@example.com",
+        "contraseña": "12jakejake312",
+        "rol": "usuario",
+        "telefono":"0868-8530390",
+        "nombreCompleto":"Bernt Habel ",
+        "pais":"Germany",
+        "ciudad":"Bautzen"
+       },
+
+       {
+        "email":"eva.harris@example.com",
+        "contraseña": "1667arrior1",
+        "rol": "usuario",
+        "telefono":"(043)-299-3248",
+        "nombreCompleto":"Eva Harris ",
+        "pais":"Canada",
+        "ciudad":"Newfoundland and Labrador"
+       },
+
+       {
+        "email":"nolan.dumas@example.com",
+        "contraseña": "miguel23456",
+        "rol": "usuario",
+        "telefono":"(043)-299-3248",
+        "nombreCompleto":"Nolan Dumas ",
+        "pais":"France",
+        "ciudad":"Gironde"
+
+       },
+
+       {
+        "email":"blagovid.timchak@example.com ",
+        "contraseña": "12312312312",
+        "rol": "usuario",
+        "telefono":"(068) 331-8948",
+        "nombreCompleto":"Blagovid Timchak ",
+        "pais":"Korostishiv",
+        "ciudad":"Avtonomna "
+       }
+
+
+
+    ]
+}
