@@ -15,7 +15,7 @@ const getAll = async (req, res, next) => {
 const getById = async (req, res, next) => {
   const { id } = req.params
   try {
-    if (!id) return res.status(404).json({ msg: 'Id no provisto' })
+    if (!id) return res.status(400).json({ msg: 'Id no provisto' })
     const media = await Media.findByPk(id)
     if (!media) return res.status(404).json({ msg: 'Media no encontrado' })
     res.status(200).json({ media })
@@ -37,14 +37,14 @@ const create = async (req, res, next) => {
 }
 
 const createBulk = async (req, res, next) => {
-  const {urlImagen, urlVideo} = req.body
+  const {url} = req.body
   try {
-    if (!urlImagen.length > 0 )
-      return res.status(404).json({ msg: 'URL no provista' })
-    const newMedia = await Media.bulkCreate(urlImagen, urlVideo)
+    if (!url.length > 0 )
+      return res.status(400).json({ msg: 'URL no provista' })
+    const newMedia = await Media.bulkCreate(url)
     if (!newMedia.length > 0)
       return res.status(200).json({ msg: 'No se pudo crear el contenido' })
-    res.status(201).json({ urlImagen: newMedia, msg: 'Contenido creado' })
+    res.status(201).json({ url: newMedia, msg: 'Contenido creado' })
   } catch (error) {
     next(error)
   }
@@ -54,7 +54,7 @@ const createBulk = async (req, res, next) => {
   const { id } = req.params
   const { urlImagen } = req.body
   try {
-    if (!id) return res.status(404).json({ msg: 'Id no provisto' })
+    if (!id) return res.status(400).json({ msg: 'Id no provisto' })
     if (!urlImagen) return res.status(400).json({ msg: 'URL no provista' })
     const media = await Media.findByPk(id)
     if (!media) return res.status(404).json({ msg: 'Contenido no encontrado' })
@@ -70,7 +70,7 @@ const createBulk = async (req, res, next) => {
 const deleteById = async (req, res, next) => {
   const { id } = req.params
   try {
-    if (!id) return res.status(404).json({ msg: 'Id no provisto' })
+    if (!id) return res.status(400).json({ msg: 'Id no provisto' })
     const media = await Media.findByPk(id)
     if (!media) return res.status(404).json({ msg: 'Contenido no encontrado' })
     const deleteMedia = await media.destroy()

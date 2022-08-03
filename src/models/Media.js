@@ -6,6 +6,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    urlVideo: DataTypes.STRING,
+    urlVideo: {
+     type: DataTypes.STRING,
+    },
   })
 }
