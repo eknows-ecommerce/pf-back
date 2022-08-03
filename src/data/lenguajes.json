@@ -1,11 +1,10 @@
 {
-    "languaje":
-[
+  "languaje": [
     {
-        "name": "ESPAÑOL"
+      "name": "ESPAÑOL"
     },
     {
-        "name": "ENGLISH"
+      "name": "ENGLISH"
     }
-]
+  ]
 }
