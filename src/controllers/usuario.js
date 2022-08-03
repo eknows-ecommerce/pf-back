@@ -93,7 +93,7 @@ const deleteById = async (req, res, next) => {
     if (!usuario) return res.status(404).json({ msg: 'Usuario no encotrado' })
     const deleteUsuario = await usuario.destroy()
     if (!deleteUsuario)
-      return res.status(200).json({ msg: 'No se pudo eliminar usuario' })
+      return res.status(400).json({ msg: 'No se pudo eliminar usuario' })
     res.status(200).json({ usuario, msg: 'Usuario eliminada' })
   } catch (error) {
     next(error)
@@ -109,7 +109,7 @@ const createBulk = async (req, res, next) => {
     const newUsuarios = await Usuario.bulkCreate(usuarios)
     if (!newUsuarios)
       return res
-        .status(200)
+        .status(400)
         .json({ msg: 'No se pudo crear la lista de usuarios' })
     res
       .status(201)
