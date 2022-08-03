@@ -15,6 +15,6 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     descuento: DataTypes.FLOAT,
-    fechaEntraga: DataTypes.DATE,
+    fechaEntrega: DataTypes.DATE,
   })
 }
