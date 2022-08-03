@@ -15,7 +15,7 @@ const getAll = async (req, res, next) => {
 const getById = async (req, res, next) => {
   const { id } = req.params
   try {
-    if (!id) return res.status(404).json({ msg: 'Id no provisto' })
+    if (!id) return res.status(400).json({ msg: 'Id no provisto' })
     const tag = await Tag.findByPk(id)
     if (!tag) return res.status(404).json({ msg: 'Tag no encontrado' })
     res.status(200).json({ tag })
@@ -40,7 +40,7 @@ const createBulk = async (req, res, next) => {
   const { tags } = req.body
   try {
     if (!tags.length > 0)
-      return res.status(404).json({ msg: 'Tags no provistos' })
+      return res.status(400).json({ msg: 'Tags no provistos' })
     const newTags = await Tag.bulkCreate(tags)
     if (!newTags.length > 0)
       return res.status(200).json({ msg: 'No se pudo crear los tags' })
@@ -54,7 +54,7 @@ const updateById = async (req, res, next) => {
   const { id } = req.params
   const { nombre } = req.body
   try {
-    if (!id) return res.status(404).json({ msg: 'Id no provisto' })
+    if (!id) return res.status(400).json({ msg: 'Id no provisto' })
     if (!nombre) return res.status(400).json({ msg: 'Nombre no provisto' })
     const tag = await Tag.findByPk(id)
     if (!tag) return res.status(404).json({ msg: 'Tag no encontrado' })
@@ -70,7 +70,7 @@ const updateById = async (req, res, next) => {
 const deleteById = async (req, res, next) => {
   const { id } = req.params
   try {
-    if (!id) return res.status(404).json({ msg: 'Id no provisto' })
+    if (!id) return res.status(400).json({ msg: 'Id no provisto' })
     const tag = await Tag.findByPk(id)
     if (!tag) return res.status(404).json({ msg: 'Tag no encontrado' })
     const deleteTag = await tag.destroy()
