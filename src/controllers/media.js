@@ -25,10 +25,10 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { urlImagen } = req.body
+  const { urlImagen, urlVideo } = req.body
   try {
     if (!urlImagen) return res.status(400).json({ msg: 'URL no provista' })
-    const media = await Media.create({ urlImagen })
+    const media = await Media.create({ urlImagen, urlVideo })
     if (!media) return res.status(200).json({ msg: 'No se pudo crear el contenido' })
     res.status(201).json({ media, msg: 'Contenido creado' })
   } catch (error) {
@@ -37,14 +37,14 @@ const create = async (req, res, next) => {
 }
 
 const createBulk = async (req, res, next) => {
-  const { url } = req.body
+  const {urlImagen, urlVideo} = req.body
   try {
-    if (!url.length > 0)
+    if (!urlImagen.length > 0 )
       return res.status(404).json({ msg: 'URL no provista' })
-    const newMedia = await Media.bulkCreate(url)
+    const newMedia = await Media.bulkCreate(urlImagen, urlVideo)
     if (!newMedia.length > 0)
       return res.status(200).json({ msg: 'No se pudo crear el contenido' })
-    res.status(201).json({ url: newTags, msg: 'Contenido creados' })
+    res.status(201).json({ urlImagen: newMedia, msg: 'Contenido creado' })
   } catch (error) {
     next(error)
   }
