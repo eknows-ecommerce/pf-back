@@ -52,13 +52,13 @@ const createBulk = async (req, res, next) => {
 
  const updateById = async (req, res, next) => {
   const { id } = req.params
-  const { urlImagen } = req.body
+  const { urlImagen, urlVideo } = req.body
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
     if (!urlImagen) return res.status(400).json({ msg: 'URL no provista' })
     const media = await Media.findByPk(id)
     if (!media) return res.status(404).json({ msg: 'Contenido no encontrado' })
-    const updatedMedia = await media.update({ urlImagen })
+    const updatedMedia = await media.update({ urlImagen, urlVideo })
     if (!updatedMedia)
       return res.status(200).json({ msg: 'No se pudo actualizar el contenido' })
     res.status(200).json({ media: updatedMedia, msg: 'Contenido actualizado' })
