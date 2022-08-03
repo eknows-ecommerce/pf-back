@@ -10,7 +10,6 @@ const router = Router()
 router.use('/categoria', categoria)
 router.use('/libro', libro)
 router.use('/tag', tag)
-// router.use('/media', media)
 
 
 module.exports = router
