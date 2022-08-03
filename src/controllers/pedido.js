@@ -49,19 +49,19 @@ const create = async (req, res, next) => {
   }
 }
 
-// const createBulk = async (req, res, next) => {
-//   const { tags } = req.body
-//   try {
-//     if (!tags.length > 0)
-//       return res.status(404).json({ msg: 'Tags no provistos' })
-//     const newTags = await Tag.bulkCreate(tags)
-//     if (!newTags.length > 0)
-//       return res.status(200).json({ msg: 'No se pudo crear los tags' })
-//     res.status(201).json({ tags: newTags, msg: 'Tags creados' })
-//   } catch (error) {
-//     next(error)
-//   }
-// }
+const createBulk = async (req, res, next) => {
+  const { pedidos } = req.body
+  try {
+    if (!pedidos.length > 0)
+      return res.status(400).json({ msg: 'Pedidos no provistos' })
+    const newPedidos = await Pedido.bulkCreate(pedidos)
+    if (!newPedidos.length > 0)
+      return res.status(200).json({ msg: 'No se pudo crear los pedidos' })
+    res.status(201).json({ pedidos: newPedidos, msg: 'Pedidos creados' })
+  } catch (error) {
+    next(error)
+  }
+}
 
 const updateById = async (req, res, next) => {
   const { id } = req.params
@@ -112,5 +112,5 @@ module.exports = {
   create,
   updateById,
   deleteById,
-  // createBulk,
+  createBulk,
 }
