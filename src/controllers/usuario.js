@@ -29,7 +29,6 @@ const create = async (req, res, next) => {
   const { email, contraseña, rol, telefono, nombreCompleto, pais, ciudad } =
     req.body
   try {
-    console.log(req.body)
     if (!email)
       return res.status(400).json({ msg: 'Email de usuario no provisto' })
     else if (!contraseña)
@@ -66,7 +65,7 @@ const update = async (req, res, next) => {
     else if (!rol)
       return res.status(400).json({ msg: 'Rol de usuario no provisto' })
     const usuario = await Usuario.findByPk(id)
-    if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrada' })
+    if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrado' })
     const updatedUsuario = await usuario.update({
       email,
       contraseña,
