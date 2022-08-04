@@ -1,10 +1,44 @@
+const { Op } = require('sequelize')
+
 //Importamos los modelos de nuestra base de datos
 const { Libro } = require('../conexion/db.js')
 
 //Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
+  // Posibles parametros
+  // filterBy -> 'titulo' | 'autor' | 'price'
+  // order --> 'asc' (por defecto) | 'desc'
+  // minPrice --> rango de precio minimo
+  // maxPrice --> rango de precio maximo
+
+  // Nota: validar las queries y chequear operadores
+  const { filterBy, order, minPrice, maxPrice } = req.query
+
+  console.log('params:', filterBy, order, minPrice, maxPrice)
+
   try {
+    // filtrado por rango de precio
+    if (filterBy && minPrice && maxPrice) {
+      const libros = await Libro.findAll({
+        where: {
+          precio: {
+            [Op.between]: [minPrice, maxPrice],
+          },
+        },
+      })
+      if (!libros.length > 0)
+        return res.status(404).json({ msg: 'No se encontraron libros' })
+      else return res.status(200).json({ libros })
+    }
+
+    // filtrado por titulo o autor
+    if (filterBy) {
+      // ...
+    }
+
+    // todos los libros (sin filtrados)
     const libros = await Libro.findAll()
+
     if (!libros.length > 0)
       return res.status(404).json({ msg: 'No hay libros' })
     res.status(200).json({ libros })
