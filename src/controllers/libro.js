@@ -12,55 +12,81 @@ const getAll = async (req, res, next) => {
   // maxPrice --> rango de precio maximo
 
   // Nota: validar las queries y chequear operadores
-
+  // Nota: validar solo que existan los paramatros de la query o boody
+  // Nota: Falta asociaciones de multiMediaLibro y PedidoLibro
   const { autor, order, minPrice, maxPrice, titulo } = req.query
-
+  // order = { target : "nombre",
+  //   dir: "desc"
+  // }
   try {
-    // filtrado por rango de precio
-    if ( minPrice >= 0 && minPrice < maxPrice && maxPrice >= 2 && maxPrice > minPrice) {
-      const libros = await Libro.findAll({
-        includes: [Categoria, Tag, Pedido],
-        where: {
-          order: [['precio', 'ASC']],
-          precio: {
-            [Op.between]: [minPrice, maxPrice],
-          },
+    let libros = await Libro.findAll({
+      include: [
+        {
+          model: Categoria,
+          as: 'CategoriaLibro',
         },
-        order: [['precio', 'ASC']],
-      })
-      if (!libros.length > 0)
-        return res.status(404).json({ msg: 'No se encontraron libros' })
-      else return res.status(200).json({ libros })
-    } 
+        {
+          model: Tag,
+          as: 'TagLibro',
+        },
+      ],
+      order: [[`${order}`, 'ASC']],
+    })
 
-    // filtrado por titulo o autor
-    if (titulo) {
-      const libros = await Libro.findAll({
-        where: {
-          titulo: {
-            [Op.iLike]: `%${titulo}%`,
-          },
-        },
-      })
-      if (!libros.length > 0)
-      return res.status(404).json({ msg: 'No se encontraron libros' })
-    else return res.status(200).json({ libros })
-    }
-    if (autor) {
-      const libros = await Libro.findAll({
-        where: {
-          autor: {
-            [Op.iLike]: `%${autor}%`,
-          },
-        },
-      })
-      if (!libros.length > 0)
-      return res.status(404).json({ msg: 'No se encontraron libros' })
-    else return res.status(200).json({ libros })
-    }
-   
-    // todos los libros (sin filtrados)
-    const libros = await Libro.findAll()
+    // filtrado por rango de precio
+    // if (
+    //   minPrice >= 0 &&
+    //   minPrice < maxPrice &&
+    //   maxPrice >= 2 &&
+    //   maxPrice > minPrice
+    // ) {
+    //   const libros = await Libro.findAll({
+    //     includes: [
+    //       { model: Categoria },
+    //       { model: Tag },
+    //       // {model: Media},
+    //     ],
+    //     where: {
+    //       order: [['precio', 'ASC']],
+    //       precio: {
+    //         [Op.between]: [minPrice, maxPrice],
+    //       },
+    //     },
+    //     order: [['precio', 'ASC']],
+    //   })
+    //   if (!libros.length > 0)
+    //     return res.status(404).json({ msg: 'No se encontraron libros' })
+    //   else return res.status(200).json({ libros })
+    // }
+
+    // // filtrado por titulo o autor
+    // if (titulo) {
+    //   const libros = await Libro.findAll({
+    //     where: {
+    //       titulo: {
+    //         [Op.iLike]: `%${titulo}%`,
+    //       },
+    //     },
+    //   })
+    //   if (!libros.length > 0)
+    //     return res.status(404).json({ msg: 'No se encontraron libros' })
+    //   else return res.status(200).json({ libros })
+    // }
+    // if (autor) {
+    //   const libros = await Libro.findAll({
+    //     where: {
+    //       autor: {
+    //         [Op.iLike]: `%${autor}%`,
+    //       },
+    //     },
+    //   })
+    //   if (!libros.length > 0)
+    //     return res.status(404).json({ msg: 'No se encontraron libros' })
+    //   else return res.status(200).json({ libros })
+    // }
+
+    // // todos los libros (sin filtrados)
+    // const libros = await Libro.findAll()
 
     if (!libros.length > 0)
       return res.status(404).json({ msg: 'No hay libros' })
@@ -127,15 +153,16 @@ const createBulk = async (req, res, next) => {
         .json({ msg: 'No se pudo crear los libros, categorias y tags' })
 
     newlibros.forEach((libro) => {
-      libro.setCategorias(newCategorias)
-      libro.setTags(newTags)
-      libro.setMultimedias(newMultimedias)
+      libro.addCategoriaLibro(newCategorias)
+      libro.addTagLibro(newTags)
+      // libro.setMedia(newMultimedias)
     })
 
     res.status(201).json({
       libros: newlibros,
       categorias: newCategorias,
       tags: newTags,
+      multimedias: newMultimedias,
       msg: 'Libros creados',
     })
   } catch (error) {
