@@ -12,15 +12,14 @@ const getAll = async (req, res, next) => {
   // maxPrice --> rango de precio maximo
 
   // Nota: validar las queries y chequear operadores
-  const { filterBy, order, minPrice, maxPrice } = req.query
-
-  console.log('params:', filterBy, order, minPrice, maxPrice)
+  const { autor, order, minPrice, maxPrice, titulo } = req.query
 
   try {
     // filtrado por rango de precio
-    if (filterBy && minPrice && maxPrice) {
+    if ( minPrice >= 0 && minPrice < maxPrice && maxPrice >= 2 && maxPrice > minPrice) {
       const libros = await Libro.findAll({
         where: {
+          order: [['precio', 'ASC']],
           precio: {
             [Op.between]: [minPrice, maxPrice],
           },
@@ -29,13 +28,34 @@ const getAll = async (req, res, next) => {
       if (!libros.length > 0)
         return res.status(404).json({ msg: 'No se encontraron libros' })
       else return res.status(200).json({ libros })
-    }
+    } 
 
     // filtrado por titulo o autor
-    if (filterBy) {
-      // ...
+    if (titulo) {
+      const libros = await Libro.findAll({
+        where: {
+          titulo: {
+            [Op.iLike]: `%${titulo}%`,
+          },
+        },
+      })
+      if (!libros.length > 0)
+      return res.status(404).json({ msg: 'No se encontraron libros' })
+    else return res.status(200).json({ libros })
     }
-
+    if (autor) {
+      const libros = await Libro.findAll({
+        where: {
+          autor: {
+            [Op.iLike]: `%${autor}%`,
+          },
+        },
+      })
+      if (!libros.length > 0)
+      return res.status(404).json({ msg: 'No se encontraron libros' })
+    else return res.status(200).json({ libros })
+    }
+   
     // todos los libros (sin filtrados)
     const libros = await Libro.findAll()
 
