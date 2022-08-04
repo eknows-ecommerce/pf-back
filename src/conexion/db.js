@@ -40,15 +40,21 @@ sequelize.models = Object.fromEntries(capsEntries)
 const { Categoria, Libro, Media, Pedido, Tag, Usuario } = sequelize.models
 // Aca vendrian las relaciones
 // Categoria N<=>M Libro
-Categoria.belongsToMany(Libro, { through: 'CategoriaLibro' })
-Libro.belongsToMany(Categoria, { through: 'CategoriaLibro' })
+Categoria.belongsToMany(Libro, {
+  through: 'Categoria_Libro',
+  as: 'CategoriaLibro',
+})
+Libro.belongsToMany(Categoria, {
+  through: 'Categoria_Libro',
+  as: 'CategoriaLibro',
+})
 // Tag N<=>M Libro
-Tag.belongsToMany(Libro, { through: 'TagLibro' })
-Libro.belongsToMany(Tag, { through: 'TagLibro' })
+Tag.belongsToMany(Libro, { through: 'Tag_Libro', as: 'TagLibro' })
+Libro.belongsToMany(Tag, { through: 'Tag_Libro', as: 'TagLibro' })
 // Pedido N<=>M Libro
 const Detalle = sequelize.define('Detalle', { cantidad: DataTypes.INTEGER })
-Pedido.belongsToMany(Libro, { through: Detalle })
-Libro.belongsToMany(Pedido, { through: Detalle })
+Pedido.belongsToMany(Libro, { through: Detalle, as: 'DetalleLibro' })
+Libro.belongsToMany(Pedido, { through: Detalle, as: 'DetalleLibro' })
 // Libros 1=>N Media
 Libro.hasMany(Media)
 Media.belongsTo(Libro)
