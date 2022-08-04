@@ -1,7 +1,7 @@
 const { Op } = require('sequelize')
 
 //Importamos los modelos de nuestra base de datos
-const { Libro } = require('../conexion/db.js')
+const { Libro, Categoria, Tag, Pedido } = require('../conexion/db.js')
 
 //Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
@@ -12,7 +12,7 @@ const getAll = async (req, res, next) => {
   // maxPrice --> rango de precio maximo
 
   // Nota: validar las queries y chequear operadores
-  const { filterBy, order, minPrice, maxPrice } = req.query
+  const { filterBy, order, minPrice, maxPrice } = req.body
 
   console.log('params:', filterBy, order, minPrice, maxPrice)
 
@@ -20,6 +20,7 @@ const getAll = async (req, res, next) => {
     // filtrado por rango de precio
     if (filterBy && minPrice && maxPrice) {
       const libros = await Libro.findAll({
+        includes: [Categoria, Tag, Pedido],
         where: {
           precio: {
             [Op.between]: [minPrice, maxPrice],
