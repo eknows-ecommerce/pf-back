@@ -25,6 +25,7 @@ const getAll = async (req, res, next) => {
             [Op.between]: [minPrice, maxPrice],
           },
         },
+        order: [['precio', 'ASC']],
       })
       if (!libros.length > 0)
         return res.status(404).json({ msg: 'No se encontraron libros' })
