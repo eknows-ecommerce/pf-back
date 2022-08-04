@@ -26,11 +26,11 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { texto, likes } = req.body
+  const comment= req.body
   try {
-    if (!texto) return res.status(400).json({ msg: 'Texto no provisto' })
-    if (!likes) return res.status(400).json({ msg: 'Likes no provisto' })
-
+    if (!comment.texto) return res.status(400).json({ msg: 'Texto no provisto' })
+    if (!comment.likes) return res.status(400).json({ msg: 'Likes no provisto' })
+    comment.fechaPublicacion=new Date().toLocaleDateString().replace('/','-')
     const comentario = await Comentario.create(req.body)
 
     if (!comentario)
@@ -66,6 +66,8 @@ const updateById = async (req, res, next) => {
     const updatedComment = await comentario.update(comentario)
     if (!updatedComment)
       return res.status(200).json({ msg: 'No se pudo actualizar el comentario' })
+    updatedComment.edited=true
+    updatedComment.fechaEditado= new Date().toLocaleDateString().replace('/','-')
     res.status(200).json({ tag: updatedComment, msg: 'Comentario actualizado' })
   } catch (error) {
     next(error)

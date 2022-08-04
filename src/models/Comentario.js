@@ -11,7 +11,13 @@ module.exports = (sequelize) => {
       defaultValue: 0,
       allowNull: false,
     },
-    fechaPublicacion: DataTypes.DATE,
+    edited: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
+    fechaPublicacion: DataTypes.DATEONLY,
+    fechaEditado: DataTypes.DATEONLY,
     lenguaje: DataTypes.STRING,
   })
 }
