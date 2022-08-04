@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     resumen: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(15000),
       allowNull: false,
     },
     precio: {
