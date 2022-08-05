@@ -16,7 +16,7 @@ const getAll = async (req, res, next) => {
     direcion = 'asc',
     limit = 6,
     offset = 0,
-  } = req.body
+  } = req.query
 
   try {
     const count = await Libro.count()
