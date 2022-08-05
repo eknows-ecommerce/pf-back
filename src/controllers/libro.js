@@ -1,12 +1,52 @@
+const { Op, where } = require('sequelize')
+
 //Importamos los modelos de nuestra base de datos
-const { Libro } = require('../conexion/db.js')
+const { Libro, Categoria, Tag, Pedido } = require('../conexion/db.js')
 
 //Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
+  const queries = req.query
+
   try {
-    const libros = await Libro.findAll()
-    if (!libros.length > 0)
-      return res.status(404).json({ msg: 'No hay libros' })
+    if (Object.entries(queries).length > 0) {
+      let whereStatement = {}
+      Object.entries(queries).map((query) => {
+        let key = query[0]
+        let value = query[1]
+        whereStatement[key] = value
+      })
+
+      let libros = await Libro.findAll({
+        include: [
+          {
+            model: Categoria,
+            as: 'CategoriaLibro',
+          },
+          {
+            model: Tag,
+            as: 'TagLibro',
+          },
+        ],
+        where: whereStatement,
+      })
+      if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
+      return res.status(200).json({ libros })
+    }
+
+    // sin queries
+    let libros = await Libro.findAll({
+      include: [
+        {
+          model: Categoria,
+          as: 'CategoriaLibro',
+        },
+        {
+          model: Tag,
+          as: 'TagLibro',
+        },
+      ],
+    })
+    if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
     res.status(200).json({ libros })
   } catch (error) {
     next(error)
@@ -45,14 +85,39 @@ const create = async (req, res, next) => {
   }
 }
 
+// modo de desarrollo
 const createBulk = async (req, res, next) => {
-  const { libros } = req.body
+  const { libros, categorias, tags } = req.body
   try {
     if (!libros) return res.status(400).json({ msg: 'Libros no provistos' })
+    if (!categorias)
+      return res.status(400).json({ msg: 'Categorias no provistos' })
+    if (!tags) return res.status(400).json({ msg: 'Tags no provistos' })
+
     const newlibros = await Libro.bulkCreate(libros)
-    if (!newlibros.length > 0)
-      return res.status(200).json({ msg: 'No se pudo crear los libros' })
-    res.status(201).json({ libros: newlibros, msg: 'Libros creados' })
+    const newCategorias = await Categoria.bulkCreate(categorias)
+    const newTags = await Tag.bulkCreate(tags)
+
+    if (
+      newlibros.length === 0 ||
+      newCategorias.length === 0 ||
+      newTags.length === 0
+    )
+      return res
+        .status(200)
+        .json({ msg: 'No se pudo crear los libros, categorias y tags' })
+
+    newlibros.forEach((libro) => {
+      libro.addCategoriaLibro(newCategorias)
+      libro.addTagLibro(newTags)
+    })
+
+    res.status(201).json({
+      libros: newlibros,
+      categorias: newCategorias,
+      tags: newTags,
+      msg: 'Libros creados',
+    })
   } catch (error) {
     next(error)
   }
