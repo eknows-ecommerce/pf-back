@@ -1,11 +1,39 @@
-const { Op } = require('sequelize')
+const { Op, where } = require('sequelize')
 
 //Importamos los modelos de nuestra base de datos
 const { Libro, Categoria, Tag, Pedido } = require('../conexion/db.js')
 
 //Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
+  const queries = req.query
+
   try {
+    if (Object.entries(queries).length > 0) {
+      let whereStatement = {}
+      Object.entries(queries).map((query) => {
+        let key = query[0]
+        let value = query[1]
+        whereStatement[key] = value
+      })
+
+      let libros = await Libro.findAll({
+        include: [
+          {
+            model: Categoria,
+            as: 'CategoriaLibro',
+          },
+          {
+            model: Tag,
+            as: 'TagLibro',
+          },
+        ],
+        where: whereStatement,
+      })
+      if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
+      return res.status(200).json({ libros })
+    }
+
+    // sin queries
     let libros = await Libro.findAll({
       include: [
         {
