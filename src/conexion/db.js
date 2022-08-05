@@ -37,8 +37,7 @@ sequelize.models = Object.fromEntries(capsEntries)
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Categoria, Libro, Formato, Pedido, Tag, Usuario, Puntuacion } =
-  sequelize.models
+const { Categoria, Libro, Formato, Pedido, Tag, Usuario } = sequelize.models
 // Aca vendrian las relaciones
 // Categoria N<=>M Libro
 Categoria.belongsToMany(Libro, {
@@ -58,17 +57,7 @@ Pedido.belongsToMany(Libro, { through: Detalle, as: 'DetalleLibro' })
 Libro.belongsToMany(Pedido, { through: Detalle, as: 'DetalleLibro' })
 // Libros N<=>M Formato
 Libro.belongsToMany(Formato, { through: 'Formato_Libro', as: 'FormatoLibro' })
-Formato.belongsToMany(Libro, { through: 'Formato_Libro', as: 'FormatoLibro' })
-//  Puntuacion n<=>M Libro
-Libro.belongsToMany(Puntuacion, {
-  through: 'Puntuacion_Libro',
-  as: 'PuntuacionLibro',
-})
-Puntuacion.belongsToMany(Libro, {
-  through: 'Puntuacion_Libro',
-  as: 'PuntuacionLibro',
-})
-
+Formato.belongsTo(Libro, { through: 'Formato_Libro', as: 'FormatoLibro' })
 // Usuario 1=>N Pedido
 Usuario.hasMany(Pedido)
 Pedido.belongsTo(Usuario)
