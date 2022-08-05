@@ -1,3 +1,4 @@
+// Importamos libreria y funciones del controllador
 const { Router } = require('express')
 
 const {
@@ -7,8 +8,9 @@ const {
   createBulk,
   updateById,
   deleteById,
-} = require('../controllers/libro.js')
+} = require('../controllers/puntuacion.js')
 
+// rutas
 const router = Router()
 
 router.get('/', getAll)
@@ -18,4 +20,5 @@ router.post('/bulk', createBulk)
 router.put('/:id', updateById)
 router.delete('/:id', deleteById)
 
+//exportamos el router
 module.exports = router

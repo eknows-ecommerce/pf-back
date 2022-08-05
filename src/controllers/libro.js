@@ -1,10 +1,93 @@
+const { Op } = require('sequelize')
+
 //Importamos los modelos de nuestra base de datos
-const { Libro } = require('../conexion/db.js')
+const { Libro, Categoria, Tag, Pedido, Media } = require('../conexion/db.js')
 
 //Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
+  // Posibles parametros
+  // filterBy -> 'titulo' | 'autor' | 'price'
+  // order --> 'asc' (por defecto) | 'desc'
+  // minPrice --> rango de precio minimo
+  // maxPrice --> rango de precio maximo
+
+  // Nota: validar las queries y chequear operadores
+  // Nota: validar solo que existan los paramatros de la query o boody
+  // Nota: Falta asociaciones de multiMediaLibro y PedidoLibro
+  const { autor, order, minPrice, maxPrice, titulo } = req.query
+  // order = { target : "nombre",
+  //   dir: "desc"
+  // }
   try {
-    const libros = await Libro.findAll()
+    let libros = await Libro.findAll({
+      include: [
+        {
+          model: Categoria,
+          as: 'CategoriaLibro',
+        },
+        {
+          model: Tag,
+          as: 'TagLibro',
+        },
+      ],
+      order: [[`${order}`, 'ASC']],
+    })
+
+    // filtrado por rango de precio
+    // if (
+    //   minPrice >= 0 &&
+    //   minPrice < maxPrice &&
+    //   maxPrice >= 2 &&
+    //   maxPrice > minPrice
+    // ) {
+    //   const libros = await Libro.findAll({
+    //     includes: [
+    //       { model: Categoria },
+    //       { model: Tag },
+    //       // {model: Media},
+    //     ],
+    //     where: {
+    //       order: [['precio', 'ASC']],
+    //       precio: {
+    //         [Op.between]: [minPrice, maxPrice],
+    //       },
+    //     },
+    //     order: [['precio', 'ASC']],
+    //   })
+    //   if (!libros.length > 0)
+    //     return res.status(404).json({ msg: 'No se encontraron libros' })
+    //   else return res.status(200).json({ libros })
+    // }
+
+    // // filtrado por titulo o autor
+    // if (titulo) {
+    //   const libros = await Libro.findAll({
+    //     where: {
+    //       titulo: {
+    //         [Op.iLike]: `%${titulo}%`,
+    //       },
+    //     },
+    //   })
+    //   if (!libros.length > 0)
+    //     return res.status(404).json({ msg: 'No se encontraron libros' })
+    //   else return res.status(200).json({ libros })
+    // }
+    // if (autor) {
+    //   const libros = await Libro.findAll({
+    //     where: {
+    //       autor: {
+    //         [Op.iLike]: `%${autor}%`,
+    //       },
+    //     },
+    //   })
+    //   if (!libros.length > 0)
+    //     return res.status(404).json({ msg: 'No se encontraron libros' })
+    //   else return res.status(200).json({ libros })
+    // }
+
+    // // todos los libros (sin filtrados)
+    // const libros = await Libro.findAll()
+
     if (!libros.length > 0)
       return res.status(404).json({ msg: 'No hay libros' })
     res.status(200).json({ libros })
@@ -45,14 +128,43 @@ const create = async (req, res, next) => {
   }
 }
 
+// modo de desarrollo
 const createBulk = async (req, res, next) => {
-  const { libros } = req.body
+  const { libros, categorias, tags, multimedias } = req.body
   try {
     if (!libros) return res.status(400).json({ msg: 'Libros no provistos' })
+    if (!categorias)
+      return res.status(400).json({ msg: 'Categorias no provistos' })
+    if (!tags) return res.status(400).json({ msg: 'Tags no provistos' })
+
     const newlibros = await Libro.bulkCreate(libros)
-    if (!newlibros.length > 0)
-      return res.status(200).json({ msg: 'No se pudo crear los libros' })
-    res.status(201).json({ libros: newlibros, msg: 'Libros creados' })
+    const newCategorias = await Categoria.bulkCreate(categorias)
+    const newTags = await Tag.bulkCreate(tags)
+    const newMultimedias = await Media.bulkCreate(multimedias)
+
+    if (
+      newlibros.length === 0 ||
+      newCategorias.length === 0 ||
+      newTags.length === 0 ||
+      newMultimedias.length === 0
+    )
+      return res
+        .status(200)
+        .json({ msg: 'No se pudo crear los libros, categorias y tags' })
+
+    newlibros.forEach((libro) => {
+      libro.addCategoriaLibro(newCategorias)
+      libro.addTagLibro(newTags)
+      // libro.setMedia(newMultimedias)
+    })
+
+    res.status(201).json({
+      libros: newlibros,
+      categorias: newCategorias,
+      tags: newTags,
+      multimedias: newMultimedias,
+      msg: 'Libros creados',
+    })
   } catch (error) {
     next(error)
   }

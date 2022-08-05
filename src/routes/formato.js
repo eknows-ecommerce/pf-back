@@ -7,7 +7,7 @@ const {
   createBulk,
   updateById,
   deleteById,
-} = require('../controllers/libro.js')
+} = require('../controllers/formato.js')
 
 const router = Router()
 
