@@ -30,8 +30,8 @@ const create = async (req, res, next) => {
   try {
     if (!comment.texto) return res.status(400).json({ msg: 'Texto no provisto' })
     if (!comment.likes) return res.status(400).json({ msg: 'Likes no provisto' })
-    comment.fechaPublicacion=new Date().toLocaleDateString().replace('/','-')
-    const comentario = await Comentario.create(req.body)
+    //comment.fechaPublicacion=new Date().toLocaleDateString().replace('/','-')
+    const comentario = await Comentario.create(comment)
 
     if (!comentario)
       return res.status(200).json({ msg: 'No se pudo crear el comentario' })
@@ -66,8 +66,8 @@ const updateById = async (req, res, next) => {
     const updatedComment = await comentario.update(comentario)
     if (!updatedComment)
       return res.status(200).json({ msg: 'No se pudo actualizar el comentario' })
-    updatedComment.edited=true
-    updatedComment.fechaEditado= new Date().toLocaleDateString().replace('/','-')
+    //updatedComment.edited=true
+    //updatedComment.fechaEditado= new Date().toLocaleDateString().replace('/','-')
     res.status(200).json({ tag: updatedComment, msg: 'Comentario actualizado' })
   } catch (error) {
     next(error)
