@@ -21,7 +21,15 @@ const getAll = async (req, res, next) => {
   try {
     if (req.body) {
       const libros = await Libro.findAll({
-        attributes: ['id', 'titulo', 'autor', 'resumen', 'precio', 'stock'],
+        attributes: [
+          'id',
+          'titulo',
+          'autor',
+          'resumen',
+          'precio',
+          'stock',
+          'portada',
+        ],
         include: [
           {
             attributes: ['id', 'nombre'],
@@ -63,7 +71,6 @@ const getAll = async (req, res, next) => {
     }
     // Sin filtros
     const libros = await Libro.findAll({
-      attributes: ['titulo'],
       include: [
         {
           model: Categoria,
