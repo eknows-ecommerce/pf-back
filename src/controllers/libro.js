@@ -19,6 +19,8 @@ const getAll = async (req, res, next) => {
   } = req.body
 
   try {
+    const count = await Libro.count()
+
     if (req.body) {
       const libros = await Libro.findAll({
         attributes: [
@@ -67,7 +69,7 @@ const getAll = async (req, res, next) => {
         offset: offset,
       })
       if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
-      return res.status(200).json({ libros })
+      return res.status(200).json({ count, libros })
     }
     // Sin filtros
     const libros = await Libro.findAll({
@@ -86,7 +88,7 @@ const getAll = async (req, res, next) => {
       offset: offset,
     })
     if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
-    res.status(200).json({ libros })
+    res.status(200).json({ count, libros })
   } catch (error) {
     next(error)
   }
