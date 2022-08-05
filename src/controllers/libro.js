@@ -5,36 +5,65 @@ const { Libro, Categoria, Tag, Pedido } = require('../conexion/db.js')
 
 //Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
-  const queries = req.query
+  // const bodyObj = req.body
+  const {
+    titulo = '',
+    categoria = '',
+    tag = '',
+    precioMin = -Infinity,
+    precioMax = Infinity,
+    orden = 'titulo',
+    direcion = 'asc',
+    limit = 6,
+    offset = 0,
+  } = req.body
 
   try {
-    if (Object.entries(queries).length > 0) {
-      let whereStatement = {}
-      Object.entries(queries).map((query) => {
-        let key = query[0]
-        let value = query[1]
-        whereStatement[key] = value
-      })
-
-      let libros = await Libro.findAll({
+    if (req.body) {
+      const libros = await Libro.findAll({
+        attributes: ['id', 'titulo', 'autor', 'resumen', 'precio', 'stock'],
         include: [
           {
+            attributes: ['id', 'nombre'],
             model: Categoria,
             as: 'CategoriaLibro',
+            required: true,
+            where: {
+              nombre: {
+                [Op.iLike]: `%${categoria}%`,
+              },
+            },
           },
           {
+            attributes: ['id', 'nombre'],
             model: Tag,
             as: 'TagLibro',
+            required: true,
+            where: {
+              nombre: {
+                [Op.iLike]: `%${tag}%`,
+              },
+            },
           },
         ],
-        where: whereStatement,
+        where: {
+          titulo: {
+            [Op.iLike]: `%${titulo}%`,
+          },
+          precio: {
+            [Op.between]: [precioMin, precioMax],
+          },
+        },
+        order: [[`${orden}`, `${direcion}`]],
+        limit: limit,
+        offset: offset,
       })
       if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
       return res.status(200).json({ libros })
     }
-
-    // sin queries
-    let libros = await Libro.findAll({
+    // Sin filtros
+    const libros = await Libro.findAll({
+      attributes: ['titulo'],
       include: [
         {
           model: Categoria,
@@ -45,6 +74,9 @@ const getAll = async (req, res, next) => {
           as: 'TagLibro',
         },
       ],
+      order: [[`${orden}`, `${direcion}`]],
+      limit: limit,
+      offset: offset,
     })
     if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
     res.status(200).json({ libros })
@@ -52,7 +84,6 @@ const getAll = async (req, res, next) => {
     next(error)
   }
 }
-
 const getById = async (req, res, next) => {
   const { id } = req.params
   try {
