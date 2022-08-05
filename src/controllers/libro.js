@@ -1,23 +1,10 @@
 const { Op } = require('sequelize')
 
 //Importamos los modelos de nuestra base de datos
-const { Libro, Categoria, Tag, Pedido, Media } = require('../conexion/db.js')
+const { Libro, Categoria, Tag, Pedido } = require('../conexion/db.js')
 
 //Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
-  // Posibles parametros
-  // filterBy -> 'titulo' | 'autor' | 'price'
-  // order --> 'asc' (por defecto) | 'desc'
-  // minPrice --> rango de precio minimo
-  // maxPrice --> rango de precio maximo
-
-  // Nota: validar las queries y chequear operadores
-  // Nota: validar solo que existan los paramatros de la query o boody
-  // Nota: Falta asociaciones de multiMediaLibro y PedidoLibro
-  const { autor, order, minPrice, maxPrice, titulo } = req.query
-  // order = { target : "nombre",
-  //   dir: "desc"
-  // }
   try {
     let libros = await Libro.findAll({
       include: [
@@ -30,66 +17,8 @@ const getAll = async (req, res, next) => {
           as: 'TagLibro',
         },
       ],
-      order: [[`${order}`, 'ASC']],
     })
-
-    // filtrado por rango de precio
-    // if (
-    //   minPrice >= 0 &&
-    //   minPrice < maxPrice &&
-    //   maxPrice >= 2 &&
-    //   maxPrice > minPrice
-    // ) {
-    //   const libros = await Libro.findAll({
-    //     includes: [
-    //       { model: Categoria },
-    //       { model: Tag },
-    //       // {model: Media},
-    //     ],
-    //     where: {
-    //       order: [['precio', 'ASC']],
-    //       precio: {
-    //         [Op.between]: [minPrice, maxPrice],
-    //       },
-    //     },
-    //     order: [['precio', 'ASC']],
-    //   })
-    //   if (!libros.length > 0)
-    //     return res.status(404).json({ msg: 'No se encontraron libros' })
-    //   else return res.status(200).json({ libros })
-    // }
-
-    // // filtrado por titulo o autor
-    // if (titulo) {
-    //   const libros = await Libro.findAll({
-    //     where: {
-    //       titulo: {
-    //         [Op.iLike]: `%${titulo}%`,
-    //       },
-    //     },
-    //   })
-    //   if (!libros.length > 0)
-    //     return res.status(404).json({ msg: 'No se encontraron libros' })
-    //   else return res.status(200).json({ libros })
-    // }
-    // if (autor) {
-    //   const libros = await Libro.findAll({
-    //     where: {
-    //       autor: {
-    //         [Op.iLike]: `%${autor}%`,
-    //       },
-    //     },
-    //   })
-    //   if (!libros.length > 0)
-    //     return res.status(404).json({ msg: 'No se encontraron libros' })
-    //   else return res.status(200).json({ libros })
-    // }
-
-    // // todos los libros (sin filtrados)
-    // const libros = await Libro.findAll()
-
-    if (!libros.length > 0)
-      return res.status(404).json({ msg: 'No hay libros' })
+    if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
     res.status(200).json({ libros })
   } catch (error) {
     next(error)
@@ -130,7 +59,7 @@ const create = async (req, res, next) => {
 
 // modo de desarrollo
 const createBulk = async (req, res, next) => {
-  const { libros, categorias, tags, multimedias } = req.body
+  const { libros, categorias, tags } = req.body
   try {
     if (!libros) return res.status(400).json({ msg: 'Libros no provistos' })
     if (!categorias)
@@ -140,13 +69,11 @@ const createBulk = async (req, res, next) => {
     const newlibros = await Libro.bulkCreate(libros)
     const newCategorias = await Categoria.bulkCreate(categorias)
     const newTags = await Tag.bulkCreate(tags)
-    const newMultimedias = await Media.bulkCreate(multimedias)
 
     if (
       newlibros.length === 0 ||
       newCategorias.length === 0 ||
-      newTags.length === 0 ||
-      newMultimedias.length === 0
+      newTags.length === 0
     )
       return res
         .status(200)
@@ -155,14 +82,12 @@ const createBulk = async (req, res, next) => {
     newlibros.forEach((libro) => {
       libro.addCategoriaLibro(newCategorias)
       libro.addTagLibro(newTags)
-      // libro.setMedia(newMultimedias)
     })
 
     res.status(201).json({
       libros: newlibros,
       categorias: newCategorias,
       tags: newTags,
-      multimedias: newMultimedias,
       msg: 'Libros creados',
     })
   } catch (error) {
