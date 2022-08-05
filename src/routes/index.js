@@ -5,17 +5,18 @@ const categoria = require('./categoria.js')
 const libro = require('./libro.js')
 const pedido = require('./pedido')
 const usuario = require('./usuario')
-const media = require('./media')
-
+const formato = require('./formato')
+const puntuacion = require('./puntuacion')
 //Configuracion de rutas
 const router = Router()
 
 // Ejemplo: router.use('/auth', authRouter);
-router.use('/categoria', categoria)
-router.use('/libro', libro)
-router.use('/tag', tag)
-router.use('/pedido', pedido)
-router.use('/usuario', usuario)
-router.use('/media', media)
+router.use('/categorias', categoria)
+router.use('/libros', libro)
+router.use('/tags', tag)
+router.use('/pedidos', pedido)
+router.use('/usuarios', usuario)
+router.use('/formatos', formato)
+router.use('/puntuaciones', puntuacion)
 
 module.exports = router
