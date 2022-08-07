@@ -21,7 +21,7 @@ const getAll = async (req, res, next) => {
   try {
     const count = await Libro.count()
 
-    if (req.body) {
+    if (Object.keys(req.query).length > 0) {
       const libros = await Libro.findAll({
         attributes: [
           'id',
