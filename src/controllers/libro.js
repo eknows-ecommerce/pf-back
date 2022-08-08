@@ -150,10 +150,10 @@ const createBulk = async (req, res, next) => {
         .json({ msg: 'No se pudo crear los libros, categorias y tags' })
 
     newlibros.forEach((libro) => {
-      libro.addCategoriaLibro(newCategorias)
+      libro.addCategoriaLibro(libro.categorias)
       libro.addTagLibro(newTags)
     })
-
+    //verficar el id y su correspondencia por params, si coinciden, agregar
     res.status(201).json({
       libros: newlibros,
       categorias: newCategorias,

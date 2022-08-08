@@ -10,7 +10,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 8,
-      "genre": ["Fiction", "Juvenile Fiction"],
+      "categorias": ["1", "2"],
       "languaje": "ESPAÑOL",
       "stock": 11
     },
@@ -24,7 +24,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 9,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 32
     },
@@ -38,7 +38,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 28
     },
@@ -52,7 +52,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 0
     },
@@ -67,7 +67,7 @@
       "saleprecio": 4.99,
       "currency": "USD",
       "ratingCount": 6,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 47
     },
@@ -81,7 +81,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 6,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 5
     },
@@ -96,7 +96,7 @@
       "saleprecio": 34.99,
       "currency": "USD",
       "ratingCount": 3,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 41
     },
@@ -111,7 +111,7 @@
       "saleprecio": 40.99,
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 36
     },
@@ -126,7 +126,7 @@
       "saleprecio": 40.99,
       "currency": "USD",
       "ratingCount": 2,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 7
     },
@@ -140,7 +140,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 3,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 0
     },
@@ -154,7 +154,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Young Adult Fiction"],
+      "categorias": ["3"],
       "languaje": "ESPAÑOL",
       "stock": 35
     },
@@ -169,7 +169,7 @@
       "saleprecio": 49.99,
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 2
     },
@@ -183,7 +183,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 6,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 3
     },
@@ -197,7 +197,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 2,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 16
     },
@@ -212,7 +212,7 @@
       "saleprecio": 36.99,
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Juvenile Nonfiction"],
+      "categorias": ["5"],
       "languaje": "ESPAÑOL",
       "stock": 31
     },
@@ -226,7 +226,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 4
     },
@@ -240,7 +240,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 20
     },
@@ -254,7 +254,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 39
     },
@@ -269,7 +269,7 @@
       "saleprecio": 5.99,
       "currency": "USD",
       "ratingCount": 5,
-      "genre": ["Drama"],
+      "categorias": ["4"],
       "languaje": "ESPAÑOL",
       "stock": 27
     },
@@ -284,7 +284,7 @@
       "saleprecio": 24.99,
       "currency": "USD",
       "ratingCount": 8,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ENGLISH",
       "stock": 0
     },
@@ -298,7 +298,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 8,
-      "genre": ["Juvenile Nonfiction"],
+      "categorias": ["5"],
       "languaje": "ESPAÑOL",
       "stock": 16
     },
@@ -313,7 +313,7 @@
       "saleprecio": 14.99,
       "currency": "USD",
       "ratingCount": 6,
-      "genre": ["Juvenile Nonfiction"],
+      "categorias": ["5"],
       "languaje": "ESPAÑOL",
       "stock": 21
     },
@@ -328,7 +328,7 @@
       "saleprecio": 4.99,
       "currency": "USD",
       "ratingCount": 2,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 50
     },
@@ -342,7 +342,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 5,
-      "genre": ["Literary Criticism"],
+      "categorias": ["6"],
       "languaje": "ESPAÑOL",
       "stock": 8
     },
@@ -356,7 +356,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 9,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 0
     },
@@ -370,7 +370,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 3,
-      "genre": ["Young Adult Fiction"],
+      "categorias": ["3"],
       "languaje": "ESPAÑOL",
       "stock": 25
     },
@@ -385,7 +385,7 @@
       "saleprecio": 29.99,
       "currency": "USD",
       "ratingCount": 6,
-      "genre": ["Young Adult Fiction"],
+      "categorias": ["3"],
       "languaje": "ESPAÑOL",
       "stock": 29
     },
@@ -399,7 +399,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 6,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 33
     },
@@ -413,7 +413,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 1,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 34
     },
@@ -427,7 +427,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 7,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 21
     },
@@ -441,7 +441,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Young Adult Fiction"],
+      "categorias": ["3"],
       "languaje": "ENGLISH",
       "stock": 24
     },
@@ -456,7 +456,7 @@
       "saleprecio": 12.99,
       "currency": "USD",
       "ratingCount": 8,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 28
     },
@@ -470,7 +470,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 5,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ENGLISH",
       "stock": 1
     },
@@ -484,7 +484,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ENGLISH",
       "stock": 42
     },
@@ -499,7 +499,7 @@
       "saleprecio": 41.99,
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ENGLISH",
       "stock": 11
     },
@@ -513,7 +513,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ENGLISH",
       "stock": 26
     },
@@ -528,7 +528,7 @@
       "saleprecio": 24.99,
       "currency": "USD",
       "ratingCount": 5,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 3
     },
@@ -542,7 +542,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 9,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 27
     },
@@ -557,7 +557,7 @@
       "saleprecio": 40.99,
       "currency": "USD",
       "ratingCount": 2,
-      "genre": ["Thriller"],
+      "categorias": ["7"],
       "languaje": "ENGLISH",
       "stock": 3
     },
@@ -572,7 +572,7 @@
       "saleprecio": 11.99,
       "currency": "USD",
       "ratingCount": 2,
-      "genre": ["Body, Mind & Spirit"],
+      "categorias": ["8"],
       "languaje": "ENGLISH",
       "stock": 50
     },
@@ -587,7 +587,7 @@
       "saleprecio": 8.99,
       "currency": "USD",
       "ratingCount": 7,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ENGLISH",
       "stock": 49
     },
@@ -602,7 +602,7 @@
       "saleprecio": 46.99,
       "currency": "USD",
       "ratingCount": 7,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ENGLISH",
       "stock": 5
     },
@@ -617,7 +617,7 @@
       "saleprecio": 34.99,
       "currency": "USD",
       "ratingCount": 5,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ENGLISH",
       "stock": 38
     },
@@ -631,7 +631,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 2,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ENGLISH",
       "stock": 19
     },
@@ -645,7 +645,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 9,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 30
     },
@@ -659,7 +659,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 9,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 17
     },
@@ -674,7 +674,7 @@
       "saleprecio": 45.99,
       "currency": "USD",
       "ratingCount": 5,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 37
     },
@@ -688,7 +688,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 45
     },
@@ -703,7 +703,7 @@
       "saleprecio": 14.99,
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 38
     },
@@ -717,7 +717,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 46
     },
@@ -732,7 +732,7 @@
       "saleprecio": 49.99,
       "currency": "USD",
       "ratingCount": 8,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 50
     },
@@ -746,7 +746,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 11
     },
@@ -761,7 +761,7 @@
       "saleprecio": 24.99,
       "currency": "USD",
       "ratingCount": 1,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 0
     },
@@ -776,7 +776,7 @@
       "saleprecio": 24.99,
       "currency": "USD",
       "ratingCount": 3,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 6
     },
@@ -790,7 +790,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 28
     },
@@ -804,7 +804,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 3,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 12
     },
@@ -812,13 +812,13 @@
       "titulo": "The Scorch Trials Movie Tie-in Edition (Maze Runner, Book Two)",
       "autor": "James Dashner",
       "precio": 24.43,
-      "resumen": "Book two in the blockbuster Maze Runner series that spawned a movie franchise and ushered in a worldwide phenomenon! This special movie tie-in edition includes an eight-page full-color insert with photos from the film. And don't miss The Fever Code, the highly-anticipated series conclusion that finally reveals the story of how the maze was built! Thomas was sure that escape from the Maze would mean freedom for him and the Gladers. But WICKED isn't done yet. Phase Two has just begun. The Scorch. The Gladers have two weeks to cross through the Scorch—the most burned-out section of the world. And WICKED has made sure to adjust the variables and stack the odds against them. There are others now. Their survival depends on the Gladers' destruction—and they're determined to survive. Friendships will be tested. Loyalties will be broken. All bets are off. The Maze Runner and Maze Runner: The Scorch Trials are now major motion pictures featuring the star of MTV's Teen Wolf, Dylan O'Brien; Kaya Scodelario; Aml Ameen; Will Poulter; and Thomas Brodie-Sangster. The third movie, Maze Runner: The Death Cure, will hit screens in 2018. Also look for James Dashner's edge-of-your-seat MORTALITY DOCTRINE series!    Praise for the Maze Runner series:  A #1 New York Times Bestselling Series  A USA Today Bestseller  A Kirkus Reviews Best Teen Book of the Year  An ALA-YASLA Best Fiction for Young Adults Book  An ALA-YALSA Quick Pick “A mysterious survival saga that passionate fans describe as a fusion of Lord of the Flies, The Hunger Games, and Lost.” —EW “Wonderful action writing—fast-paced…but smart and well observed.” —Newsday “A nail-biting must-read.” —Seventeen “Breathless, cinematic action.” —Publishers Weekly “Heart pounding to the very last moment.” —Kirkus Reviews “Exclamation-worthy.” —Romantic Times “James Dashner's illuminating prequel The Kill Order will thrill fans of this Maze Runner series and prove just as exciting for readers new to the series.” —Shelf Awareness, Starred  “Take a deep breath before you start any James Dashner book.” —Deseret News",
+      "resumen": "Book two in the blockbuster Maze Runner series that spawned a movie franchise and ushered in a worldwide phenomenon! This special movie tie-in edition includes an eight-page full-color insert with photos from the film. And don't miss The Fever Code, the highly-anticipated series conclusion that finally reveals the story of how the maze was built! Thomas was sure that escape from the Maze would mean freedom for him and the Gladers. But WICKED isn't done yet. Phase Two has just begun. The Scorch. The Gladers have two weeks to cross through the Scorch—the most burned-out section of the world. And WICKED has made sure to adjust the variables and stack the odds against them. There are others now. Their survival depends on the Gladers' destruction—and they're determined to survive. Friendships will be tested. Loyalties will be broken. All bets are off. The Maze Runner and Maze Runner: The Scorch Trials are now major motion pictures featuring the star of MTV's Teen Wolf, Dylan O'Brien; Kaya Scodelario; Aml Ameen; Will Poulter; and Thomas Brodie-Sangster. The third movie, Maze Runner: The Death Cure, will hit screens in 2018. Also look for James Dashner's edge-of-your-seat MORTALITY DOCTRINE series!    Praise for the Maze Runner series:  A #1 New York Times Bestselling Series  A USA Today Bestseller  A Kirkus Reviews Best Teen Book of the Year  An ALA-YASLA Best 1 for Young Adults Book  An ALA-YALSA Quick Pick “A mysterious survival saga that passionate fans describe as a fusion of Lord of the Flies, The Hunger Games, and Lost.” —EW “Wonderful action writing—fast-paced…but smart and well observed.” —Newsday “A nail-biting must-read.” —Seventeen “Breathless, cinematic action.” —Publishers Weekly “Heart pounding to the very last moment.” —Kirkus Reviews “Exclamation-worthy.” —Romantic Times “James Dashner's illuminating prequel The Kill Order will thrill fans of this Maze Runner series and prove just as exciting for readers new to the series.” —Shelf Awareness, Starred  “Take a deep breath before you start any James Dashner book.” —Deseret News",
       "rating": 3.5,
       "portada": "https://books.google.com/books/content/images/frontcover/Rdwosb3edv8C?fife=w240-h480",
       "flag": "new",
       "currency": "USD",
       "ratingCount": 1,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 39
     },
@@ -832,7 +832,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 7,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ENGLISH",
       "stock": 32
     },
@@ -846,7 +846,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 1,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 5
     },
@@ -861,7 +861,7 @@
       "saleprecio": 8.99,
       "currency": "USD",
       "ratingCount": 3,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 3
     },
@@ -875,7 +875,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 2,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 34
     },
@@ -889,7 +889,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 6,
-      "genre": ["Juvenile Nonfiction"],
+      "categorias": ["5"],
       "languaje": "ESPAÑOL",
       "stock": 12
     },
@@ -903,7 +903,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 8,
-      "genre": ["Fiction", "Juvenile Nonfiction"],
+      "categorias": ["1", "5"],
       "languaje": "ESPAÑOL",
       "stock": 16
     },
@@ -917,7 +917,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 2,
-      "genre": ["Thriller"],
+      "categorias": ["7"],
       "languaje": "ESPAÑOL",
       "stock": 42
     },
@@ -932,7 +932,7 @@
       "saleprecio": 11.99,
       "currency": "USD",
       "ratingCount": 9,
-      "genre": ["Drama", "Thriller"],
+      "categorias": ["4", "7"],
       "languaje": "ESPAÑOL",
       "stock": 37
     },
@@ -946,7 +946,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 1,
-      "genre": ["Drama", "Thriller"],
+      "categorias": ["4", "7"],
       "languaje": "ESPAÑOL",
       "stock": 27
     },
@@ -960,7 +960,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 7,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 15
     },
@@ -974,7 +974,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 3,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 50
     },
@@ -988,7 +988,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 8,
-      "genre": ["Juvenile Nonfiction"],
+      "categorias": ["5"],
       "languaje": "ESPAÑOL",
       "stock": 20
     },
@@ -1003,7 +1003,7 @@
       "saleprecio": 4.99,
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Juvenile Nonfiction"],
+      "categorias": ["5"],
       "languaje": "ESPAÑOL",
       "stock": 13
     },
@@ -1017,7 +1017,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Juvenile Nonfiction"],
+      "categorias": ["5"],
       "languaje": "ESPAÑOL",
       "stock": 0
     },
@@ -1031,7 +1031,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 14,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 4
     },
@@ -1045,7 +1045,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 3,
-      "genre": ["Literary Criticism"],
+      "categorias": ["6"],
       "languaje": "ESPAÑOL",
       "stock": 31
     },
@@ -1053,14 +1053,14 @@
       "titulo": "Gente normal",
       "autor": "Sally Rooney",
       "precio": 15.99,
-      "resumen": "Después de Conversaciones entre amigos, Sally Rooney vuelve a deslumbrarnos con una historia sobre la fascinación mutua entre dos personas que no consiguen encontrarse. Ganador del Costa Novel Award. Ganador del Irish Novel of the Year. Finalista del Man Booker Prize. Finalista del Women's Prize for Fiction. Marianne y Connell son compañeros de instituto pero no se cruzan palabra. Él es uno de los populares y ella, una chica solitaria que ha aprendido a mantenerse alejada del resto de la gente. Todos saben que Marianne vive en una mansión y que la madre de Connell se encarga de su limpieza, pero nadie imagina que cada tarde los dos jóvenes coinciden. Uno de esos días, una conversación torpe dará comienzo a una relación que podría cambiar sus vidas. Gente normal es una historia de fascinación mutua, de amistad y de amor entre dos personas que no consiguen encontrarse, una reflexión sobre la dificultad de cambiar quienes somos. La segunda novela de Sally Rooney acompaña durante años a dos protagonistas magnéticos y complejos, dos jóvenes que llegamos a entender hasta en su contradicción más sonada y en sus más graves malentendidos. Esta es una historia agridulce que muestra como nos conforman el sexo y el poder, el deseo de herir y ser herido, de amar y ser amado. Nuestras relaciones son una conversación a lo largo del tiempo. Nuestros silencios, lo que las define. La crítica ha dicho... «Marianne y Connell se acercan, se alejan, se aman, dudan, cada uno piensa que al otro no le importa lo bastante, se deprimen, sufren, gozan y el vals que nos narra Sally Rooney termina siendo una historia de amor cercana, honesta, pura y bellísima.» Isabel Coixet «Rooney consigue satisfacer a aquellos que nos obsesionamos con Conversaciones entre amigos y, al mismo tiempo, crear algo absolutamente nuevo ... Es mi escritora favorita de ficción contemporánea.» Lena Dunham «Puede que Gente normal no trate sobre lo que significa ser joven ahora mismo, sino de algo mejor que eso: muestra qué supone ser joven y estar enamorado en cualquier momento. Un clásico del futuro.» The Guardian «Es capaz de poner a sus lectores en un estado de agitación emocional. La atención de Rooney, su rigor y sensibilidad hacia las personas y las relaciones es una incómoda e importante reprimenda. Terminé el libro decidido a mirar el mundo de manera diferente. No conozco un mejor cumplido para atribuirle a una novela.» James Marriott, The Times «La calidad de su pensamiento elimina la necesidad de florituras retóricas. Rooney estira y retuerce sus frases como si fueran esas esculturas de globos. Las palabras son su superpoder.» The New Yorker «Rooney es como uno de esos magos que pueden perforar una sandía con un naipe. Así escribe sobre el amor y la lujuria entre dos jóvenes dañados, solos y anhelantes. Una escritora original que solo está empezando.» The New York Times «Una novela preciosa, profunda e inteligente. Es admirablemente honesta desde el punto de vista emocional y sexual, aunque también es gentil, sabia, aguda y entrañable. Un compasivo y sucinto estudio sobre las innumerables formas en que hombres y mujeres intentan entenderse entre ellos, y cómo fracasan constantemente.» The Observer",
+      "resumen": "Después de Conversaciones entre amigos, Sally Rooney vuelve a deslumbrarnos con una historia sobre la fascinación mutua entre dos personas que no consiguen encontrarse. Ganador del Costa Novel Award. Ganador del Irish Novel of the Year. Finalista del Man Booker Prize. Finalista del Women's Prize for 1. Marianne y Connell son compañeros de instituto pero no se cruzan palabra. Él es uno de los populares y ella, una chica solitaria que ha aprendido a mantenerse alejada del resto de la gente. Todos saben que Marianne vive en una mansión y que la madre de Connell se encarga de su limpieza, pero nadie imagina que cada tarde los dos jóvenes coinciden. Uno de esos días, una conversación torpe dará comienzo a una relación que podría cambiar sus vidas. Gente normal es una historia de fascinación mutua, de amistad y de amor entre dos personas que no consiguen encontrarse, una reflexión sobre la dificultad de cambiar quienes somos. La segunda novela de Sally Rooney acompaña durante años a dos protagonistas magnéticos y complejos, dos jóvenes que llegamos a entender hasta en su contradicción más sonada y en sus más graves malentendidos. Esta es una historia agridulce que muestra como nos conforman el sexo y el poder, el deseo de herir y ser herido, de amar y ser amado. Nuestras relaciones son una conversación a lo largo del tiempo. Nuestros silencios, lo que las define. La crítica ha dicho... «Marianne y Connell se acercan, se alejan, se aman, dudan, cada uno piensa que al otro no le importa lo bastante, se deprimen, sufren, gozan y el vals que nos narra Sally Rooney termina siendo una historia de amor cercana, honesta, pura y bellísima.» Isabel Coixet «Rooney consigue satisfacer a aquellos que nos obsesionamos con Conversaciones entre amigos y, al mismo tiempo, crear algo absolutamente nuevo ... Es mi escritora favorita de ficción contemporánea.» Lena Dunham «Puede que Gente normal no trate sobre lo que significa ser joven ahora mismo, sino de algo mejor que eso: muestra qué supone ser joven y estar enamorado en cualquier momento. Un clásico del futuro.» The Guardian «Es capaz de poner a sus lectores en un estado de agitación emocional. La atención de Rooney, su rigor y sensibilidad hacia las personas y las relaciones es una incómoda e importante reprimenda. Terminé el libro decidido a mirar el mundo de manera diferente. No conozco un mejor cumplido para atribuirle a una novela.» James Marriott, The Times «La calidad de su pensamiento elimina la necesidad de florituras retóricas. Rooney estira y retuerce sus frases como si fueran esas esculturas de globos. Las palabras son su superpoder.» The New Yorker «Rooney es como uno de esos magos que pueden perforar una sandía con un naipe. Así escribe sobre el amor y la lujuria entre dos jóvenes dañados, solos y anhelantes. Una escritora original que solo está empezando.» The New York Times «Una novela preciosa, profunda e inteligente. Es admirablemente honesta desde el punto de vista emocional y sexual, aunque también es gentil, sabia, aguda y entrañable. Un compasivo y sucinto estudio sobre las innumerables formas en que hombres y mujeres intentan entenderse entre ellos, y cómo fracasan constantemente.» The Observer",
       "rating": 4.5,
       "portada": "https://books.google.com/books/publisher/content/images/frontcover/QcWrDwAAQBAJ?fife=w240-h480",
       "flag": "on-sale",
       "saleprecio": 10.99,
       "currency": "USD",
       "ratingCount": 7,
-      "genre": ["Fiction", "Literary Criticism"],
+      "categorias": ["1", "6"],
       "languaje": "ESPAÑOL",
       "stock": 1
     },
@@ -1074,7 +1074,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 7,
-      "genre": ["Fiction", "Literary Criticism"],
+      "categorias": ["1", "6"],
       "languaje": "ESPAÑOL",
       "stock": 54
     },
@@ -1088,7 +1088,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Fiction", "Juvenile Fiction"],
+      "categorias": ["1", "2"],
       "languaje": "ESPAÑOL",
       "stock": 23
     },
@@ -1102,7 +1102,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 10,
-      "genre": ["Literary Criticism"],
+      "categorias": ["6"],
       "languaje": "ESPAÑOL",
       "stock": 21
     },
@@ -1116,7 +1116,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 2,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 18
     },
@@ -1131,7 +1131,7 @@
       "saleprecio": 6.99,
       "currency": "USD",
       "ratingCount": 15,
-      "genre": ["Juvenile Nonfiction"],
+      "categorias": ["5"],
       "languaje": "ESPAÑOL",
       "stock": 9
     },
@@ -1145,7 +1145,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 5,
-      "genre": ["Body, Mind & Spirit"],
+      "categorias": ["8"],
       "languaje": "ESPAÑOL",
       "stock": 50
     },
@@ -1159,7 +1159,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 1,
-      "genre": ["Body, Mind & Spirit"],
+      "categorias": ["8"],
       "languaje": "ESPAÑOL",
       "stock": 45
     },
@@ -1173,7 +1173,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 1,
-      "genre": ["Body, Mind & Spirit"],
+      "categorias": ["8"],
       "languaje": "ESPAÑOL",
       "stock": 48
     },
@@ -1187,7 +1187,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 21,
-      "genre": ["Young Adult Fiction", "Thriller"],
+      "categorias": ["3", "7"],
       "languaje": "ESPAÑOL",
       "stock": 37
     },
@@ -1202,7 +1202,7 @@
       "saleprecio": 6.99,
       "currency": "USD",
       "ratingCount": 11,
-      "genre": ["Juvenile Fiction", "Thriller"],
+      "categorias": ["2", "7"],
       "languaje": "ESPAÑOL",
       "stock": 6
     },
@@ -1216,7 +1216,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 8,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 3
     },
@@ -1230,7 +1230,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 44
     },
@@ -1244,7 +1244,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 6,
-      "genre": ["Juvenile Fiction"],
+      "categorias": ["2"],
       "languaje": "ESPAÑOL",
       "stock": 47
     },
@@ -1258,7 +1258,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Thriller", "Drama"],
+      "categorias": ["7", "4"],
       "languaje": "ESPAÑOL",
       "stock": 33
     },
@@ -1273,7 +1273,7 @@
       "currency": "USD",
       "saleprecio": 7.99,
       "ratingCount": 1,
-      "genre": ["Body, Mind & Spirit"],
+      "categorias": ["8"],
       "languaje": "ESPAÑOL",
       "stock": 49
     },
@@ -1288,7 +1288,7 @@
       "currency": "USD",
       "saleprecio": 7.99,
       "ratingCount": 1,
-      "genre": ["Body, Mind & Spirit"],
+      "categorias": ["8"],
       "languaje": "ESPAÑOL",
       "stock": 50
     },
@@ -1302,7 +1302,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 58,
-      "genre": ["Juvenile Nonfiction"],
+      "categorias": ["5"],
       "languaje": "ENGLISH",
       "stock": 0
     },
@@ -1316,7 +1316,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 3,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ENGLISH",
       "stock": 3
     },
@@ -1330,7 +1330,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 9,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 36
     },
@@ -1344,7 +1344,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 11,
-      "genre": ["Fiction", "Juvenile Nonfiction"],
+      "categorias": ["1", "5"],
       "languaje": "ESPAÑOL",
       "stock": 21
     },
@@ -1358,7 +1358,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Fiction"],
+      "categorias": ["1"],
       "languaje": "ESPAÑOL",
       "stock": 29
     },
@@ -1372,7 +1372,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 30,
-      "genre": ["Fiction", "Thriller"],
+      "categorias": ["1", "7"],
       "languaje": "ESPAÑOL",
       "stock": 45
     },
@@ -1386,7 +1386,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 7,
-      "genre": ["Thriller"],
+      "categorias": ["7"],
       "languaje": "ESPAÑOL",
       "stock": 0
     },
@@ -1400,7 +1400,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 4,
-      "genre": ["Thriller", "Juvenile Nonfiction"],
+      "categorias": ["7", "5"],
       "languaje": "ESPAÑOL",
       "stock": 40
     },
@@ -1414,7 +1414,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 29,
-      "genre": ["Thriller", "Fiction"],
+      "categorias": ["7", "1"],
       "languaje": "ESPAÑOL",
       "stock": 10
     },
@@ -1428,7 +1428,7 @@
       "flag": "new",
       "currency": "USD",
       "ratingCount": 6,
-      "genre": ["Thriller", "Fiction"],
+      "categorias": ["7", "1"],
       "languaje": "ESPAÑOL",
       "stock": 8
     }
