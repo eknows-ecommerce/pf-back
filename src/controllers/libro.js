@@ -68,6 +68,7 @@ const getAll = async (req, res, next) => {
       })
       if (!libros.rows.length)
         return res.status(404).json({ msg: 'No hay libros' })
+
       return res.status(200).json({ count: libros.count, libros: libros.rows })
     }
 
