@@ -19,7 +19,6 @@ const getAll = async (req, res, next) => {
 
   try {
     if (Object.keys(req.query)) {
-      console.log('hay filtros')
       const libros = await Libro.findAndCountAll({
         attributes: [
           'id',
@@ -30,7 +29,6 @@ const getAll = async (req, res, next) => {
           'stock',
           'portada',
         ],
-
         include: [
           {
             attributes: ['id', 'nombre'],
