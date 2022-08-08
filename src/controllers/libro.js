@@ -19,10 +19,9 @@ const getAll = async (req, res, next) => {
   } = req.query
 
   try {
-    const count = await Libro.count()
-
-    if (Object.keys(req.query).length > 0) {
-      const libros = await Libro.findAll({
+    if (Object.keys(req.query)) {
+      console.log('hay filtros')
+      const libros = await Libro.findAndCountAll({
         attributes: [
           'id',
           'titulo',
@@ -32,6 +31,7 @@ const getAll = async (req, res, next) => {
           'stock',
           'portada',
         ],
+
         include: [
           {
             attributes: ['id', 'nombre'],
@@ -64,12 +64,14 @@ const getAll = async (req, res, next) => {
             [Op.between]: [precioMin, precioMax],
           },
         },
+        distinct: true,
         order: [[`${orden}`, `${direcion}`]],
         limit: limit,
         offset: offset,
       })
-      if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
-      return res.status(200).json({ count, libros })
+      if (!libros.rows.length)
+        return res.status(404).json({ msg: 'No hay libros' })
+      return res.status(200).json({ count: libros.count, libros: libros.rows })
     }
     // Sin filtros
     const libros = await Libro.findAll({
@@ -93,6 +95,97 @@ const getAll = async (req, res, next) => {
     next(error)
   }
 }
+
+// const getAll = async (req, res, next) => {
+//   // const bodyObj = req.body
+//   const {
+//     titulo = '',
+//     categoria = '',
+//     tag = '',
+//     precioMin = -Infinity,
+//     precioMax = Infinity,
+//     orden = 'titulo',
+//     direcion = 'asc',
+//     limit = 6,
+//     offset = 0,
+//   } = req.query
+
+//   try {
+//     // const count = await Libro.count()
+
+//     if (Object.keys(req.query)) {
+//       console.log('hay filtros')
+//       const libros = await Libro.findAll({
+//         attributes: [
+//           'id',
+//           'titulo',
+//           'autor',
+//           'resumen',
+//           'precio',
+//           'stock',
+//           'portada',
+//         ],
+//         include: [
+//           {
+//             attributes: ['id', 'nombre'],
+//             model: Categoria,
+//             as: 'CategoriaLibro',
+//             required: true,
+//             where: {
+//               nombre: {
+//                 [Op.iLike]: `%${categoria}%`,
+//               },
+//             },
+//           },
+//           {
+//             attributes: ['id', 'nombre'],
+//             model: Tag,
+//             as: 'TagLibro',
+//             required: true,
+//             where: {
+//               nombre: {
+//                 [Op.iLike]: `%${tag}%`,
+//               },
+//             },
+//           },
+//         ],
+//         where: {
+//           titulo: {
+//             [Op.iLike]: `%${titulo}%`,
+//           },
+//           precio: {
+//             [Op.between]: [precioMin, precioMax],
+//           },
+//         },
+//         order: [[`${orden}`, `${direcion}`]],
+//         // limit: limit,
+//         // offset: offset,
+//       })
+//       if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
+//       return res.status(200).json({ count: libros.length, libros })
+//     }
+//     // Sin filtros
+//     const libros = await Libro.findAll({
+//       include: [
+//         {
+//           model: Categoria,
+//           as: 'CategoriaLibro',
+//         },
+//         {
+//           model: Tag,
+//           as: 'TagLibro',
+//         },
+//       ],
+//       order: [[`${orden}`, `${direcion}`]],
+//       limit: limit,
+//       offset: offset,
+//     })
+//     if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
+//     res.status(200).json({ count, libros })
+//   } catch (error) {
+//     next(error)
+//   }
+// }
 const getById = async (req, res, next) => {
   const { id } = req.params
   try {
