@@ -136,10 +136,14 @@ const createBulk = async (req, res, next) => {
       return res.status(400).json({ msg: 'Categorias no provistos' })
     if (!tags) return res.status(400).json({ msg: 'Tags no provistos' })
 
+    if (libros.categorias) {
+      console.log('hay categorias')
+    }
+
     const newlibros = await Libro.bulkCreate(libros)
     const newCategorias = await Categoria.bulkCreate(categorias)
     const newTags = await Tag.bulkCreate(tags)
-
+    console.log(typeof libros)
     if (
       newlibros.length === 0 ||
       newCategorias.length === 0 ||
@@ -150,10 +154,10 @@ const createBulk = async (req, res, next) => {
         .json({ msg: 'No se pudo crear los libros, categorias y tags' })
 
     newlibros.forEach((libro) => {
-      libro.addCategoriaLibro(newCategorias)
+      libro.addCategoriaLibro(libro.categorias)
       libro.addTagLibro(newTags)
     })
-
+    //verficar el id y su correspondencia por params, si coinciden, agregar
     res.status(201).json({
       libros: newlibros,
       categorias: newCategorias,
