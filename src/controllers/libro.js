@@ -136,10 +136,14 @@ const createBulk = async (req, res, next) => {
       return res.status(400).json({ msg: 'Categorias no provistos' })
     if (!tags) return res.status(400).json({ msg: 'Tags no provistos' })
 
+    if (libros.categorias) {
+      console.log('hay categorias')
+    }
+
     const newlibros = await Libro.bulkCreate(libros)
     const newCategorias = await Categoria.bulkCreate(categorias)
     const newTags = await Tag.bulkCreate(tags)
-
+    console.log(typeof libros)
     if (
       newlibros.length === 0 ||
       newCategorias.length === 0 ||
