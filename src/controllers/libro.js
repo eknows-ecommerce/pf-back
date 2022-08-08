@@ -5,7 +5,6 @@ const { Libro, Categoria, Tag, Pedido } = require('../conexion/db.js')
 
 //Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
-  // const bodyObj = req.body
   const {
     titulo = '',
     categoria = '',
@@ -19,10 +18,8 @@ const getAll = async (req, res, next) => {
   } = req.query
 
   try {
-    const count = await Libro.count()
-
-    if (req.body) {
-      const libros = await Libro.findAll({
+    if (Object.keys(req.query)) {
+      const libros = await Libro.findAndCountAll({
         attributes: [
           'id',
           'titulo',
@@ -64,13 +61,17 @@ const getAll = async (req, res, next) => {
             [Op.between]: [precioMin, precioMax],
           },
         },
+        distinct: true,
         order: [[`${orden}`, `${direcion}`]],
         limit: limit,
         offset: offset,
       })
-      if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
-      return res.status(200).json({ count, libros })
+      if (!libros.rows.length)
+        return res.status(404).json({ msg: 'No hay libros' })
+
+      return res.status(200).json({ count: libros.count, libros: libros.rows })
     }
+
     // Sin filtros
     const libros = await Libro.findAll({
       include: [
@@ -93,6 +94,7 @@ const getAll = async (req, res, next) => {
     next(error)
   }
 }
+
 const getById = async (req, res, next) => {
   const { id } = req.params
   try {
