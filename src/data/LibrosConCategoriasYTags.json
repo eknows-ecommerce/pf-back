@@ -1435,39 +1435,54 @@
   ],
   "categorias": [
     {
-      "nombre": "1"
+      "nombre": "Fiction"
     },
     {
-      "nombre": "2"
+      "nombre": "Juvenile Fiction"
     },
     {
-      "nombre": "3"
+      "nombre": "Young Adult Fiction"
     },
     {
-      "nombre": "4"
+      "nombre": "Drama"
     },
     {
-      "nombre": "5"
+      "nombre": "Juvenile Nonfiction"
     },
     {
-      "nombre": "6"
+      "nombre": "Literary Criticism"
     },
     {
-      "nombre": "7"
+      "nombre": "Thriller"
     },
     {
-      "nombre": "8"
+      "nombre": "Body, Mind & Spirit"
     }
   ],
   "tags": [
     {
-      "nombre": "Misteri81"
+      "nombre": "espacio exterior"
     },
     {
-      "nombre": "Misteri+3"
+      "nombre": "musicales"
     },
     {
-      "nombre": "Misterio104"
+      "nombre": "vida en la ciudad"
+    },
+    {
+      "nombre": "oscuro"
+    },
+    {
+      "nombre": "artes marciales"
+    },
+    {
+      "nombre": "personajes historicos"
+    },
+    {
+      "nombre": "basado en hechos reales"
+    },
+    {
+      "nombre": "religion"
     }
   ]
 }
