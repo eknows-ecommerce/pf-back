@@ -17,7 +17,7 @@ const getAll = async (req, res, next) => {
 
   try {
     // Busqueda con filtros
-    if (Object.keys(req.query)) {
+    if (Object.keys(req.query).length > 0) {
       const libros = await Libro.findAndCountAll({
         attributes: [
           'id',
@@ -30,25 +30,19 @@ const getAll = async (req, res, next) => {
         ],
         include: [
           {
-            attributes: ['id', 'nombre'],
             model: Categoria,
             as: 'CategoriaLibro',
-            required: true,
-            where: {
-              nombre: {
-                [Op.iLike]: `%${categoria}%`,
-              },
+            attributes: ['id', 'nombre'],
+            through: {
+              attributes: [],
             },
           },
           {
-            attributes: ['id', 'nombre'],
             model: Tag,
             as: 'TagLibro',
-            required: true,
-            where: {
-              nombre: {
-                [Op.iLike]: `%${tag}%`,
-              },
+            attributes: ['id', 'nombre'],
+            through: {
+              attributes: [],
             },
           },
         ],
@@ -72,7 +66,7 @@ const getAll = async (req, res, next) => {
     }
 
     // Busqueda sin filtros
-    const libros = await Libro.findAll({
+    const libros = await Libro.findAndCountAll({
       include: [
         {
           model: Categoria,
@@ -84,12 +78,14 @@ const getAll = async (req, res, next) => {
         },
       ],
       order: [[`${orden}`, `${direcion}`]],
+      distinct: true,
       limit: limit,
       offset: offset,
     })
 
-    if (!libros.length) return res.status(404).json({ msg: 'No hay libros' })
-    res.status(200).json({ count, libros })
+    if (!libros.rows.length)
+      return res.status(404).json({ msg: 'No hay libros' })
+    return res.status(200).json({ count: libros.count, libros: libros.rows })
   } catch (error) {
     next(error)
   }
@@ -166,7 +162,9 @@ const createBulk = async (req, res, next) => {
       return res.status(400).json({ msg: 'Categorias no provistos' })
     if (!tags) return res.status(400).json({ msg: 'Tags no provistos' })
 
-    const newlibros = await Libro.bulkCreate(libros)
+    const newlibros = await Libro.bulkCreate(libros, {
+      include: ['CategoriaLibro', 'TagLibro'],
+    })
     const newCategorias = await Categoria.bulkCreate(categorias)
     const newTags = await Tag.bulkCreate(tags)
 
@@ -180,8 +178,16 @@ const createBulk = async (req, res, next) => {
         .json({ msg: 'No se pudo crear los libros, categorias y tags' })
 
     newlibros.forEach((libro) => {
-      libro.addCategoriaLibro(libro.categorias)
-      libro.addTagLibro(libro.tags)
+      libros.forEach((bodyLibro) => {
+        if (libro.titulo === bodyLibro.titulo) {
+          bodyLibro.categorias.forEach((categoria) => {
+            libro.addCategoriaLibro(categoria)
+          })
+          bodyLibro.tags.forEach((tag) => {
+            libro.addTagLibro(tag)
+          })
+        }
+      })
     })
 
     res.status(201).json({
