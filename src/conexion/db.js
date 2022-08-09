@@ -27,6 +27,7 @@ fs.readdirSync(path.join(__dirname, '../models'))
 
 // Injectamos la conexion (sequelize) a todos los modelos
 modelDefiners.forEach((model) => model(sequelize))
+
 // Capitalizamos los nombres de los modelos ie: product => Product
 let entries = Object.entries(sequelize.models)
 let capsEntries = entries.map((entry) => [
@@ -37,8 +38,9 @@ sequelize.models = Object.fromEntries(capsEntries)
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Categoria, Libro, Formato, Pedido, Tag, Usuario, Review, Comentario  } = sequelize.models
-// Aca vendrian las relaciones
+const { Categoria, Libro, Formato, Pedido, Tag, Usuario, Review, Comentario } =
+  sequelize.models
+
 // Categoria N<=>M Libro
 Categoria.belongsToMany(Libro, {
   through: 'Categoria_Libro',
@@ -48,28 +50,36 @@ Libro.belongsToMany(Categoria, {
   through: 'Categoria_Libro',
   as: 'CategoriaLibro',
 })
+
 // Tag N<=>M Libro
 Tag.belongsToMany(Libro, { through: 'Tag_Libro', as: 'TagLibro' })
 Libro.belongsToMany(Tag, { through: 'Tag_Libro', as: 'TagLibro' })
+
 // Pedido N<=>M Libro
 const Detalle = sequelize.define('Detalle', { cantidad: DataTypes.INTEGER })
 Pedido.belongsToMany(Libro, { through: Detalle, as: 'DetalleLibro' })
 Libro.belongsToMany(Pedido, { through: Detalle, as: 'DetalleLibro' })
+
 // Libros N<=>M Formato
 Libro.belongsToMany(Formato, { through: 'Formato_Libro', as: 'FormatoLibro' })
 Formato.belongsTo(Libro, { through: 'Formato_Libro', as: 'FormatoLibro' })
+
 // Usuario 1=>N Pedido
 Usuario.hasMany(Pedido)
 Pedido.belongsTo(Usuario)
+
 // Libro 1=>N Review
 Libro.hasMany(Review)
 Review.belongsTo(Libro)
+
 // User 1=>N Review
 Usuario.hasMany(Review)
 Review.belongsTo(Usuario)
+
 // Review 1=>N Comentarios
 Review.hasMany(Comentario)
 Comentario.belongsTo(Review)
+
 // User 1=>N Comentarios
 Usuario.hasMany(Comentario)
 Comentario.belongsTo(Usuario)

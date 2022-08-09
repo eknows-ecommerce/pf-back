@@ -1,7 +1,5 @@
-//Importamos los modelos de nuestra base de datos
 const { Formato } = require('../conexion/db.js')
 
-//Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
   try {
     const formatos = await Formato.findAll()
@@ -38,20 +36,6 @@ const create = async (req, res, next) => {
   }
 }
 
-const createBulk = async (req, res, next) => {
-  const { formatos } = req.body
-  try {
-    if (!formatos.length > 0)
-      return res.status(400).json({ msg: 'Formatos no provista' })
-    const newFormatos = await Formato.bulkCreate(formatos)
-    if (!newFormatos.length > 0)
-      return res.status(200).json({ msg: 'No se pudo crear los formatos' })
-    res.status(201).json({ formatos: newFormatos, msg: 'Formatos creados' })
-  } catch (error) {
-    next(error)
-  }
-}
-
 const updateById = async (req, res, next) => {
   const { id } = req.params
   const { tipo } = req.body
@@ -82,6 +66,20 @@ const deleteById = async (req, res, next) => {
     if (!deleteFormato)
       return res.status(200).json({ msg: 'No se pudo eliminar el contenido' })
     res.status(200).json({ formato, msg: 'Contenido eliminado' })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const createBulk = async (req, res, next) => {
+  const { formatos } = req.body
+  try {
+    if (!formatos.length > 0)
+      return res.status(400).json({ msg: 'Formatos no provista' })
+    const newFormatos = await Formato.bulkCreate(formatos)
+    if (!newFormatos.length > 0)
+      return res.status(200).json({ msg: 'No se pudo crear los formatos' })
+    res.status(201).json({ formatos: newFormatos, msg: 'Formatos creados' })
   } catch (error) {
     next(error)
   }

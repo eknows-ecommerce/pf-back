@@ -1,4 +1,3 @@
-//Importaciones de librerias y rutas
 const { Router } = require('express')
 const tag = require('./tag.js')
 const categoria = require('./categoria.js')
@@ -9,10 +8,10 @@ const pedido = require('./pedido')
 const usuario = require('./usuario')
 const formato = require('./formato')
 const puntuacion = require('./puntuacion')
-//Configuracion de rutas
+
 const router = Router()
 
-// Ejemplo: router.use('/auth', authRouter);
+// router.use('/auth', authRouter);
 router.use('/categorias', categoria)
 router.use('/libros', libro)
 router.use('/tags', tag)

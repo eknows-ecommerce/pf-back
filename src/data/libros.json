@@ -1,6 +1,7 @@
 {
   "libros": [
     {
+      "tags": ["4", "7"],
       "titulo": "Harry Potter y la piedra filosofal",
       "autor": "J. K. Rowling",
       "precio": 56.98,
@@ -15,6 +16,7 @@
       "stock": 11
     },
     {
+      "tags": ["4", "7"],
       "titulo": "Harry Potter Y El Misterio del Príncipe / Harry Potter and the Half-Blood Prince",
       "autor": "J. K. Rowling",
       "precio": 49.37,
@@ -29,6 +31,7 @@
       "stock": 32
     },
     {
+      "tags": ["4", "7"],
       "titulo": "Harry Potter y la cámara secreta",
       "autor": "J.K. Rowling",
       "precio": 16.52,
@@ -43,6 +46,7 @@
       "stock": 28
     },
     {
+      "tags": ["4", "7"],
       "titulo": "Harry Potter y el cáliz de fuego",
       "autor": "J. K. Rowling",
       "precio": 57.0,
@@ -57,6 +61,7 @@
       "stock": 0
     },
     {
+      "tags": ["4", "5"],
       "titulo": "El señor de los anillos",
       "autor": "J. R. R. Tolkien",
       "precio": 4.91,
@@ -72,6 +77,7 @@
       "stock": 47
     },
     {
+      "tags": ["4", "5"],
       "titulo": "Trilogía El Señor de los Anillos",
       "autor": "J. R. R. Tolkien",
       "precio": 3.99,
@@ -86,6 +92,7 @@
       "stock": 5
     },
     {
+      "tags": ["8", "6"],
       "titulo": "EL CAMINO DE LOS REYES (EL ARCHIVO DE LAS TORMENTAS 1)",
       "autor": "Brandon Sanderson",
       "precio": 38.05,
@@ -101,6 +108,7 @@
       "stock": 41
     },
     {
+      "tags": ["8", "6"],
       "titulo": "Juramentada (El Archivo de las Tormentas 3)",
       "autor": "Brandon Sanderson",
       "precio": 42.82,
@@ -116,6 +124,7 @@
       "stock": 36
     },
     {
+      "tags": ["1", "5"],
       "titulo": "El regreso",
       "autor": "Nicholas Sparks",
       "precio": 45.01,
@@ -131,6 +140,7 @@
       "stock": 7
     },
     {
+      "tags": ["1", "5"],
       "titulo": "Solo nosotros dos",
       "autor": "Nicholas Sparks",
       "precio": 19.92,
@@ -145,6 +155,7 @@
       "stock": 0
     },
     {
+      "tags": ["1", "5"],
       "titulo": "El mar de los monstruos (Percy Jackson y los dioses del Olimpo 2)",
       "autor": "Rick Riordan",
       "precio": 32.99,
@@ -159,6 +170,7 @@
       "stock": 35
     },
     {
+      "tags": ["6", "8"],
       "titulo": "Percy Jackson y los héroes griegos (Percy Jackson)",
       "autor": "Rick Riordan",
       "precio": 59.24,
@@ -174,6 +186,7 @@
       "stock": 2
     },
     {
+      "tags": ["6", "8"],
       "titulo": "Percy Jackson y los dioses del Olimpo",
       "autor": "Rick Riordan",
       "precio": 35.94,
@@ -188,6 +201,7 @@
       "stock": 3
     },
     {
+      "tags": ["7", "4"],
       "titulo": "Cementerio de Animales",
       "autor": "Stephen King",
       "precio": 7.8,
@@ -202,6 +216,7 @@
       "stock": 16
     },
     {
+      "tags": ["7", "4"],
       "titulo": "La zona muerta",
       "autor": "Stephen King",
       "precio": 38.63,
@@ -217,6 +232,7 @@
       "stock": 31
     },
     {
+      "tags": ["6", "7"],
       "titulo": "Orgullo y prejuicio",
       "autor": "Jane Austen",
       "precio": 11.88,
@@ -231,6 +247,7 @@
       "stock": 4
     },
     {
+      "tags": ["3", "2"],
       "titulo": "Mujercitas",
       "autor": "Louisa May Alcott",
       "precio": 12.66,
@@ -245,6 +262,7 @@
       "stock": 20
     },
     {
+      "tags": ["4", "1"],
       "titulo": "Dune",
       "autor": "Frank Herbert",
       "precio": 6.32,
@@ -259,6 +277,7 @@
       "stock": 39
     },
     {
+      "tags": ["2", "3"],
       "titulo": "Bridgerton 9 - Bridgerton: Felices Para Siempre",
       "autor": "Julia Quinn",
       "precio": 7.57,
@@ -274,6 +293,7 @@
       "stock": 27
     },
     {
+      "tags": ["2", "3"],
       "titulo": "Bridgerton: An offer from a gentleman",
       "autor": "Julia Quinn",
       "precio": 28.53,
@@ -289,6 +309,7 @@
       "stock": 0
     },
     {
+      "tags": ["4", "5"],
       "titulo": "El nombre del viento",
       "autor": "Patrick Rothfuss",
       "precio": 9.45,
@@ -303,6 +324,7 @@
       "stock": 16
     },
     {
+      "tags": ["2", "3"],
       "titulo": "La música del silencio",
       "autor": "Patrick Rothfuss",
       "precio": 13.92,
@@ -318,6 +340,7 @@
       "stock": 21
     },
     {
+      "tags": ["5", "7"],
       "titulo": "Los juegos del hambre",
       "autor": "Suzanne Collins",
       "precio": 6.99,
@@ -333,6 +356,7 @@
       "stock": 50
     },
     {
+      "tags": ["7", "2"],
       "titulo": "En llamas",
       "autor": "Suzanne Collins",
       "precio": 22.38,
@@ -347,6 +371,7 @@
       "stock": 8
     },
     {
+      "tags": ["1", "8"],
       "titulo": "Juego de tronos",
       "autor": "George R.R. Martin",
       "precio": 21.99,
@@ -361,6 +386,7 @@
       "stock": 0
     },
     {
+      "tags": ["1", "8"],
       "titulo": "Los huesos del escriba (Alcatraz contra los Bibliotecarios Malvados 2)",
       "autor": "Brandon Sanderson",
       "precio": 5.74,
@@ -375,6 +401,7 @@
       "stock": 25
     },
     {
+      "tags": ["1", "8"],
       "titulo": "Las lentes fragmentadas (Alcatraz contra los Bibliotecarios Malvados 4)",
       "autor": "Brandon Sanderson",
       "precio": 41.46,
@@ -390,6 +417,7 @@
       "stock": 29
     },
     {
+      "tags": ["7", "5"],
       "titulo": "Alcatraz vs. the Evil Librarians",
       "autor": "Brandon Sanderson",
       "precio": 22.04,
@@ -404,6 +432,7 @@
       "stock": 33
     },
     {
+      "tags": ["7", "5"],
       "titulo": "The Dark Talent",
       "autor": "Brandon Sanderson",
       "precio": 29.89,
@@ -418,6 +447,7 @@
       "stock": 34
     },
     {
+      "tags": ["7", "5"],
       "titulo": "The Knights of Crystallia",
       "autor": "Brandon Sanderson",
       "precio": 22.38,
@@ -432,6 +462,7 @@
       "stock": 21
     },
     {
+      "tags": ["3", "5"],
       "titulo": "The Shattered Lens",
       "autor": "Brandon Sanderson",
       "precio": 43.11,
@@ -446,6 +477,7 @@
       "stock": 24
     },
     {
+      "tags": ["1", "2"],
       "titulo": "La fortaleza digital",
       "autor": "Dan Brown",
       "precio": 14.71,
@@ -461,6 +493,7 @@
       "stock": 28
     },
     {
+      "tags": ["1", "2"],
       "titulo": "La conspiración",
       "autor": "Dan Brown",
       "precio": 27.57,
@@ -475,6 +508,7 @@
       "stock": 1
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El símbolo perdido",
       "autor": "Dan Brown",
       "precio": 22.34,
@@ -489,6 +523,7 @@
       "stock": 42
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Origen",
       "autor": "Dan Brown",
       "precio": 43.02,
@@ -504,6 +539,7 @@
       "stock": 11
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Inferno",
       "autor": "Dan Brown",
       "precio": 22.34,
@@ -518,6 +554,7 @@
       "stock": 26
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Cuentos de Horror Contados para Niños",
       "autor": "H. P. Lovecraft",
       "precio": 25.53,
@@ -533,6 +570,7 @@
       "stock": 3
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Martín Fierro",
       "autor": "José Hernández",
       "precio": 12.88,
@@ -547,6 +585,7 @@
       "stock": 27
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Las luces de la muerte",
       "autor": "Pablo Villarubia Mauso",
       "precio": 53.79,
@@ -562,6 +601,7 @@
       "stock": 3
     },
     {
+      "tags": ["1", "2"],
       "titulo": "¿Qué hay después de la muerte?",
       "autor": "Emanuel Swedenborg",
       "precio": 13.85,
@@ -577,6 +617,7 @@
       "stock": 50
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Escuadrón / Skyward",
       "autor": "Brandon Sanderson",
       "precio": 10.67,
@@ -592,6 +633,7 @@
       "stock": 49
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Arcanun Ilimitado/ Arcanum Unbounded",
       "autor": "Brandon Sanderson",
       "precio": 49.27,
@@ -607,6 +649,7 @@
       "stock": 5
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El Aliento de Los Dioses / Warbreaker",
       "autor": "Brandon Sanderson",
       "precio": 40.74,
@@ -622,6 +665,7 @@
       "stock": 38
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El temor de un hombre sabio (Crónica del asesino de reyes 2)",
       "autor": "Patrick Rothfuss",
       "precio": 7.47,
@@ -636,6 +680,7 @@
       "stock": 19
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Iron Gold",
       "autor": "Pierce Brown",
       "precio": 8.63,
@@ -650,6 +695,7 @@
       "stock": 30
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Amanecer rojo",
       "autor": "Pierce Brown",
       "precio": 49.55,
@@ -664,6 +710,7 @@
       "stock": 17
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Golden Son",
       "autor": "Pierce Brown",
       "precio": 52.93,
@@ -679,6 +726,7 @@
       "stock": 37
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Oro y ceniza",
       "autor": "Pierce Brown",
       "precio": 39.49,
@@ -693,6 +741,7 @@
       "stock": 45
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Edad oscura",
       "autor": "Pierce Brown",
       "precio": 20.58,
@@ -708,6 +757,7 @@
       "stock": 38
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Morning Star",
       "autor": "Pierce Brown",
       "precio": 10.14,
@@ -722,6 +772,7 @@
       "stock": 46
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Gregor Las Tierras Bajas",
       "autor": "Suzanne Collins",
       "precio": 60.0,
@@ -737,6 +788,7 @@
       "stock": 50
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Los Juegos del Hambre - Balada de pájaros cantores y serpientes",
       "autor": "Suzanne Collins",
       "precio": 20.24,
@@ -751,6 +803,7 @@
       "stock": 11
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El Silmarillion",
       "autor": "J. R. R. Tolkien",
       "precio": 25.19,
@@ -766,6 +819,7 @@
       "stock": 0
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El Hobbit",
       "autor": "J. R. R. Tolkien",
       "precio": 30.07,
@@ -781,6 +835,7 @@
       "stock": 6
     },
     {
+      "tags": ["1", "2"],
       "titulo": "The Letters of J. R. R. Tolkien",
       "autor": "Humphrey Carpenter,Christopher Tolkien",
       "precio": 39.01,
@@ -795,6 +850,7 @@
       "stock": 28
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El destello",
       "autor": "James Dashner",
       "precio": 42.67,
@@ -809,6 +865,7 @@
       "stock": 12
     },
     {
+      "tags": ["1", "2"],
       "titulo": "The Scorch Trials Movie Tie-in Edition (Maze Runner, Book Two)",
       "autor": "James Dashner",
       "precio": 24.43,
@@ -823,6 +880,7 @@
       "stock": 39
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El corredor del laberinto",
       "autor": "James Dashner",
       "precio": 22.38,
@@ -837,6 +895,7 @@
       "stock": 32
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Animales Fantásticos Y Dónde Encontrarlos / Fantastic Beasts  Where to Find Them",
       "autor": "J. K. Rowling",
       "precio": 9.39,
@@ -851,6 +910,7 @@
       "stock": 5
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Harry Potter Y El Prisionero de Azkaban (Harry Potter 3) / Harry Potter and the Prisoner of Azkaban",
       "autor": "J. K. Rowling",
       "precio": 10.99,
@@ -866,6 +926,7 @@
       "stock": 3
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Harry Potter y la Orden del Fénix",
       "autor": "J. K. Rowling",
       "precio": 12.99,
@@ -880,6 +941,7 @@
       "stock": 34
     },
     {
+      "tags": ["1", "2"],
       "titulo": "It (Eso)",
       "autor": "Stephen King",
       "precio": 53.99,
@@ -894,6 +956,7 @@
       "stock": 12
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El resplandor",
       "autor": "Stephen King",
       "precio": 25.99,
@@ -908,6 +971,7 @@
       "stock": 16
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El instituto",
       "autor": "Stephen King",
       "precio": 17.99,
@@ -922,6 +986,7 @@
       "stock": 42
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Misery",
       "autor": "Stephen King",
       "precio": 13.99,
@@ -937,6 +1002,7 @@
       "stock": 37
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El Guardian Entre El Centeno",
       "autor": "J. D. Salinger",
       "precio": 45.99,
@@ -951,6 +1017,7 @@
       "stock": 27
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Nueve cuentos",
       "autor": "J. D. Salinger",
       "precio": 39.99,
@@ -965,6 +1032,7 @@
       "stock": 15
     },
     {
+      "tags": ["1", "2"],
       "titulo": "FRANNY Y ZOOEY (LIBRO DE BOLSILLO)",
       "autor": "J. D. Salinger",
       "precio": 5.99,
@@ -979,6 +1047,7 @@
       "stock": 50
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Asesinato en el Orient Express",
       "autor": "Agatha Christie",
       "precio": 48.99,
@@ -993,6 +1062,7 @@
       "stock": 20
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Navidades trágicas",
       "autor": "Agatha Christie",
       "precio": 6.99,
@@ -1008,6 +1078,7 @@
       "stock": 13
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Diez negritos",
       "autor": "Agatha Christie",
       "precio": 19.99,
@@ -1022,6 +1093,7 @@
       "stock": 0
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Colección de Sherlock Holmes",
       "autor": "Arthur Conan Doyle",
       "precio": 10.99,
@@ -1036,6 +1108,7 @@
       "stock": 4
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Colección integral de Miguel de Cervantes",
       "autor": "Miguel de Cervantes Saavedra",
       "precio": 0.99,
@@ -1050,6 +1123,7 @@
       "stock": 31
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Gente normal",
       "autor": "Sally Rooney",
       "precio": 15.99,
@@ -1065,6 +1139,7 @@
       "stock": 1
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Dónde estás, mundo bello",
       "autor": "Sally Rooney",
       "precio": 58.99,
@@ -1079,6 +1154,7 @@
       "stock": 54
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Viaje al centro de la Tierra",
       "autor": "Julio Verne",
       "precio": 25.99,
@@ -1093,6 +1169,7 @@
       "stock": 23
     },
     {
+      "tags": ["1", "2"],
       "titulo": "La isla misteriosa",
       "autor": "Julio Verne",
       "precio": 22.99,
@@ -1107,6 +1184,7 @@
       "stock": 21
     },
     {
+      "tags": ["1", "2"],
       "titulo": "De la Tierra a la luna",
       "autor": "Julio Verne",
       "precio": 27.99,
@@ -1121,6 +1199,7 @@
       "stock": 18
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Gallardo Monumental",
       "autor": "Diego Borinsky",
       "precio": 35.99,
@@ -1136,6 +1215,7 @@
       "stock": 9
     },
     {
+      "tags": ["1", "2"],
       "titulo": "La vida te ama",
       "autor": "L. L. Hay, R. Holden",
       "precio": 22.99,
@@ -1150,6 +1230,7 @@
       "stock": 50
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Sana Tu Mente",
       "autor": "L. L. Hay, M. L. Schulz",
       "precio": 13.99,
@@ -1164,6 +1245,7 @@
       "stock": 45
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El mundo te está esperando",
       "autor": "L. L. Hay",
       "precio": 57.99,
@@ -1178,6 +1260,7 @@
       "stock": 48
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El Libro Negro",
       "autor": "Angel David Revilla",
       "precio": 23.89,
@@ -1192,6 +1275,7 @@
       "stock": 37
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Valle de la calma",
       "autor": "Angel David Revilla",
       "precio": 51.29,
@@ -1207,6 +1291,7 @@
       "stock": 6
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El festival de la blasfemia",
       "autor": "Angel David Revilla",
       "precio": 11.73,
@@ -1221,6 +1306,7 @@
       "stock": 3
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Luna de Pluton",
       "autor": "Angel David Revilla",
       "precio": 34.46,
@@ -1235,6 +1321,7 @@
       "stock": 44
     },
     {
+      "tags": ["1", "2"],
       "titulo": "La guerra de Ysaak",
       "autor": "Angel David Revilla",
       "precio": 37.46,
@@ -1249,6 +1336,7 @@
       "stock": 47
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Escape",
       "autor": "Angel David Revilla",
       "precio": 33.45,
@@ -1263,6 +1351,7 @@
       "stock": 33
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Meditación : la primera y última libertad",
       "autor": "Osho",
       "precio": 18.0,
@@ -1278,6 +1367,7 @@
       "stock": 49
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Aprende a amar",
       "autor": "Osho",
       "precio": 20.23,
@@ -1293,6 +1383,7 @@
       "stock": 50
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Secrets of the Millionaire Mind",
       "autor": "T. Harv Eker",
       "precio": 58.87,
@@ -1307,6 +1398,7 @@
       "stock": 0
     },
     {
+      "tags": ["1", "2"],
       "titulo": "The Mark of Zorro",
       "autor": "Johnston McCulley",
       "precio": 18.87,
@@ -1321,6 +1413,7 @@
       "stock": 3
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Colección integral de Edgar Allan Poe",
       "autor": "Edgar Allan Poe",
       "precio": 37.11,
@@ -1335,6 +1428,7 @@
       "stock": 36
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El cuervo",
       "autor": "Edgar Allan Poe",
       "precio": 29.37,
@@ -1349,6 +1443,7 @@
       "stock": 21
     },
     {
+      "tags": ["1", "2"],
       "titulo": "El gato negro",
       "autor": "Edgar Allan Poe",
       "precio": 59.99,
@@ -1363,6 +1458,7 @@
       "stock": 29
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Personas desconocidas",
       "autor": "John Katzenbach",
       "precio": 7.99,
@@ -1377,6 +1473,7 @@
       "stock": 45
     },
     {
+      "tags": ["1", "2"],
       "titulo": "La historia del loco",
       "autor": "John Katzenbach",
       "precio": 9.99,
@@ -1391,6 +1488,7 @@
       "stock": 0
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Jaque al psicoanalista",
       "autor": "John Katzenbach",
       "precio": 9.99,
@@ -1405,6 +1503,7 @@
       "stock": 40
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Juicio final",
       "autor": "John Katzenbach",
       "precio": 5.99,
@@ -1419,6 +1518,7 @@
       "stock": 10
     },
     {
+      "tags": ["1", "2"],
       "titulo": "Juegos de ingenio",
       "autor": "John Katzenbach",
       "precio": 5.99,
@@ -1435,39 +1535,54 @@
   ],
   "categorias": [
     {
-      "nombre": "1"
+      "nombre": "Fiction"
     },
     {
-      "nombre": "2"
+      "nombre": "Juvenile Fiction"
     },
     {
-      "nombre": "3"
+      "nombre": "Young Adult Fiction"
     },
     {
-      "nombre": "4"
+      "nombre": "Drama"
     },
     {
-      "nombre": "5"
+      "nombre": "Juvenile Nonfiction"
     },
     {
-      "nombre": "6"
+      "nombre": "Literary Criticism"
     },
     {
-      "nombre": "7"
+      "nombre": "Thriller"
     },
     {
-      "nombre": "8"
+      "nombre": "Body, Mind & Spirit"
     }
   ],
   "tags": [
     {
-      "nombre": "Misteri81"
+      "nombre": "espacio exterior"
     },
     {
-      "nombre": "Misteri+3"
+      "nombre": "musicales"
     },
     {
-      "nombre": "Misterio104"
+      "nombre": "vida en la ciudad"
+    },
+    {
+      "nombre": "oscuro"
+    },
+    {
+      "nombre": "artes marciales"
+    },
+    {
+      "nombre": "personajes historicos"
+    },
+    {
+      "nombre": "basado en hechos reales"
+    },
+    {
+      "nombre": "religion"
     }
   ]
 }
