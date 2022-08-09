@@ -30,5 +30,6 @@ module.exports = (sequelize) => {
     lenguaje: DataTypes.STRING,
     portada: DataTypes.STRING,
     categorias: DataTypes.ARRAY(DataTypes.STRING),
+    tags: DataTypes.ARRAY(DataTypes.STRING),
   })
 }

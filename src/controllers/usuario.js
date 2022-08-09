@@ -1,6 +1,4 @@
-require('dotenv').config()
 const { Usuario } = require('../conexion/db')
-const axios = require('axios')
 
 const getAll = async (req, res, next) => {
   try {
@@ -100,7 +98,6 @@ const deleteById = async (req, res, next) => {
   }
 }
 
-// Solo para desarrollo
 const createBulk = async (req, res, next) => {
   const { usuarios } = req.body
   try {

@@ -1,7 +1,5 @@
-//Importamos los modelos de nuestra base de datos
 const { Puntuacion } = require('../conexion/db.js')
 
-//Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
   try {
     const puntuaciones = await Puntuacion.findAll()
@@ -34,22 +32,6 @@ const create = async (req, res, next) => {
     if (!puntuacion)
       return res.status(200).json({ msg: 'No se pudo crear el puntuacion' })
     res.status(201).json({ puntuacion, msg: 'puntuacion creado' })
-  } catch (error) {
-    next(error)
-  }
-}
-
-const createBulk = async (req, res, next) => {
-  const { puntuaciones } = req.body
-  try {
-    if (!puntuaciones.length > 0)
-      return res.status(400).json({ msg: 'puntuaciones no provistos' })
-    const newpuntuaciones = await Puntuacion.bulkCreate(puntuaciones)
-    if (!newpuntuaciones.length > 0)
-      return res.status(200).json({ msg: 'No se pudo crear los puntuaciones' })
-    res
-      .status(201)
-      .json({ puntuaciones: newpuntuaciones, msg: 'puntuaciones creados' })
   } catch (error) {
     next(error)
   }
@@ -88,6 +70,22 @@ const deleteById = async (req, res, next) => {
     if (!deletepuntuacion)
       return res.status(200).json({ msg: 'No se pudo eliminar el puntuacion' })
     res.status(200).json({ puntuacion, msg: 'puntuacion eliminado' })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const createBulk = async (req, res, next) => {
+  const { puntuaciones } = req.body
+  try {
+    if (!puntuaciones.length > 0)
+      return res.status(400).json({ msg: 'puntuaciones no provistos' })
+    const newpuntuaciones = await Puntuacion.bulkCreate(puntuaciones)
+    if (!newpuntuaciones.length > 0)
+      return res.status(200).json({ msg: 'No se pudo crear los puntuaciones' })
+    res
+      .status(201)
+      .json({ puntuaciones: newpuntuaciones, msg: 'puntuaciones creados' })
   } catch (error) {
     next(error)
   }

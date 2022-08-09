@@ -1,7 +1,5 @@
-//Importamos los modelos de nuestra base de datos
 const { Tag } = require('../conexion/db.js')
 
-//Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
   try {
     const tags = await Tag.findAll()
@@ -36,20 +34,6 @@ const create = async (req, res, next) => {
   }
 }
 
-const createBulk = async (req, res, next) => {
-  const { tags } = req.body
-  try {
-    if (!tags.length > 0)
-      return res.status(400).json({ msg: 'Tags no provistos' })
-    const newTags = await Tag.bulkCreate(tags)
-    if (!newTags.length > 0)
-      return res.status(200).json({ msg: 'No se pudo crear los tags' })
-    res.status(201).json({ tags: newTags, msg: 'Tags creados' })
-  } catch (error) {
-    next(error)
-  }
-}
-
 const updateById = async (req, res, next) => {
   const { id } = req.params
   const { nombre } = req.body
@@ -77,6 +61,20 @@ const deleteById = async (req, res, next) => {
     if (!deleteTag)
       return res.status(200).json({ msg: 'No se pudo eliminar el tag' })
     res.status(200).json({ tag, msg: 'Tag eliminado' })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const createBulk = async (req, res, next) => {
+  const { tags } = req.body
+  try {
+    if (!tags.length > 0)
+      return res.status(400).json({ msg: 'Tags no provistos' })
+    const newTags = await Tag.bulkCreate(tags)
+    if (!newTags.length > 0)
+      return res.status(200).json({ msg: 'No se pudo crear los tags' })
+    res.status(201).json({ tags: newTags, msg: 'Tags creados' })
   } catch (error) {
     next(error)
   }

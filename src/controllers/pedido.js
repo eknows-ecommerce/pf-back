@@ -1,7 +1,5 @@
-//Importamos los modelos de nuestra base de datos
 const { Pedido } = require('../conexion/db.js')
 
-//Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
   try {
     const pedidos = await Pedido.findAll()
@@ -42,22 +40,7 @@ const create = async (req, res, next) => {
     })
     if (!pedido)
       return res.status(200).json({ msg: 'No se pudo crear el pedido' })
-
     res.status(201).json({ pedido, msg: 'Pedido creado' })
-  } catch (error) {
-    next(error)
-  }
-}
-
-const createBulk = async (req, res, next) => {
-  const { pedidos } = req.body
-  try {
-    if (!pedidos.length > 0)
-      return res.status(400).json({ msg: 'Pedidos no provistos' })
-    const newPedidos = await Pedido.bulkCreate(pedidos)
-    if (!newPedidos.length > 0)
-      return res.status(200).json({ msg: 'No se pudo crear los pedidos' })
-    res.status(201).json({ pedidos: newPedidos, msg: 'Pedidos creados' })
   } catch (error) {
     next(error)
   }
@@ -82,7 +65,6 @@ const updateById = async (req, res, next) => {
       descuento,
       fechaEntrega,
     })
-
     if (!updatedPedido)
       return res.status(200).json({ msg: 'No se pudo actualizar el pedido' })
     res.status(200).json({ pedido: updatedPedido, msg: 'Pedido actualizado' })
@@ -101,6 +83,20 @@ const deleteById = async (req, res, next) => {
     if (!deletePedido)
       return res.status(200).json({ msg: 'No se pudo eliminar el pedido' })
     res.status(200).json({ pedido, msg: 'Pedido eliminado' })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const createBulk = async (req, res, next) => {
+  const { pedidos } = req.body
+  try {
+    if (!pedidos.length > 0)
+      return res.status(400).json({ msg: 'Pedidos no provistos' })
+    const newPedidos = await Pedido.bulkCreate(pedidos)
+    if (!newPedidos.length > 0)
+      return res.status(200).json({ msg: 'No se pudo crear los pedidos' })
+    res.status(201).json({ pedidos: newPedidos, msg: 'Pedidos creados' })
   } catch (error) {
     next(error)
   }
