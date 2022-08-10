@@ -5,8 +5,8 @@ const { Libro, Categoria, Tag } = require('../conexion/db.js')
 const getAll = async (req, res, next) => {
   const {
     titulo = '',
-    categoria = '',
-    tag = '',
+    categorias = '',
+    tags = '',
     precioMin = -Infinity,
     precioMax = Infinity,
     orden = 'titulo',
@@ -16,6 +16,8 @@ const getAll = async (req, res, next) => {
   } = req.query
 
   try {
+    const where = categorias.includes(',') ? null : { id: categorias }
+
     // Busqueda con filtros
     if (Object.keys(req.query).length > 0) {
       const libros = await Libro.findAndCountAll({
@@ -32,18 +34,13 @@ const getAll = async (req, res, next) => {
           {
             model: Categoria,
             as: 'CategoriaLibro',
-            attributes: ['id', 'nombre'],
-            through: {
-              attributes: [],
-            },
+            attributes: ['id'],
+            where: where,
           },
           {
             model: Tag,
             as: 'TagLibro',
             attributes: ['id', 'nombre'],
-            through: {
-              attributes: [],
-            },
           },
         ],
         where: {
@@ -56,9 +53,29 @@ const getAll = async (req, res, next) => {
         },
         distinct: true,
         order: [[`${orden}`, `${direcion}`]],
-        limit: limit,
-        offset: offset,
+        limit: categorias.includes(',') ? null : limit,
+        offset: categorias.includes(',') ? null : offset * limit,
       })
+
+      if (categorias.includes(',')) {
+        const arr = libros.rows
+          .map((item) => {
+            const ids = item.CategoriaLibro.map((el) => {
+              return el.id
+            })
+            const result = ids.join(',')
+            const result2 = result.includes(categorias)
+            return result2 === true && item
+          })
+          .filter((el) => el)
+
+        if (!libros.rows.length)
+          return res.status(404).json({ msg: 'No hay libros' })
+        return res.status(200).json({
+          count: arr.length,
+          libros: arr.slice(limit * offset, limit * (offset + 1)),
+        })
+      }
 
       if (!libros.rows.length)
         return res.status(404).json({ msg: 'No hay libros' })
