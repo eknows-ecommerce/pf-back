@@ -7,16 +7,18 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true,
     },
-    contraseña: {
+    password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     rol: {
       type: DataTypes.ENUM('admin', 'usuario', 'visitante'),
       allowNull: false,
+      defaultValue: 'usuario',
     },
     telefono: DataTypes.STRING,
-    nombreCompleto: DataTypes.STRING,
+    picture: DataTypes.STRING,
+    name: DataTypes.STRING,
     pais: DataTypes.STRING,
     ciudad: DataTypes.STRING,
   })
