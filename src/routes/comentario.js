@@ -1,4 +1,3 @@
-// Importamos libreria y funciones del controllador
 const { Router } = require('express')
 
 const {
@@ -10,7 +9,6 @@ const {
   deleteById,
 } = require('../controllers/comentario.js')
 
-// rutas
 const router = Router()
 
 router.get('/', getAll)
@@ -20,5 +18,4 @@ router.post('/bulk', createBulk)
 router.put('/:id', updateById)
 router.delete('/:id', deleteById)
 
-//exportamos el router
 module.exports = router

@@ -1,7 +1,5 @@
-//Importamos los modelos de nuestra base de datos
 const { Review } = require('../conexion/db.js')
 
-//Creamos las funciones del controllador
 const getAll = async (req, res, next) => {
   try {
     const reviews = await Review.findAll()
@@ -26,7 +24,7 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { titulo, texto, rating,likes } = req.body
+  const { titulo, texto, rating, likes } = req.body
   try {
     if (!titulo) return res.status(400).json({ msg: 'Titulo no provisto' })
     if (!texto) return res.status(400).json({ msg: 'Texto no provisto' })
@@ -39,19 +37,6 @@ const create = async (req, res, next) => {
       return res.status(200).json({ msg: 'No se pudo crear el review' })
 
     res.status(201).json({ review, msg: 'Review creado' })
-  } catch (error) {
-    next(error)
-  }
-}
-
-const createBulk = async (req, res, next) => {
-  const { reviews } = req.body
-  try {
-    if (!reviews) return res.status(400).json({ msg: 'Reviews no provistos' })
-    const newReviews = await Review.bulkCreate(reviews)
-    if (!newReviews.length > 0)
-      return res.status(200).json({ msg: 'No se pudo crear los reviews' })
-    res.status(201).json({ reviews: newReviews, msg: 'Reviews creados' })
   } catch (error) {
     next(error)
   }
@@ -87,6 +72,19 @@ const deleteById = async (req, res, next) => {
       return res.status(200).json({ msg: 'No se pudo eliminar el review' })
 
     res.status(200).json({ review, msg: 'Review eliminado' })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const createBulk = async (req, res, next) => {
+  const { reviews } = req.body
+  try {
+    if (!reviews) return res.status(400).json({ msg: 'Reviews no provistos' })
+    const newReviews = await Review.bulkCreate(reviews)
+    if (!newReviews.length > 0)
+      return res.status(200).json({ msg: 'No se pudo crear los reviews' })
+    res.status(201).json({ reviews: newReviews, msg: 'Reviews creados' })
   } catch (error) {
     next(error)
   }

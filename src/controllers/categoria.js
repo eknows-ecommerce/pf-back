@@ -77,7 +77,6 @@ const deleteById = async (req, res, next) => {
   }
 }
 
-// Solo para desarrollo
 const createBulk = async (req, res, next) => {
   const { categorias } = req.body
   try {
