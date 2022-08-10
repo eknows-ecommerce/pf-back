@@ -16,10 +16,16 @@ const getAll = async (req, res, next) => {
   } = req.query
 
   try {
-    const where = categorias.includes(',') ? null : { id: categorias }
-
     // Busqueda con filtros
-    if (Object.keys(req.query).length > 0) {
+    if (categorias || tags || titulo) {
+      const whereCategorias = categorias.includes(',')
+        ? null
+        : categorias
+        ? { id: categorias }
+        : null
+
+      const whereTags = tags.includes(',') ? null : tags ? { id: tags } : null
+
       const libros = await Libro.findAndCountAll({
         attributes: [
           'id',
@@ -35,12 +41,13 @@ const getAll = async (req, res, next) => {
             model: Categoria,
             as: 'CategoriaLibro',
             attributes: ['id'],
-            where: where,
+            where: whereCategorias,
           },
           {
             model: Tag,
             as: 'TagLibro',
             attributes: ['id', 'nombre'],
+            where: whereTags,
           },
         ],
         where: {
@@ -57,52 +64,101 @@ const getAll = async (req, res, next) => {
         offset: categorias.includes(',') ? null : offset * limit,
       })
 
+      //Filtra tanto cuando mandan categorias y tags al mismo tiempo
+      if (categorias.includes(',') && tags.includes(',')) {
+        const librosEncontrados = libros.rows
+          .map((item) => {
+            const idsCategorias = item.CategoriaLibro.map((el) => el.id)
+              .join(',')
+              .includes(categorias)
+
+            const idsTags = item.TagLibro.map((el) => el.id)
+              .join(',')
+              .includes(tags)
+
+            return idsCategorias === true && idsTags === true && item
+          })
+          .filter((el) => el)
+        //Paginamos los libros encontrados
+        const data = librosEncontrados.slice(
+          limit * offset,
+          limit * (offset + 1)
+        )
+        //devolvemos la info
+        if (data.length === 0)
+          return res.status(404).json({ msg: 'No hay libros' })
+        return res.status(200).json({
+          count: librosEncontrados.length,
+          libros: data,
+        })
+      }
+
       if (categorias.includes(',')) {
         const arr = libros.rows
           .map((item) => {
-            const ids = item.CategoriaLibro.map((el) => {
-              return el.id
-            })
-            const result = ids.join(',')
-            const result2 = result.includes(categorias)
-            return result2 === true && item
+            const ids = item.CategoriaLibro.map((el) => el.id)
+              .join(',')
+              .includes(categorias)
+            return ids === true && item
           })
           .filter((el) => el)
 
-        if (!libros.rows.length)
+        const data = arr.slice(limit * offset, limit * (offset + 1))
+
+        if (data.length === 0)
           return res.status(404).json({ msg: 'No hay libros' })
         return res.status(200).json({
           count: arr.length,
-          libros: arr.slice(limit * offset, limit * (offset + 1)),
+          libros: data,
+        })
+      }
+
+      if (tags.includes(',')) {
+        const arr = libros.rows
+          .map((item) => {
+            const ids = item.TagLibro.map((el) => el.id)
+              .join(',')
+              .includes(tags)
+            return ids === true && item
+          })
+          .filter((el) => el)
+
+        const data = arr.slice(limit * offset, limit * (offset + 1))
+
+        if (data.length === 0)
+          return res.status(404).json({ msg: 'No hay libros' })
+        return res.status(200).json({
+          count: arr.length,
+          libros: data,
         })
       }
 
       if (!libros.rows.length)
         return res.status(404).json({ msg: 'No hay libros' })
       return res.status(200).json({ count: libros.count, libros: libros.rows })
+    } else {
+      // Busqueda sin filtros
+      const libros = await Libro.findAndCountAll({
+        include: [
+          {
+            model: Categoria,
+            as: 'CategoriaLibro',
+          },
+          {
+            model: Tag,
+            as: 'TagLibro',
+          },
+        ],
+        order: [[`${orden}`, `${direcion}`]],
+        distinct: true,
+        limit: limit,
+        offset: offset * limit,
+      })
+
+      if (!libros.rows.length)
+        return res.status(404).json({ msg: 'No hay libros' })
+      return res.status(200).json({ count: libros.count, libros: libros.rows })
     }
-
-    // Busqueda sin filtros
-    const libros = await Libro.findAndCountAll({
-      include: [
-        {
-          model: Categoria,
-          as: 'CategoriaLibro',
-        },
-        {
-          model: Tag,
-          as: 'TagLibro',
-        },
-      ],
-      order: [[`${orden}`, `${direcion}`]],
-      distinct: true,
-      limit: limit,
-      offset: offset,
-    })
-
-    if (!libros.rows.length)
-      return res.status(404).json({ msg: 'No hay libros' })
-    return res.status(200).json({ count: libros.count, libros: libros.rows })
   } catch (error) {
     next(error)
   }
