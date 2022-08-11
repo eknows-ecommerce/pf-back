@@ -12,6 +12,10 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true,
     },
+    isBan: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     platform: {
       type: DataTypes.STRING,
       allowNull: false,
