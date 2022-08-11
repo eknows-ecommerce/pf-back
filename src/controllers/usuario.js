@@ -26,15 +26,10 @@ const getById = async (req, res, next) => {
 const create = async (req, res, next) => {
   const { email, contraseña, rol, telefono, name, pais, ciudad, picture } =
     req.body
-  console.log('CREATE', email, name)
-
+    
   try {
     if (!email)
       return res.status(400).json({ msg: 'Email de usuario no provisto' })
-    /* else if (!contraseña)
-      return res.status(400).json({ msg: 'Contraseña de usuario no provista' }) /
-   /  else if (!rol)
-      return res.status(400).json({ msg: 'Rol de usuario no provisto' }) */
     const usuario = await Usuario.findOrCreate({
       where: {
         email: email,
@@ -53,33 +48,6 @@ const create = async (req, res, next) => {
     next(error)
   }
 }
-
-// const create = async (req, res, next) => {
-//   const { email, contraseña, rol, telefono, nombreCompleto, pais, ciudad } =
-//     req.body
-//   try {
-//     if (!email)
-//       return res.status(400).json({ msg: 'Email de usuario no provisto' })
-//     else if (!contraseña)
-//       return res.status(400).json({ msg: 'Contraseña de usuario no provista' })
-//     else if (!rol)
-//       return res.status(400).json({ msg: 'Rol de usuario no provisto' })
-//     const usuario = await Usuario.create({
-//       email,
-//       contraseña,
-//       rol,
-//       telefono,
-//       nombreCompleto,
-//       pais,
-//       ciudad,
-//     })
-//     if (!usuario)
-//       return res.status(200).json({ msg: 'No se pudo crear el usuario' })
-//     res.status(201).json({ usuario, msg: 'Usuario creada' })
-//   } catch (error) {
-//     next(error)
-//   }
-// }
 
 const update = async (req, res, next) => {
   const { id } = req.params
