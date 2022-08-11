@@ -32,15 +32,3 @@ const getByNickname = async (req, res, next) => {
 module.exports = {
   getByNickname,
 }
-
-// const accessToken = req.headers.authorization.split(' ')[1]
-// const auth0Response = await axios.get('https://nnicolasg.us.auth0.com/userinfo', {
-//   headers: {
-//     authorization: `Bearer ${accessToken}`,
-//   },
-// })
-
-// const usuarioData = auth0Response.data
-
-// // buscar usuarion
-// // ver si es admin o usuario
