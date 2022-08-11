@@ -1,8 +1,8 @@
-const { Usuario } = require('../conexion/db')
+const { Usuario, Libro } = require('../conexion/db')
 
 const axios = require('axios')
 
-// Funcion que valida al usuario que hace una peticion a cualquiera de las rutas
+// Funcion auxiliar que valida al usuario que hace una peticion a cualquiera de las rutas
 const validarAdministrador = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1]
   const auth0Response = await axios.get(
@@ -13,6 +13,7 @@ const validarAdministrador = async (req, res) => {
       },
     }
   )
+
   const nickname = auth0Response.data.nickname
   const usuario = await Usuario.findOne({
     where: { nickname },
@@ -25,6 +26,7 @@ const validarAdministrador = async (req, res) => {
   }
 }
 
+// Ver todos los usuarios siendo admin
 const getAllUsers = async (req, res, next) => {
   try {
     await validarAdministrador(req, res)
@@ -33,12 +35,13 @@ const getAllUsers = async (req, res, next) => {
     if (!usuarios.length)
       return res.status(404).json({ msg: 'Usuarios no encontrados' })
 
-    res.status(200).json({ usuarios })
+    return res.status(200).json({ usuarios })
   } catch (error) {
     next(error)
   }
 }
 
+// Editar datos de usuario siendo admin
 const updateUser = async (req, res, next) => {
   const { id } = req.params
   const { datos } = req.body
@@ -63,6 +66,7 @@ const updateUser = async (req, res, next) => {
       name: datos.name ?? usuario.name,
       pais: datos.pais ?? usuario.pais,
       ciudad: datos.ciudad ?? usuario.ciudad,
+      isBan: datos.isBan ?? usuario.isBan,
     })
 
     if (!updatedUsuario)
@@ -75,7 +79,59 @@ const updateUser = async (req, res, next) => {
   }
 }
 
+const getAllLibros = async (req, res, next) => {
+  try {
+    await validarAdministrador(req, res)
+
+    const libros = await Libro.findAll()
+    if (!libros.length)
+      return res.status(404).json({ msg: 'Libros no encontrados' })
+
+    return res.status(200).json({ libros })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const updateLibro = async (req, res, next) => {
+  const { id } = req.params
+  const { datos } = req.body
+  try {
+    await validarAdministrador(req, res)
+
+    if (!id) return res.status(400).json({ msg: 'Id no provisto' })
+
+    if (!datos) return res.status(400).json({ msg: 'Datos no provistos' })
+
+    const libro = await Libro.findByPk(id)
+    if (!libro) return res.status(404).json({ msg: 'Libro no encontrado' })
+
+    const updateLibro = await libro.update({
+      titulo: datos.titulo ?? libro.titulo,
+      autor: datos.autor ?? libro.autor,
+      resumen: datos.resumen ?? libro.resumen,
+      precio: datos.precio ?? libro.precio,
+      isAvail: datos.isAvail ?? libro.isAvail,
+      stock: datos.stock ?? libro.stock,
+      editorial: datos.editorial ?? libro.editorial,
+      fechaPublicacion: datos.fechaPublicacion ?? libro.fechaPublicacion,
+      paginas: datos.paginas ?? libro.paginas,
+      detalles: datos.detalles ?? libro.detalles,
+      lenguaje: datos.lenguaje ?? libro.lenguaje,
+      portada: datos.portada ?? libro.portada,
+    })
+
+    if (!updateLibro)
+      return res.status(400).json({ msg: 'No se pudo actualizar el libro' })
+    res.status(200).json({ usuario: updateLibro, msg: 'Libro actualizado' })
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getAllUsers,
   updateUser,
+  getAllLibros,
+  updateLibro,
 }
