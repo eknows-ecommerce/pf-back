@@ -28,6 +28,7 @@ const create = async (req, res, next) => {
   try {
     if (!email)
       return res.status(400).json({ msg: 'Email de usuario no provisto' })
+
     const usuario = await Usuario.findOrCreate({
       where: {
         email: email,
@@ -44,7 +45,7 @@ const create = async (req, res, next) => {
 
     if (!usuario)
       return res.status(200).json({ msg: 'No se pudo crear el usuario' })
-    res.status(201).json({ usuario, msg: 'Usuario creada' })
+    res.status(201).json({ usuario: usuario[0], msg: 'Usuario creado' })
   } catch (error) {
     next(error)
   }
