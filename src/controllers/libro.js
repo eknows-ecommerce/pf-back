@@ -40,7 +40,7 @@ const getAll = async (req, res, next) => {
           {
             model: Categoria,
             as: 'CategoriaLibro',
-            attributes: ['id'],
+            attributes: ['id', 'nombre'],
             where: whereCategorias,
           },
           {
