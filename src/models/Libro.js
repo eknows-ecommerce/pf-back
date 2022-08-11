@@ -21,7 +21,6 @@ module.exports = (sequelize) => {
     },
     isAvail: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: true,
     },
     stock: {
