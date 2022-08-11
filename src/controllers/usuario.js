@@ -24,20 +24,21 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { email, contraseña, rol, telefono, name, pais, ciudad, picture } =
-    req.body
-    
+  const { email, nickname, name, picture, sub } = req.body
   try {
     if (!email)
       return res.status(400).json({ msg: 'Email de usuario no provisto' })
     const usuario = await Usuario.findOrCreate({
       where: {
         email: email,
+        nickname: nickname,
       },
       defaults: {
         email: email,
         name: name,
         picture: picture,
+        nickname: nickname,
+        platform: sub,
       },
     })
 
