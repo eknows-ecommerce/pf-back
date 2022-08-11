@@ -6,7 +6,7 @@ const getByNickname = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1]
     const auth0Response = await axios.get(
-      'https://nnicolasg.us.auth0.com/userinfo',
+      'https://dev-clppguzk.us.auth0.com/userinfo',
       {
         headers: {
           authorization: `Bearer ${token}`,
