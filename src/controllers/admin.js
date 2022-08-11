@@ -44,7 +44,7 @@ const getAllUsers = async (req, res, next) => {
 // Editar datos de usuario siendo admin
 const updateUser = async (req, res, next) => {
   const { id } = req.params
-  const { datos } = req.body
+  const datos = req.body
   try {
     await validarAdministrador(req, res)
 
@@ -95,7 +95,7 @@ const getAllLibros = async (req, res, next) => {
 
 const updateLibro = async (req, res, next) => {
   const { id } = req.params
-  const { datos } = req.body
+  const datos = req.body
   try {
     await validarAdministrador(req, res)
 
