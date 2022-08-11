@@ -13,9 +13,9 @@ const router = Router()
 
 router.use(jwtCheck)
 
-router.get('/users', getAllUsers)
-router.put('/updateUser/:id', updateUser)
+router.get('/usuarios', getAllUsers)
+router.put('/usuarios/:id', updateUser)
 router.get('/libros', getAllLibros)
-router.put('/updateLibros/:id', updateLibro)
+router.put('/libros/:id', updateLibro)
 
 module.exports = router
