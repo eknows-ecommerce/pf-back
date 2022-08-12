@@ -44,7 +44,7 @@ const create = async (req, res, next) => {
     })
 
     if (!usuario)
-      return res.status(200).json({ msg: 'No se pudo crear el usuario' })
+      return res.status(400).json({ msg: 'No se pudo crear el usuario' })
     res.status(201).json({ usuario: usuario[0], msg: 'Usuario creado' })
   } catch (error) {
     next(error)
@@ -54,8 +54,8 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
   const { id } = req.params
   const datos = req.body
-  console.log("BODY", req.body);
-  console.log("DATOS", req.body.datos);
+  console.log('BODY', req.body)
+  console.log('DATOS', req.body.datos)
 
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
