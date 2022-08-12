@@ -56,17 +56,17 @@ const updateUser = async (req, res, next) => {
     if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrado' })
 
     const updatedUsuario = await usuario.update({
-      email: datos.email ?? usuario.email,
-      nickname: datos.nickname ?? usuario.nickname,
-      platform: datos.platform ?? usuario.platform,
-      password: datos.password ?? usuario.password,
-      rol: datos.rol ?? usuario.rol,
-      telefono: datos.telefono ?? usuario.telefono,
-      picture: datos.picture ?? usuario.picture,
-      name: datos.name ?? usuario.name,
-      pais: datos.pais ?? usuario.pais,
-      ciudad: datos.ciudad ?? usuario.ciudad,
-      isBan: datos.isBan ?? usuario.isBan,
+      email: req.body.datos.email ?? usuario.email,
+      nickname: req.body.datos.nickname ?? usuario.nickname,
+      platform: req.body.datos.platform ?? usuario.platform,
+      password: req.body.datos.password ?? usuario.password,
+      rol: req.body.datos.rol ?? usuario.rol,
+      telefono: req.body.datos.telefono ?? usuario.telefono,
+      picture: req.body.datos.picture ?? usuario.picture,
+      name: req.body.datos.name ?? usuario.name,
+      pais: req.body.datos.pais ?? usuario.pais,
+      ciudad: req.body.datos.ciudad ?? usuario.ciudad,
+      isBan: req.body.datos.isBan ?? usuario.isBan,
     })
 
     if (!updatedUsuario)
@@ -96,6 +96,7 @@ const getAllLibros = async (req, res, next) => {
 const updateLibro = async (req, res, next) => {
   const { id } = req.params
   const datos = req.body
+
   try {
     await validarAdministrador(req, res)
 
@@ -107,18 +108,19 @@ const updateLibro = async (req, res, next) => {
     if (!libro) return res.status(404).json({ msg: 'Libro no encontrado' })
 
     const updateLibro = await libro.update({
-      titulo: datos.titulo ?? libro.titulo,
-      autor: datos.autor ?? libro.autor,
-      resumen: datos.resumen ?? libro.resumen,
-      precio: datos.precio ?? libro.precio,
-      isAvail: datos.isAvail ?? libro.isAvail,
-      stock: datos.stock ?? libro.stock,
-      editorial: datos.editorial ?? libro.editorial,
-      fechaPublicacion: datos.fechaPublicacion ?? libro.fechaPublicacion,
-      paginas: datos.paginas ?? libro.paginas,
-      detalles: datos.detalles ?? libro.detalles,
-      lenguaje: datos.lenguaje ?? libro.lenguaje,
-      portada: datos.portada ?? libro.portada,
+      titulo: req.body.datos.titulo ?? libro.titulo,
+      autor: req.body.datos.autor ?? libro.autor,
+      resumen: req.body.datos.resumen ?? libro.resumen,
+      precio: req.body.datos.precio ?? libro.precio,
+      isAvail: req.body.datos.isAvail ?? libro.isAvail,
+      stock: req.body.datos.stock ?? libro.stock,
+      editorial: req.body.datos.editorial ?? libro.editorial,
+      fechaPublicacion:
+        req.body.datos.fechaPublicacion ?? libro.fechaPublicacion,
+      paginas: req.body.datos.paginas ?? libro.paginas,
+      detalles: req.body.datos.detalles ?? libro.detalles,
+      lenguaje: req.body.datos.lenguaje ?? libro.lenguaje,
+      portada: req.body.datos.portada ?? libro.portada,
     })
 
     if (!updateLibro)
