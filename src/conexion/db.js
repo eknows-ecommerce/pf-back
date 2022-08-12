@@ -5,13 +5,13 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DATABASE_URL } = process.env
 
 const sequelize = new Sequelize(
   DATABASE_URL
-    ? `${DATABASE_URL}`
+    ? `${DATABASE_URL} sslmode=require`
     : `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
   {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
     ssl: {
-      require: false, // This will help you. But you will see nwe error
+      require: true, // This will help you. But you will see nwe error
       rejectUnauthorized: false, // This line will fix new error
     },
   }
