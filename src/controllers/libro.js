@@ -6,6 +6,7 @@ const { Libro, Categoria, Tag } = require('../conexion/db.js')
 
 const getAll = async (req, res, next) => {
   const {
+    carrito = '',
     titulo = '',
     categorias = '',
     tags = '',
@@ -18,6 +19,20 @@ const getAll = async (req, res, next) => {
   } = req.query
 
   try {
+    //busqueda de solo carrito
+    if (carrito) {
+      const condicion = carrito.split(',')
+
+      const librosToCar = await Libro.findAll({
+        where: {
+          id: {
+            [Op.in]: condicion,
+          },
+        },
+      })
+      return res.status(200).json({ librosToCar })
+    }
+
     // Busqueda con filtros
     if (categorias || tags || titulo) {
       const whereCategorias = categorias.includes(',')
