@@ -21,9 +21,9 @@ const validarAdministrador = async (req, res) => {
 
   if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrado' })
 
-  if (usuario.rol !== 'admin') {
+ /*  if (usuario.rol !== 'admin') {
     return res.status(400).json({ msg: 'Usuario no autorizado' })
-  }
+  } */
 }
 
 // Ver todos los usuarios siendo admin

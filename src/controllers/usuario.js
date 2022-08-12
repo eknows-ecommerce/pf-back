@@ -53,27 +53,32 @@ const create = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   const { id } = req.params
-  const { email, contraseña, rol, telefono, nombreCompleto, pais, ciudad } =
-    req.body
+  const datos = req.body
+  console.log("BODY", req.body);
+  console.log("DATOS", req.body.datos);
+
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
-    if (!email)
-      return res.status(400).json({ msg: 'Email de usuario no provisto' })
-    else if (!contraseña)
-      return res.status(400).json({ msg: 'Contraseña de usuario no provista' })
-    else if (!rol)
-      return res.status(400).json({ msg: 'Rol de usuario no provisto' })
+
+    if (!datos) return res.status(400).json({ msg: 'Datos no provistos' })
+
     const usuario = await Usuario.findByPk(id)
     if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrado' })
+
     const updatedUsuario = await usuario.update({
-      email,
-      contraseña,
-      rol,
-      telefono,
-      nombreCompleto,
-      pais,
-      ciudad,
+      email: req.body.email ?? usuario.email,
+      nickname: req.body.nickname ?? usuario.nickname,
+      platform: req.body.platform ?? usuario.platform,
+      password: req.body.password ?? usuario.password,
+      rol: req.body.rol ?? usuario.rol,
+      telefono: req.body.telefono ?? usuario.telefono,
+      picture: req.body.picture ?? usuario.picture,
+      name: req.body.name ?? usuario.name,
+      pais: req.body.pais ?? usuario.pais,
+      ciudad: req.body.ciudad ?? usuario.ciudad,
+      isBan: req.body.isBan ?? usuario.isBan,
     })
+
     if (!updatedUsuario)
       return res.status(200).json({ msg: 'No se pudo actualizar el usuario' })
     res
