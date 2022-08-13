@@ -22,7 +22,6 @@ const getAll = async (req, res, next) => {
     //busqueda de solo carrito
     if (carrito) {
       const condicion = carrito.split(',')
-
       const librosToCar = await Libro.findAll({
         where: {
           id: {
@@ -166,6 +165,11 @@ const getAll = async (req, res, next) => {
             as: 'TagLibro',
           },
         ],
+        where: {
+          precio: {
+            [Op.between]: [precioMin, precioMax],
+          },
+        },
         order: [[`${orden}`, `${direcion}`]],
         distinct: true,
         limit: limit,
