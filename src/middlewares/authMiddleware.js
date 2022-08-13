@@ -2,12 +2,6 @@ const { Usuario } = require('../conexion/db')
 
 const axios = require('axios')
 
-/* 
-
-  Funcion auxiliar que verifica si el usuario es administrador
-
-*/
-
 const validarUsuario = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1]
 
