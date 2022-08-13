@@ -34,35 +34,31 @@ const getAll = async (req, res, next) => {
 
     // Busqueda con filtros
     if (categorias || tags || titulo) {
+      /*let whereCategorias;
+      if(categorias){
+        if(categorias.includes(',')){
+          whereCategorias=categorias
+        }
+      }*/
+
       const whereCategorias = categorias.includes(',')
         ? null
         : categorias
-        ? { id: categorias }
-        : null
+          ? { id: categorias }
+          : null
 
       const whereTags = tags.includes(',') ? null : tags ? { id: tags } : null
 
       const libros = await Libro.findAndCountAll({
-        attributes: [
-          'id',
-          'titulo',
-          'autor',
-          'resumen',
-          'precio',
-          'stock',
-          'portada',
-        ],
         include: [
           {
             model: Categoria,
             as: 'CategoriaLibro',
-            attributes: ['id', 'nombre'],
             where: whereCategorias,
           },
           {
             model: Tag,
             as: 'TagLibro',
-            attributes: ['id', 'nombre'],
             where: whereTags,
           },
         ],
@@ -82,17 +78,25 @@ const getAll = async (req, res, next) => {
 
       //Filtra tanto cuando mandan categorias y tags al mismo tiempo
       if (categorias.includes(',') && tags.includes(',')) {
+        let tagsFilter = tags.split(',').sort()
+        let categoriasFilter = categorias.split(',').sort()
         const librosEncontrados = libros.rows
-          .map((item) => {
-            const idsCategorias = item.CategoriaLibro.map((el) => el.id)
-              .join(',')
-              .includes(categorias)
+          .map((libro) => {
+            let flag=true;
+            const idsCategorias = libro.CategoriaLibro.map((el) => el.id).sort()
+            categoriasFilter.forEach((l) => {
+              if (!idsCategorias.includes(parseInt(l))) {
+                flag = false;
+              }
+            })
+            const idsTags = libro.TagLibro.map((el) => el.id).sort()
+            tagsFilter.forEach((l) => {
+              if (!idsTags.includes(parseInt(l))) {
+                flag = false;
+              }
+            })
 
-            const idsTags = item.TagLibro.map((el) => el.id)
-              .join(',')
-              .includes(tags)
-
-            return idsCategorias === true && idsTags === true && item
+            return flag && libro
           })
           .filter((el) => el)
         //Paginamos los libros encontrados
@@ -110,15 +114,21 @@ const getAll = async (req, res, next) => {
       }
 
       if (categorias.includes(',')) {
+        let categoriasFilter = categorias.split(',').sort()
+        console.log(libros.rows.slice(0,1))
         const arr = libros.rows
-          .map((item) => {
-            const ids = item.CategoriaLibro.map((el) => el.id)
-              .join(',')
-              .includes(categorias)
-            return ids === true && item
+          .map((libro) => {
+            let flag = true;
+            const ids = libro.CategoriaLibro.map((el) => el.id).sort()
+            categoriasFilter.forEach((l) => {
+              if (!ids.includes(parseInt(l))) {
+                flag = false;
+              }
+            })
+            return flag ? libro : false
           })
           .filter((el) => el)
-
+        console.log(arr.slice(0,1))
         const data = arr.slice(limit * offset, limit * (offset + 1))
 
         if (data.length === 0)
@@ -130,12 +140,17 @@ const getAll = async (req, res, next) => {
       }
 
       if (tags.includes(',')) {
+        let tagsFilter = tags.split(',').sort()
         const arr = libros.rows
-          .map((item) => {
-            const ids = item.TagLibro.map((el) => el.id)
-              .join(',')
-              .includes(tags)
-            return ids === true && item
+          .map((libro) => {
+            let flag = true;
+            const ids = libro.TagLibro.map((el) => el.id).sort()
+            tagsFilter.forEach((l) => {
+              if (!ids.includes(parseInt(l))) {
+                flag = false;
+              }
+            })
+            return flag ? libro : false
           })
           .filter((el) => el)
 
