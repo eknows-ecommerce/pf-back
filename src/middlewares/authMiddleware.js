@@ -1,16 +1,36 @@
-const { expressjwt: jwt } = require('express-jwt')
-var jwks = require('jwks-rsa')
+const { Usuario } = require('../conexion/db')
 
-var jwtCheck = jwt({
-  secret: jwks.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: process.env.JWKS_URI,
-  }),
-  audience: process.env.AUDIENCE,
-  issuer: process.env.ISSUER,
-  algorithms: ['RS256'],
-})
+const axios = require('axios')
 
-module.exports = jwtCheck
+/* 
+
+  Funcion auxiliar que verifica si el usuario es administrador
+
+*/
+
+const validarUsuario = async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1]
+
+  const auth0Response = await axios.get(
+    'https://dev-clppguzk.us.auth0.com/userinfo',
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  )
+
+  if (auth0Response.status !== 200)
+    return res.status(400).json({ msg: 'Error de Auth0' })
+
+  const nickname = auth0Response.data.nickname
+
+  const usuario = await Usuario.findOne({
+    where: { nickname },
+  })
+
+  if (!usuario)
+    return res.status(404).json({ msg: 'Auth: Usuario no encontrado' })
+}
+
+exports.validarUsuario = validarUsuario

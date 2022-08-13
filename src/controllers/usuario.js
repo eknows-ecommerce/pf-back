@@ -1,5 +1,7 @@
 const { Usuario } = require('../conexion/db')
 
+const { validarUsuario } = require('../middlewares/authMiddleware')
+
 const getAll = async (req, res, next) => {
   try {
     const usuarios = await Usuario.findAll()
@@ -26,6 +28,8 @@ const getById = async (req, res, next) => {
 const create = async (req, res, next) => {
   const { email, nickname, name, picture, sub } = req.body
   try {
+    await validarUsuario(req, res)
+
     if (!email)
       return res.status(400).json({ msg: 'Email de usuario no provisto' })
 
