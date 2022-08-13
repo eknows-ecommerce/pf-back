@@ -57,30 +57,40 @@ const create = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   const { id } = req.params
-  const datos = req.body
-  console.log('BODY', req.body)
-  console.log('DATOS', req.body.datos)
+  const {
+    email,
+    nickname,
+    platform,
+    password,
+    rol,
+    telefono,
+    picture,
+    name,
+    pais,
+    ciudad,
+    isBan,
+  } = req.body
 
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
 
-    if (!datos) return res.status(400).json({ msg: 'Datos no provistos' })
+    if (!req.body) return res.status(400).json({ msg: 'Datos no provistos' })
 
     const usuario = await Usuario.findByPk(id)
     if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrado' })
 
     const updatedUsuario = await usuario.update({
-      email: req.body.email ?? usuario.email,
-      nickname: req.body.nickname ?? usuario.nickname,
-      platform: req.body.platform ?? usuario.platform,
-      password: req.body.password ?? usuario.password,
-      rol: req.body.rol ?? usuario.rol,
-      telefono: req.body.telefono ?? usuario.telefono,
-      picture: req.body.picture ?? usuario.picture,
-      name: req.body.name ?? usuario.name,
-      pais: req.body.pais ?? usuario.pais,
-      ciudad: req.body.ciudad ?? usuario.ciudad,
-      isBan: req.body.isBan ?? usuario.isBan,
+      email: email || usuario.email,
+      nickname: nickname || usuario.nickname,
+      platform: platform || usuario.platform,
+      password: password || usuario.password,
+      rol: rol || usuario.rol,
+      telefono: telefono || usuario.telefono,
+      picture: picture || usuario.picture,
+      name: name || usuario.name,
+      pais: pais || usuario.pais,
+      ciudad: ciudad || usuario.ciudad,
+      isBan: isBan || usuario.isBan,
     })
 
     if (!updatedUsuario)
