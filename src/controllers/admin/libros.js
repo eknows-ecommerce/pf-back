@@ -2,30 +2,18 @@ const { Libro } = require('../../conexion/db')
 
 const { validarAdministrador } = require('./adminMiddleware')
 
-const getAllLibros = async (req, res, next) => {
-  try {
-    await validarAdministrador(req, res)
-    const libros = await Libro.findAll()
-    if (!libros.length)
-      return res.status(404).json({ msg: 'Libros no encontrados' })
-    return res.status(200).json({ libros })
-  } catch (error) {
-    next(error)
+/*
+  Ejemplo de body en PUT o POST request 
+
+  {
+    "datos": {
+    "editorial": "Tusquets",
+    ...
   }
-}
+
+*/
 
 const updateLibro = async (req, res, next) => {
-  /*
-    Ejemplo de body en PUT request de /admin/libros/:id
-
-    {
-      "datos": {
-      "editorial": "Tusquets",
-      ...
-    }
-
-  */
-
   const { id } = req.params
   const reqBody = req.body.datos
 
@@ -62,7 +50,44 @@ const updateLibro = async (req, res, next) => {
   }
 }
 
+const createLibro = async (req, res, next) => {
+  const reqBody = req.body.datos
+
+  try {
+    await validarAdministrador(req, res)
+
+    if (!reqBody.titulo)
+      return res.status(400).json({ msg: 'Titulo no provisto' })
+    if (!reqBody.autor)
+      return res.status(400).json({ msg: 'Autor no provisto' })
+    if (!reqBody.resumen)
+      return res.status(400).json({ msg: 'Resumen no provisto' })
+    if (!reqBody.precio)
+      return res.status(400).json({ msg: 'Precio no provisto' })
+    if (!reqBody.stock)
+      return res.status(400).json({ msg: 'Stock no provisto' })
+
+    const libroDuplicado = await Libro.findOne({
+      where: {
+        titulo: reqBody.titulo,
+      },
+    })
+
+    if (libroDuplicado) {
+      return res.status(200).json({ msg: 'Ya existe un libro con este titulo' })
+    }
+
+    const libroCreado = await Libro.create(reqBody)
+    if (!libroCreado)
+      return res.status(200).json({ msg: 'No se pudo crear el libro' })
+
+    res.status(201).json({ libro: libroCreado, msg: 'Libro creado' })
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
-  getAllLibros,
   updateLibro,
+  createLibro,
 }
