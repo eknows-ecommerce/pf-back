@@ -3,7 +3,16 @@ const { Usuario } = require('../conexion/db')
 const { validarUsuario } = require('../middlewares/authMiddleware')
 
 const getAll = async (req, res, next) => {
+  const { nickname } = req.query
   try {
+    if (nickname) {
+      const usuario = await Usuario.findOne({
+        where: { nickname },
+      })
+      if (!usuario) return res.status(404).json({ msg: 'El usuario no existe' })
+      return res.status(200).json({ usuario })
+    }
+
     const usuarios = await Usuario.findAll()
     if (!usuarios.length)
       return res.status(404).json({ msg: 'Usuarios no encontrados' })

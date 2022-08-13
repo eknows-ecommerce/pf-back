@@ -8,9 +8,11 @@ const pedido = require('./pedido')
 const usuario = require('./usuario')
 const formato = require('./formato')
 const puntuacion = require('./puntuacion')
+const auth = require('./auth')
 
 const router = Router()
 
+router.use('/auth', auth)
 router.use('/categorias', categoria)
 router.use('/libros', libro)
 router.use('/tags', tag)
