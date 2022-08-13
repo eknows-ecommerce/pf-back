@@ -2,29 +2,33 @@ const jwtCheck = require('../middlewares/authMiddleware')
 
 const { Router } = require('express')
 
-const { updateTag, createTag } = require('../controllers/admin/tags.js')
-const { updateLibro, createLibro } = require('../controllers/admin/libros')
-const { getAllUsers, updateUser } = require('../controllers/admin/usuarios.js')
+const { actualizarTag, crearTag } = require('../controllers/admin/tags.js')
+
+const { actualizarLibro, crearLibro } = require('../controllers/admin/libros')
+
 const {
-  updateCategoria,
-  createCategoria,
+  todosLosUsuarios,
+  actualizarUsuario,
+} = require('../controllers/admin/usuarios.js')
+
+const {
+  actualizarCategoria,
+  crearCategoria,
 } = require('../controllers/admin/categorias.js')
 
 const router = Router()
 
 router.use(jwtCheck)
 
-router.get('/usuarios', getAllUsers)
+router.get('/usuarios', todosLosUsuarios)
 
-router.put('/usuarios/:id', updateUser)
-router.put('/libros/:id', updateLibro)
-router.put('/categorias/:id', updateCategoria)
-router.put('/tags/:id', updateTag)
+router.put('/usuarios/:id', actualizarUsuario)
+router.put('/libros/:id', actualizarLibro)
+router.put('/categorias/:id', actualizarCategoria)
+router.put('/tags/:id', actualizarTag)
 
-router.post('/libros', createLibro)
-router.post('/tags', createTag)
-router.post('/categorias', createCategoria)
-
-// router.post('/tags', createTag)
+router.post('/libros', crearLibro)
+router.post('/tags', crearTag)
+router.post('/categorias', crearCategoria)
 
 module.exports = router

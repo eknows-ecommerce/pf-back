@@ -12,7 +12,7 @@ const { validarAdministrador } = require('./adminMiddleware')
 
 */
 
-const updateTag = async (req, res, next) => {
+const actualizarTag = async (req, res, next) => {
   const { id } = req.params
   const reqBody = req.body.datos
 
@@ -20,7 +20,6 @@ const updateTag = async (req, res, next) => {
     await validarAdministrador(req, res)
 
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
-
     if (!reqBody) return res.status(400).json({ msg: 'Datos no provistos' })
 
     const tagEnDb = await Tag.findByPk(id)
@@ -38,7 +37,7 @@ const updateTag = async (req, res, next) => {
   }
 }
 
-const createTag = async (req, res, next) => {
+const crearTag = async (req, res, next) => {
   const reqBody = req.body.datos
 
   try {
@@ -68,6 +67,6 @@ const createTag = async (req, res, next) => {
 }
 
 module.exports = {
-  updateTag,
-  createTag,
+  actualizarTag,
+  crearTag,
 }

@@ -13,7 +13,7 @@ const { validarAdministrador } = require('./adminMiddleware')
 
 */
 
-const updateCategoria = async (req, res, next) => {
+const actualizarCategoria = async (req, res, next) => {
   const { id } = req.params
   const reqBody = req.body.datos
 
@@ -43,7 +43,7 @@ const updateCategoria = async (req, res, next) => {
   }
 }
 
-const createCategoria = async (req, res, next) => {
+const crearCategoria = async (req, res, next) => {
   const reqBody = req.body.datos
 
   try {
@@ -77,6 +77,6 @@ const createCategoria = async (req, res, next) => {
 }
 
 module.exports = {
-  updateCategoria,
-  createCategoria,
+  actualizarCategoria,
+  crearCategoria,
 }

@@ -13,7 +13,7 @@ const { validarAdministrador } = require('./adminMiddleware')
 
 */
 
-const updateLibro = async (req, res, next) => {
+const actualizarLibro = async (req, res, next) => {
   const { id } = req.params
   const reqBody = req.body.datos
 
@@ -50,7 +50,7 @@ const updateLibro = async (req, res, next) => {
   }
 }
 
-const createLibro = async (req, res, next) => {
+const crearLibro = async (req, res, next) => {
   const reqBody = req.body.datos
 
   try {
@@ -88,6 +88,6 @@ const createLibro = async (req, res, next) => {
 }
 
 module.exports = {
-  updateLibro,
-  createLibro,
+  actualizarLibro,
+  crearLibro,
 }
