@@ -44,15 +44,15 @@ const getAll = async (req, res, next) => {
       const whereTags = tags.includes(',') ? null : tags ? { id: tags } : null
 
       const libros = await Libro.findAndCountAll({
-        attributes: [
-          'id',
-          'titulo',
-          'autor',
-          'resumen',
-          'precio',
-          'stock',
-          'portada',
-        ],
+        // attributes: [
+        //   // 'id',
+        //   // 'titulo',
+        //   // 'autor',
+        //   // 'resumen',
+        //   // 'precio',
+        //   // 'stock',
+        //   // 'portada',
+        // ],
         include: [
           {
             model: Categoria,
@@ -194,7 +194,7 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { titulo, autor, resumen, precio, stock } = req.body
+  const { titulo, autor, resumen, precio, stock, isAvail } = req.body
   try {
     if (!titulo) return res.status(400).json({ msg: 'Titulo no provisto' })
     if (!autor) return res.status(400).json({ msg: 'Autor no provisto' })
