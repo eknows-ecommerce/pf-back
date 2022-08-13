@@ -13,6 +13,7 @@ const admin = require('./admin')
 
 const router = Router()
 
+router.use('/admin', admin)
 router.use('/auth', auth)
 router.use('/categorias', categoria)
 router.use('/libros', libro)
@@ -23,6 +24,5 @@ router.use('/formatos', formato)
 router.use('/puntuaciones', puntuacion)
 router.use('/review', review)
 router.use('/comentario', comentario)
-router.use('/admin', admin)
 
 module.exports = router
