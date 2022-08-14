@@ -4,7 +4,7 @@
   "description": "//readme",
   "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,15 +19,16 @@
   },
   "homepage": "https://github.com/AlexTRDev/pf-back#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-jwt": "^7.7.5",
     "jwks-rsa": "^2.1.4",
+    "morgan": "^1.10.0",
     "pg": "^8.7.3",
     "sequelize": "^6.21.3",
-    "morgan": "^1.10.0",
-    "axios": "^0.27.2"
+    "stripe": "^10.2.0"
   },
   "devDependencies": {
     "eslint": "^8.21.0",
