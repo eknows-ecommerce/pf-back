@@ -40,7 +40,7 @@ router.post('/checkout', async (req,res) => {
 
    console.log('payment ', paymentIntent)
    
-   res.send({message: 'Transaccion exitosa'})
+   res.send(paymentIntent)
 })
 
 
