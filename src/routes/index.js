@@ -10,7 +10,6 @@ const usuario = require('./usuario')
 const formato = require('./formato')
 const puntuacion = require('./puntuacion')
 const auth = require('./auth')
-const admin = require('./admin')
 
 
 
@@ -26,7 +25,6 @@ router.use('/formatos', formato)
 router.use('/puntuaciones', puntuacion)
 router.use('/review', review)
 router.use('/comentario', comentario)
-router.use('/admin', admin)
 
 router.post('/checkout', async (req,res) => {
     const {id,amount,currency,description} = req.body

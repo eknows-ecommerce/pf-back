@@ -213,7 +213,7 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { titulo, autor, resumen, precio, stock } = req.body
+  const { titulo, autor, resumen, precio, stock, isAvail } = req.body
   try {
     if (!titulo) return res.status(400).json({ msg: 'Titulo no provisto' })
     if (!autor) return res.status(400).json({ msg: 'Autor no provisto' })
