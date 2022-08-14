@@ -29,7 +29,6 @@ const create = async (req, res, next) => {
     if (!titulo) return res.status(400).json({ msg: 'Titulo no provisto' })
     if (!texto) return res.status(400).json({ msg: 'Texto no provisto' })
     if (!rating) return res.status(400).json({ msg: 'Rating no provisto' })
-    if (!likes) return res.status(400).json({ msg: 'Likes no provisto' })
 
     const review = await Review.create(req.body)
 
