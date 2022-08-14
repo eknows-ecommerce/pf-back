@@ -1,8 +1,19 @@
 const { Review } = require('../conexion/db.js')
+const { Op } = require('sequelize')
 
 const getAll = async (req, res, next) => {
+  const { LibroId } = req.query
+  let reviews;
   try {
-    const reviews = await Review.findAll()
+    if (LibroId) {
+      reviews = await Review.findAll({
+        where: {
+          LibroId: LibroId
+        }
+      })
+    }
+    else
+      reviews = await Review.findAll()
     if (!reviews.length > 0)
       return res.status(404).json({ msg: 'No hay reviews' })
     res.status(200).json({ reviews })
@@ -24,11 +35,13 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { titulo, texto, rating, likes } = req.body
+  const { titulo, texto, rating, LibroId } = req.body
+  console.log(req.body)
   try {
     if (!titulo) return res.status(400).json({ msg: 'Titulo no provisto' })
     if (!texto) return res.status(400).json({ msg: 'Texto no provisto' })
     if (!rating) return res.status(400).json({ msg: 'Rating no provisto' })
+    if (!LibroId) return res.status(400).json({ msg: 'Libro Id no provisto' })
 
     const review = await Review.create(req.body)
 
