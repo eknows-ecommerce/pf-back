@@ -213,16 +213,26 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { titulo, autor, resumen, precio, stock, isAvail } = req.body
+  const { titulo, autor, resumen, precio, stock, isAvail, categorias, tags } =
+    req.body
   try {
+    if (!categorias)
+      return res.status(400).json({ msg: 'Categorias no provistos' })
+    if (!tags) return res.status(400).json({ msg: 'Tags no provistos' })
     if (!titulo) return res.status(400).json({ msg: 'Titulo no provisto' })
     if (!autor) return res.status(400).json({ msg: 'Autor no provisto' })
     if (!resumen) return res.status(400).json({ msg: 'Resumen no provisto' })
     if (!precio) return res.status(400).json({ msg: 'Precio no provisto' })
     if (!stock) return res.status(400).json({ msg: 'Stock no provisto' })
+
     const libro = await Libro.create(req.body)
+
     if (!libro)
       return res.status(200).json({ msg: 'No se pudo crear el libro' })
+
+    libro.addCategoriaLibro(categorias)
+    libro.addTagLibro(tags)
+
     res.status(201).json({ libro, msg: 'Libro creado' })
   } catch (error) {
     next(error)
