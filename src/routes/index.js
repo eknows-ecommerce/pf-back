@@ -9,6 +9,7 @@ const usuario = require('./usuario')
 const formato = require('./formato')
 const puntuacion = require('./puntuacion')
 const auth = require('./auth')
+const checkout = require('./checkout')
 
 const router = Router()
 
@@ -22,5 +23,6 @@ router.use('/formatos', formato)
 router.use('/puntuaciones', puntuacion)
 router.use('/review', review)
 router.use('/comentario', comentario)
+router.use('/checkout', checkout)
 
 module.exports = router
