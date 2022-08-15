@@ -44,8 +44,8 @@ const getAll = async (req, res, next) => {
       const whereCategorias = categorias.includes(',')
         ? null
         : categorias
-          ? { id: categorias }
-          : null
+        ? { id: categorias }
+        : null
 
       const whereTags = tags.includes(',') ? null : tags ? { id: tags } : null
 
@@ -82,17 +82,17 @@ const getAll = async (req, res, next) => {
         let categoriasFilter = categorias.split(',').sort()
         const librosEncontrados = libros.rows
           .map((libro) => {
-            let flag=true;
+            let flag = true
             const idsCategorias = libro.CategoriaLibro.map((el) => el.id).sort()
             categoriasFilter.forEach((l) => {
               if (!idsCategorias.includes(parseInt(l))) {
-                flag = false;
+                flag = false
               }
             })
             const idsTags = libro.TagLibro.map((el) => el.id).sort()
             tagsFilter.forEach((l) => {
               if (!idsTags.includes(parseInt(l))) {
-                flag = false;
+                flag = false
               }
             })
 
@@ -115,20 +115,20 @@ const getAll = async (req, res, next) => {
 
       if (categorias.includes(',')) {
         let categoriasFilter = categorias.split(',').sort()
-        console.log(libros.rows.slice(0,1))
+        console.log(libros.rows.slice(0, 1))
         const arr = libros.rows
           .map((libro) => {
-            let flag = true;
+            let flag = true
             const ids = libro.CategoriaLibro.map((el) => el.id).sort()
             categoriasFilter.forEach((l) => {
               if (!ids.includes(parseInt(l))) {
-                flag = false;
+                flag = false
               }
             })
             return flag ? libro : false
           })
           .filter((el) => el)
-        console.log(arr.slice(0,1))
+        console.log(arr.slice(0, 1))
         const data = arr.slice(limit * offset, limit * (offset + 1))
 
         if (data.length === 0)
@@ -143,11 +143,11 @@ const getAll = async (req, res, next) => {
         let tagsFilter = tags.split(',').sort()
         const arr = libros.rows
           .map((libro) => {
-            let flag = true;
+            let flag = true
             const ids = libro.TagLibro.map((el) => el.id).sort()
             tagsFilter.forEach((l) => {
               if (!ids.includes(parseInt(l))) {
-                flag = false;
+                flag = false
               }
             })
             return flag ? libro : false
@@ -240,7 +240,7 @@ const updateById = async (req, res, next) => {
     const updatedLibro = await libro.update(oLibro)
     if (!updatedLibro)
       return res.status(200).json({ msg: 'No se pudo actualizar el libro' })
-    res.status(200).json({ tag: updatedLibro, msg: 'Libro actualizado' })
+    res.status(200).json({ libro: updatedLibro, msg: 'Libro actualizado' })
   } catch (error) {
     next(error)
   }
