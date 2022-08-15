@@ -9,7 +9,8 @@ const getAll = async (req, res, next) => {
       reviews = await Review.findAll({
         where: {
           LibroId: LibroId
-        }
+        },
+        order:[['likes', 'desc']]
       })
     }
     else

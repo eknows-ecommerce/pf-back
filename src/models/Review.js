@@ -5,7 +5,6 @@ module.exports = (sequelize) => {
     titulo: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     texto: {
       type: DataTypes.TEXT,
