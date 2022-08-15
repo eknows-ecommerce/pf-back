@@ -21,8 +21,8 @@ router.use('/pedidos', pedido)
 router.use('/usuarios', usuario)
 router.use('/formatos', formato)
 router.use('/puntuaciones', puntuacion)
-router.use('/review', review)
-router.use('/comentario', comentario)
 router.use('/checkout', checkout)
+router.use('/reviews', review)
+router.use('/comentarios', comentario)
 
 module.exports = router
