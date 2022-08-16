@@ -1,7 +1,20 @@
+const { Op } = require('sequelize')
 const { Tag } = require('../conexion/db.js')
 
 const getAll = async (req, res, next) => {
+  const { nombre } = req.query
   try {
+    if (nombre) {
+      const tags = await Tag.findAll({
+        where: {
+          nombre: {
+            [Op.iLike]: `%${nombre}%`,
+          },
+        },
+      })
+      if (!tags) return res.status(404).json({ msg: 'Tags no encontrados' })
+      return res.status(200).json({ tags })
+    }
     const tags = await Tag.findAll()
     if (!tags.length > 0) return res.status(404).json({ msg: 'No hay tags' })
     res.status(200).json({ tags })
