@@ -1,11 +1,32 @@
-const { Pedido } = require('../conexion/db.js')
+const { Op } = require('sequelize')
+
+const { Pedido, Libro, Detalle } = require('../conexion/db.js')
 
 const getAll = async (req, res, next) => {
+  const { titulo } = req.query
   try {
-    const pedidos = await Pedido.findAll()
-    if (!pedidos.length > 0)
+    let where
+    if (titulo) {
+      where = {
+        titulo: {
+          [Op.iLike]: `%${titulo}%`,
+        },
+      }
+    }
+    const pedidos = await Pedido.findAndCountAll({
+      include: [
+        {
+          attributes: ['id', 'titulo'],
+          model: Libro,
+          as: 'DetalleLibro',
+          where: where ?? null,
+        },
+      ],
+      distinct: true,
+    })
+    if (!pedidos.rows.length > 0)
       return res.status(404).json({ msg: 'No hay pedidos' })
-    res.status(200).json({ pedidos })
+    res.status(200).json({ count: pedidos.count, pedidos: pedidos.rows })
   } catch (error) {
     next(error)
   }
@@ -15,7 +36,12 @@ const getById = async (req, res, next) => {
   const { id } = req.params
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
-    const pedido = await Pedido.findByPk(id)
+    const pedido = await Pedido.findOne({
+      include: ['DetalleLibro'],
+      where: {
+        id,
+      },
+    })
     if (!pedido) return res.status(404).json({ msg: 'Pedido no encontrado' })
     res.status(200).json({ pedido })
   } catch (error) {
@@ -24,23 +50,34 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { precioTotal, direccionEnvio, estado, descuento, fechaEntrega } =
-    req.body
+  const {
+    precioTotal,
+    direccionEnvio,
+    estado,
+    descuento,
+    fechaEntrega,
+    libros,
+  } = req.body
   try {
     if (!precioTotal) return res.status(400).json({ msg: 'Precio no provisto' })
     if (!direccionEnvio)
       return res.status(400).json({ msg: 'Dirección de Envio no provisto' })
     if (!estado) return res.status(400).json({ msg: 'Estado no provisto' })
     const pedido = await Pedido.create({
+      include: ['DetalleLibro'],
       precioTotal,
       direccionEnvio,
       estado,
       descuento,
       fechaEntrega,
+      cantidad,
     })
     if (!pedido)
       return res.status(200).json({ msg: 'No se pudo crear el pedido' })
-    res.status(201).json({ pedido, msg: 'Pedido creado' })
+
+    pedido.addDetalleLibro(libros)
+
+    res.status(201).json({ pedido, detalleLibro: libros, msg: 'Pedido creado' })
   } catch (error) {
     next(error)
   }
