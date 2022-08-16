@@ -60,7 +60,7 @@ const create = async (req, res, next) => {
     direccionEnvio,
     estado,
     descuento,
-    fechaEntrega,
+    fechaEntrega = new Date(),
     libros, //array de objetos con id y cantidad
   } = req.body
   try {
