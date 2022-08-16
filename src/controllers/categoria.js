@@ -1,9 +1,22 @@
+const { Op } = require('sequelize')
 require('dotenv').config()
 const { Categoria } = require('../conexion/db')
-const axios = require('axios')
 
 const getAll = async (req, res, next) => {
+  const { nombre } = req.query
   try {
+    if (nombre) {
+      const categorias = await Categoria.findAll({
+        where: {
+          nombre: {
+            [Op.iLike]: `%${nombre}%`,
+          },
+        },
+      })
+      if (!categorias)
+        return res.status(404).json({ msg: 'Categorias no encontrados' })
+      return res.status(200).json({ categorias })
+    }
     const categorias = await Categoria.findAll()
     if (!categorias.length)
       return res.status(404).json({ msg: 'Categorias no encontradas' })

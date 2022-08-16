@@ -1,3 +1,4 @@
+const { Op } = require('sequelize')
 const { Usuario } = require('../conexion/db')
 
 const { validarUsuario } = require('../middlewares/authMiddleware')
@@ -6,11 +7,16 @@ const getAll = async (req, res, next) => {
   const { nickname } = req.query
   try {
     if (nickname) {
-      const usuario = await Usuario.findOne({
-        where: { nickname },
+      const usuarios = await Usuario.findAll({
+        where: {
+          nickname: {
+            [Op.iLike]: `%${nickname}%`,
+          },
+        },
       })
-      if (!usuario) return res.status(404).json({ msg: 'El usuario no existe' })
-      return res.status(200).json({ usuario })
+      if (!usuarios)
+        return res.status(404).json({ msg: 'Usuarios no encontrados' })
+      return res.status(200).json({ usuarios })
     }
 
     const usuarios = await Usuario.findAll()
