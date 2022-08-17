@@ -10,7 +10,6 @@ module.exports = (sequelize) => {
     nickname: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     isBan: {
       type: DataTypes.BOOLEAN,
