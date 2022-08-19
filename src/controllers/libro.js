@@ -259,15 +259,6 @@ const updateById = async (req, res, next) => {
     req.body
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
-    // validaciones comentadas para poder actualizar solo una parte del libro, sin necesidad de pasar las demas propiedades
-    // if (!categorias)
-    //   return res.status(400).json({ msg: 'Categorias no provistos' })
-    // if (!tags) return res.status(400).json({ msg: 'Tags no provistos' })
-    // if (!titulo) return res.status(400).json({ msg: 'Titulo no provisto' })
-    // if (!autor) return res.status(400).json({ msg: 'Autor no provisto' })
-    // if (!resumen) return res.status(400).json({ msg: 'Resumen no provisto' })
-    // if (!precio) return res.status(400).json({ msg: 'Precio no provisto' })
-    // if (!stock) return res.status(400).json({ msg: 'Stock no provisto' })
 
     const libro = await Libro.findByPk(id)
     if (!libro) return res.status(404).json({ msg: 'Libro no encontrado' })

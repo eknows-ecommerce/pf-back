@@ -91,6 +91,10 @@ Comentario.belongsTo(Review)
 Usuario.hasMany(Comentario)
 Comentario.belongsTo(Usuario)
 
+//Usuario N<=>M LIBRO
+Usuario.belongsToMany(Libro, { through: 'Favorito', as: 'Favoritos' })
+Libro.belongsToMany(Usuario, { through: 'Favorito', as: 'Favoritos' })
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,
