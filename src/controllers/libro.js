@@ -1,8 +1,6 @@
-const axios = require('axios')
-
 const { Op } = require('sequelize')
 
-const { Libro, Categoria, Tag } = require('../conexion/db.js')
+const { Libro, Categoria, Tag, conn } = require('../conexion/db.js')
 
 const getAll = async (req, res, next) => {
   const {
@@ -204,7 +202,23 @@ const getById = async (req, res, next) => {
   const { id } = req.params
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
-    const libro = await Libro.findByPk(id)
+    const libro = await Libro.findOne({
+      include: [
+        {
+          model: Categoria,
+          as: 'CategoriaLibro',
+          through: { attributes: [] },
+        },
+        {
+          model: Tag,
+          as: 'TagLibro',
+          through: { attributes: [] },
+        },
+      ],
+      where: {
+        id,
+      },
+    })
     if (!libro) return res.status(404).json({ msg: 'libro no encontrado' })
     res.status(200).json({ libro })
   } catch (error) {
@@ -241,16 +255,45 @@ const create = async (req, res, next) => {
 
 const updateById = async (req, res, next) => {
   const { id } = req.params
-  const oLibro = req.body
+  const { titulo, autor, resumen, precio, stock, isAvail, categorias, tags } =
+    req.body
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
-    if (!oLibro) return res.status(400).json({ msg: 'Libro no provisto' })
+    // validaciones comentadas para poder actualizar solo una parte del libro, sin necesidad de pasar las demas propiedades
+    // if (!categorias)
+    //   return res.status(400).json({ msg: 'Categorias no provistos' })
+    // if (!tags) return res.status(400).json({ msg: 'Tags no provistos' })
+    // if (!titulo) return res.status(400).json({ msg: 'Titulo no provisto' })
+    // if (!autor) return res.status(400).json({ msg: 'Autor no provisto' })
+    // if (!resumen) return res.status(400).json({ msg: 'Resumen no provisto' })
+    // if (!precio) return res.status(400).json({ msg: 'Precio no provisto' })
+    // if (!stock) return res.status(400).json({ msg: 'Stock no provisto' })
+
     const libro = await Libro.findByPk(id)
     if (!libro) return res.status(404).json({ msg: 'Libro no encontrado' })
-    const updatedLibro = await libro.update(oLibro)
-    if (!updatedLibro)
-      return res.status(200).json({ msg: 'No se pudo actualizar el libro' })
-    res.status(200).json({ libro: updatedLibro, msg: 'Libro actualizado' })
+
+    await conn.query('DELETE FROM "Categoria_Libro" WHERE "LibroId" = :id', {
+      type: conn.QueryTypes.DELETE,
+      replacements: { id },
+    })
+    await conn.query('DELETE FROM "Tag_Libro" WHERE "LibroId" = :id', {
+      type: conn.QueryTypes.DELETE,
+      replacements: { id },
+    })
+
+    const libroUpdate = await libro.update(req.body, {
+      where: { id },
+    })
+
+    if (categorias) {
+      libro.addCategoriaLibro(categorias)
+    }
+
+    if (tags) {
+      libro.addTagLibro(tags)
+    }
+
+    res.status(200).json({ libro: libroUpdate, msg: 'Libro actualizado' })
   } catch (error) {
     next(error)
   }
