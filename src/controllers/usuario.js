@@ -1,5 +1,5 @@
-const { Op } = require('sequelize')
-const { Usuario } = require('../conexion/db')
+const { Op, sequelize } = require('sequelize')
+const { Usuario, Libro } = require('../conexion/db')
 
 const { validarUsuario } = require('../middlewares/authMiddleware')
 
@@ -146,6 +146,26 @@ const createBulk = async (req, res, next) => {
     res
       .status(201)
       .json({ usuarios: newUsuarios, msg: 'Lista de usuarios creadas' })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// Controllador de tabla intermedia de usuarios y Libros ( Favoritos N:M )
+const createFavoritos = async (req, res, next) => {
+  const { usuarioId, librosIds } = req.body
+  try {
+    if (!usuarioId)
+      return res.status(400).json({ msg: 'Id de usuario no provisto' })
+    if (!librosIds.length > 0)
+      return res.status(400).json({ msg: 'Lista de libros no provistos' })
+    const usuario = await Usuario.findByPk(usuarioId)
+    if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrado' })
+
+    const newFavoritos = await usuario.addFavoritos(librosIds)
+    if (!newFavoritos)
+      return res.status(400).json({ msg: 'No se pudo agregar los libros' })
+    res.status(201).json({ usuario, msg: 'Libros agregados' })
   } catch (error) {
     next(error)
   }
