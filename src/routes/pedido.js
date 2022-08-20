@@ -7,7 +7,7 @@ const {
   createBulk,
   updateById,
   deleteById,
-  getByUser
+  getByUser,
 } = require('../controllers/pedido.js')
 
 const router = Router()
