@@ -96,7 +96,12 @@ const getAll = async (req, res, next) => {
     if (precios) {
       precio = JSON.parse(precios)
       where = precios
-        ? { ...where, precio: { [Op.between]: [precio.min, precio.max] } }
+        ? {
+            ...where,
+            precio: {
+              [Op.between]: [precio?.min ?? 0, precio?.max ?? Infinity],
+            },
+          }
         : null
     }
 
