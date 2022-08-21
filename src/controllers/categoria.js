@@ -1,11 +1,10 @@
 const { Op } = require('sequelize')
-require('dotenv').config()
 const { Categoria } = require('../conexion/db')
 
 const getAll = async (req, res, next) => {
   const { nombre } = req.query
   try {
-    let where = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null
+    let where = nombre ? { nombre: { [Op.iLike]: `%${nombre}%` } } : null
 
     const categorias = await Categoria.findAndCountAll({ where })
 
