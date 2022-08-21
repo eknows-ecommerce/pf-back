@@ -5,22 +5,15 @@ const { Categoria } = require('../conexion/db')
 const getAll = async (req, res, next) => {
   const { nombre } = req.query
   try {
-    if (nombre) {
-      const categorias = await Categoria.findAll({
-        where: {
-          nombre: {
-            [Op.iLike]: `%${nombre}%`,
-          },
-        },
-      })
-      if (!categorias)
-        return res.status(404).json({ msg: 'Categorias no encontrados' })
-      return res.status(200).json({ categorias })
-    }
-    const categorias = await Categoria.findAll()
-    if (!categorias.length)
+    let where = nombre ? { nombre: { [Op.like]: `%${nombre}%` } } : null
+
+    const categorias = await Categoria.findAndCountAll({ where })
+
+    if (!categorias.rows.length > 0)
       return res.status(404).json({ msg: 'Categorias no encontradas' })
-    res.status(200).json({ categorias })
+    res
+      .status(200)
+      .json({ count: categorias.count, categorias: categorias.rows })
   } catch (error) {
     next(error)
   }
@@ -44,10 +37,13 @@ const create = async (req, res, next) => {
   try {
     if (!nombre)
       return res.status(400).json({ msg: 'Nombre de categoria no provisto' })
-    const categoria = await Categoria.create({ nombre, miniatura })
+    if (!miniatura)
+      return res.status(400).json({ msg: 'Miniatura de categoria no provisto' })
+
+    const categoria = await Categoria.create(req.body)
     if (!categoria)
       return res.status(200).json({ msg: 'No se pudo crear la categoria' })
-    res.status(201).json({ categoria, msg: 'Categoria creada' })
+    res.status(201).json({ msg: 'Categoria creada', categoria })
   } catch (error) {
     next(error)
   }
@@ -58,17 +54,18 @@ const update = async (req, res, next) => {
   const { nombre, miniatura } = req.body
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
-    if (!nombre)
-      return res.status(400).json({ msg: 'Nombre de categoria no provisto' })
     const categoria = await Categoria.findByPk(id)
     if (!categoria)
       return res.status(404).json({ msg: 'Categoria no encontrada' })
-    const updatedCategoria = await categoria.update({ nombre, miniatura })
+    const updatedCategoria = await categoria.update({
+      nombre: nombre || categoria.nombre,
+      miniatura: miniatura || categoria.miniatura,
+    })
     if (!updatedCategoria)
       return res.status(200).json({ msg: 'No se pudo actualizar la categoria' })
     res
       .status(200)
-      .json({ categoria: updatedCategoria, msg: 'Categoria actualizada' })
+      .json({ msg: 'Categoria actualizada', categoria: updatedCategoria })
   } catch (error) {
     next(error)
   }
@@ -84,7 +81,7 @@ const deleteById = async (req, res, next) => {
     const deleteCategoria = await categoria.destroy()
     if (!deleteCategoria)
       return res.status(200).json({ msg: 'No se pudo eliminar categoria' })
-    res.status(200).json({ categoria, msg: 'Categoria eliminada' })
+    res.status(200).json({ msg: 'Categoria eliminada', categoria })
   } catch (error) {
     next(error)
   }

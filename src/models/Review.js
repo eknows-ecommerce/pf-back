@@ -6,24 +6,23 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    texto: {
+    comentario: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
     rating: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         min: 1,
-        max: 5
-      }
+        max: 5,
+      },
     },
-    likes: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
+    isVisible: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: true,
     },
-    fechaPublicacion: DataTypes.DATE,
     lenguaje: DataTypes.STRING,
   })
 }

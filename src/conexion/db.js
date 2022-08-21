@@ -45,7 +45,7 @@ sequelize.models = Object.fromEntries(capsEntries)
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Categoria, Libro, Formato, Pedido, Tag, Usuario, Review, Comentario } =
+const { Categoria, Libro, Formato, Pedido, Tag, Usuario, Review } =
   sequelize.models
 
 // Categoria N<=>M Libro
@@ -67,36 +67,23 @@ const Detalle = sequelize.define('Detalle', { cantidad: DataTypes.INTEGER })
 Pedido.belongsToMany(Libro, { through: Detalle, as: 'DetalleLibro' })
 Libro.belongsToMany(Pedido, { through: Detalle, as: 'DetalleLibro' })
 
-// Libros N<=>M Formato
-Libro.belongsToMany(Formato, { through: 'Formato_Libro', as: 'FormatoLibro' })
-Formato.belongsTo(Libro, { through: 'Formato_Libro', as: 'FormatoLibro' })
-
 // Usuario 1=>N Pedido
 Usuario.hasMany(Pedido)
 Pedido.belongsTo(Usuario)
 
-// Libro 1=>N Review
-Libro.hasMany(Review)
-Review.belongsTo(Libro)
-
-// User 1=>N Review
-Usuario.hasMany(Review)
-Review.belongsTo(Usuario)
-
-// Review 1=>N Comentarios
-Review.hasMany(Comentario)
-Comentario.belongsTo(Review)
-
-// User 1=>N Comentarios
-Usuario.hasMany(Comentario)
-Comentario.belongsTo(Usuario)
+// Usuario N<=>M Libro
+Usuario.belongsToMany(Libro, { through: Review, as: 'ReviewLibro' })
+Libro.belongsToMany(Usuario, { through: Review, as: 'ReviewLibro' })
 
 //Usuario N<=>M LIBRO
 Usuario.belongsToMany(Libro, { through: 'Favorito', as: 'Favoritos' })
 Libro.belongsToMany(Usuario, { through: 'Favorito', as: 'Favoritos' })
 
+//Formato N<=>M Libro
+Formato.belongsToMany(Libro, { through: 'Formato_Libro', as: 'FormatoLibro' })
+Libro.belongsToMany(Formato, { through: 'Formato_Libro', as: 'FormatoLibro' })
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,
-  Detalle, // para importart la conexión { conn } = require('./db.js');
 }

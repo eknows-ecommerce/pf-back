@@ -3,7 +3,17 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const { Pedido, Libro } = require('../conexion/db')
 
 const create = async (req, res, next) => {
-  const { id, amount, currency, description, type_method, email } = req.body
+  const {
+    id,
+    amount,
+    currency,
+    description,
+    type_method,
+    email,
+    fechaEntrega,
+    UsuarioId,
+  } = req.body
+
   try {
     if (!id) return res.status(400).send('No se ha encontrado el id del pedido')
     if (!amount)
@@ -13,18 +23,16 @@ const create = async (req, res, next) => {
     if (!email)
       return res.status(400).send('No se ha encontrado el email del usuario')
 
-    let voucher = ''
+    let voucher = 'Detalle: '
     description.libros.forEach(
-      (libro, i) =>
-        (voucher += `Detalle ${i + 1}: LibroId:${libro.id} Precio:${
-          libro.precio
-        } Cantidad:${libro.cantidad} Total:${amount} `)
+      (libro) =>
+        (voucher += `LibroId:${libro.id} Precio:${libro.precio} Cantidad:${libro.cantidad} Total:${amount}`)
     )
 
     const paymentIntent = await stripe.paymentIntents.create({
       payment_method_types: [type_method ?? 'card'],
       payment_method: id,
-      amount: currency ? amount * 100 : amount,
+      amount: currency === 'USD' ? amount * 100 : amount,
       currency,
       description: voucher,
       confirm: true,
@@ -42,7 +50,8 @@ const create = async (req, res, next) => {
       direccionEnvio: description.direccionEnvio,
       estado: description.estado,
       descuento: description.descuento,
-      fechaEntrega: new Date(),
+      fechaEntrega: fechaEntrega ?? new Date(),
+      UsuarioId,
     })
 
     if (!pedido)
@@ -55,7 +64,9 @@ const create = async (req, res, next) => {
       })
     }
 
-    res.status(201).json({ detalle: paymentIntent, pedido })
+    res
+      .status(201)
+      .json({ msg: 'Pedido realizado correctamente', detalle: voucher, pedido })
   } catch (error) {
     next(error)
   }

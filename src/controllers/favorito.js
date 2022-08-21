@@ -1,5 +1,4 @@
-const { Usuario, Libro, conn } = require('../conexion/db')
-require('dotenv').config()
+const { Usuario } = require('../conexion/db')
 
 const getByUser = async (req, res, next) => {
   const { usuarioId } = req.params
@@ -23,8 +22,7 @@ const getByUser = async (req, res, next) => {
 }
 
 const createByUser = async (req, res, next) => {
-  const { usuarioId } = req.params
-  const { libroId } = req.body
+  const { usuarioId, libroId } = req.body
   try {
     if (!usuarioId)
       return res.status(400).json({ msg: 'Id de usuario no provisto' })
@@ -52,8 +50,7 @@ const createByUser = async (req, res, next) => {
 }
 
 const deleteByUser = async (req, res, next) => {
-  const { usuarioId } = req.params
-  const { libroId } = req.body
+  const { libroId, usuarioId } = req.body
   try {
     if (!usuarioId)
       return res.status(400).json({ msg: 'Id de usuario no provisto' })
