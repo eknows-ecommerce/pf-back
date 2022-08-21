@@ -32,12 +32,10 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { nombre, miniatura } = req.body
+  const { nombre } = req.body
   try {
     if (!nombre)
       return res.status(400).json({ msg: 'Nombre de categoria no provisto' })
-    if (!miniatura)
-      return res.status(400).json({ msg: 'Miniatura de categoria no provisto' })
 
     const categoria = await Categoria.create(req.body)
     if (!categoria)
