@@ -230,7 +230,34 @@ const updateById = async (req, res, next) => {
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
 
-    const libro = await Libro.findByPk(id)
+    const libro = await Libro.findByPk(id, {
+      include: [
+        {
+          attributes: ['id', 'nombre', 'miniatura'],
+          model: Categoria,
+          as: 'CategoriaLibro',
+          through: {
+            attributes: [],
+          },
+        },
+        {
+          attributes: ['id', 'nombre'],
+          model: Tag,
+          as: 'TagLibro',
+          through: {
+            attributes: [],
+          },
+        },
+        {
+          attributes: ['id', 'nombre'],
+          model: Formato,
+          as: 'FormatoLibro',
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+    })
     if (!libro) return res.status(404).json({ msg: 'libro no encontrado' })
 
     const Formatos = await libro.getFormatoLibro({ joinTableAttributes: [] })
