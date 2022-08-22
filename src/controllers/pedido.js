@@ -1,25 +1,23 @@
 const { Op } = require('sequelize')
 
-const { Pedido, Libro, Detalle } = require('../conexion/db.js')
+const { Pedido, Libro, Usuario } = require('../conexion/db.js')
 
 const getAll = async (req, res, next) => {
   const { titulo } = req.query
   try {
-    let where
-    if (titulo) {
-      where = {
-        titulo: {
-          [Op.iLike]: `%${titulo}%`,
-        },
-      }
-    }
+    let where = null
+    if (titulo) where = { titulo: { [Op.iLike]: `%${titulo}%` } }
+
     const pedidos = await Pedido.findAndCountAll({
       include: [
         {
           attributes: ['id', 'titulo', 'precio'],
           model: Libro,
           as: 'DetalleLibro',
-          where: where ?? null,
+          where,
+          through: {
+            attributes: ['cantidad'],
+          },
         },
       ],
       distinct: true,
@@ -42,6 +40,9 @@ const getById = async (req, res, next) => {
           attributes: ['id', 'titulo', 'precio'],
           model: Libro,
           as: 'DetalleLibro',
+          through: {
+            attributes: ['cantidad'],
+          },
         },
       ],
       where: {
@@ -55,53 +56,58 @@ const getById = async (req, res, next) => {
   }
 }
 
-// const getByUser = async (req, res, next) => {
-//   const { usuarioId } = req.params
-//   try {
-//     if (!usuarioId)
-//       return res.status(400).json({ msg: 'Id usuario no provisto' })
-//     const pedidos = await Pedido.findAll({
-//       include: [
-//         {
-//           attributes: ['id', 'titulo', 'precio'],
-//           model: Libro,
-//           as: 'DetalleLibro',
-//         },
-//       ],
-//       where: {
-//         UsuarioId: usuarioId,
-//       },
-//     })
-//     if (pedidos.length === 0)
-//       return res.status(404).json({ msg: 'Pedido no encontrado' })
-//     res.status(200).json({ pedidos })
-//   } catch (error) {
-//     next(error)
-//   }
-// }
+
+const getByUser = async (req, res, next) => {
+  const { usuarioId } = req.params
+  try {
+    if (!usuarioId)
+      return res.status(400).json({ msg: 'Id usuario no provisto' })
+    const usuario = await Usuario.findByPk(usuarioId)
+    if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrado' })
+    const pedidos = await usuario.getPedidos({
+      include: [
+        {
+          attributes: ['id', 'titulo', 'precio'],
+          model: Libro,
+          as: 'DetalleLibro',
+          through: {
+            attributes: ['cantidad'],
+          },
+        },
+      ],
+    })
+
+    const count = await usuario.countPedidos()
+
+    if (!pedidos.length > 0)
+      return res
+        .status(404)
+        .json({ msg: 'No existe pedidos para este usuario' })
+    res.status(200).json({ count, pedidos })
+  } catch (error) {
+    next(error)
+  }
+}
+
 
 const create = async (req, res, next) => {
   const {
     direccionEnvio,
     estado,
-    descuento,
-    fechaEntrega = new Date(),
-    libros, 
-    UsuarioId//array de objetos con id y cantidad
+    libros, //array de objetos con id y cantidad
+    UsuarioId,
   } = req.body
   try {
+    if (!UsuarioId)
+      return res.status(400).json({ msg: 'Id usuario no provisto' })
     if (!direccionEnvio)
       return res.status(400).json({ msg: 'Dirección de Envio no provisto' })
     if (!estado) return res.status(400).json({ msg: 'Estado no provisto' })
     if (!libros.length > 0)
       return res.status(400).json({ msg: 'Libros no provistos' })
-    const pedido = await Pedido.create({
-      direccionEnvio,
-      estado,
-      descuento,
-      fechaEntrega,
-      UsuarioId
-    })
+    
+    const pedido = await Pedido.create(req.body)
+
     if (!pedido)
       return res.status(200).json({ msg: 'No se pudo crear el pedido' })
 
@@ -112,7 +118,7 @@ const create = async (req, res, next) => {
       })
     }
 
-    res.status(201).json({ pedido, msg: 'Pedido creado' })
+    res.status(201).json({ msg: 'Pedido creado', pedido })
   } catch (error) {
     next(error)
   }
@@ -123,35 +129,21 @@ const updateById = async (req, res, next) => {
   const { direccionEnvio, estado, descuento, fechaEntrega } = req.body
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
-    if (!direccionEnvio)
-      return res.status(400).json({ msg: 'Dirección de Envio no provisto' })
-    if (!estado) return res.status(400).json({ msg: 'Estado no provisto' })
+
     const pedido = await Pedido.findByPk(id)
     if (!pedido) return res.status(404).json({ msg: 'Pedido no encontrado' })
+
     const updatedPedido = await pedido.update({
-      direccionEnvio,
-      estado,
-      descuento,
-      fechaEntrega,
+      direccionEnvio: direccionEnvio || pedido.direccionEnvio,
+      estado: estado || pedido.estado,
+      descuento: descuento || pedido.descuento,
+      fechaEntrega: fechaEntrega || pedido.fechaEntrega,
     })
 
     if (!updatedPedido)
       return res.status(200).json({ msg: 'No se pudo actualizar el pedido' })
-    const pedidoActualizado = await Pedido.findOne({
-      include: [
-        {
-          attributes: ['id', 'titulo', 'precio'],
-          model: Libro,
-          as: 'DetalleLibro',
-        },
-      ],
-      where: {
-        id,
-      },
-    })
-    res
-      .status(200)
-      .json({ pedido: pedidoActualizado, msg: 'Pedido actualizado' })
+
+    res.status(200).json({ msg: 'Pedido actualizado', pedido: updatedPedido })
   } catch (error) {
     next(error)
   }
@@ -166,7 +158,7 @@ const deleteById = async (req, res, next) => {
     const deletePedido = await pedido.destroy()
     if (!deletePedido)
       return res.status(200).json({ msg: 'No se pudo eliminar el pedido' })
-    res.status(200).json({ pedido, msg: 'Pedido eliminado' })
+    res.status(200).json({ msg: 'Pedido eliminado', pedido })
   } catch (error) {
     next(error)
   }
@@ -180,7 +172,7 @@ const createBulk = async (req, res, next) => {
     const newPedidos = await Pedido.bulkCreate(pedidos)
     if (!newPedidos.length > 0)
       return res.status(200).json({ msg: 'No se pudo crear los pedidos' })
-    res.status(201).json({ pedidos: newPedidos, msg: 'Pedidos creados' })
+    res.status(201).json({ count: newPedidos.length, pedidos: newPedidos })
   } catch (error) {
     next(error)
   }

@@ -2,9 +2,10 @@ const { DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
   sequelize.define('Formato', {
-    tipo: {
-      type: DataTypes.ENUM('fisico', 'ebook', 'audiolibro'),
+    nombre: {
+      type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
   })
 }

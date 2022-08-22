@@ -1,198 +1,160 @@
 const { Op } = require('sequelize')
 
-const { Libro, Categoria, Tag, conn } = require('../conexion/db.js')
+const { Libro, Categoria, Tag, Formato } = require('../conexion/db.js')
 
 const getAll = async (req, res, next) => {
   const {
-    carrito = '',
-    titulo = '',
-    categorias = '',
-    tags = '',
-    precioMin = -Infinity,
-    precioMax = Infinity,
-    orden = 'titulo',
-    direcion = 'asc',
-    limit = 6,
-    offset = 0,
+    carrito, //array en formato JSON
+    search, //barra buscar
+    categorias, //array de ids en formato JSON
+    tags, //array de ids en formato JSON
+    formatos, //array de ids en formato JSON
+    precios, //objeto en formato JSON
+    orden, //objeto en formato JSON
+    limite, //numero
+    pagina, //numero -> pagina actual
+    buscarPor, // string -> nombre de la columna a buscar
   } = req.query
+
+  //formato JSON
+  let categoriasIds = []
+  let tagsIds = []
+  let formatosIds = []
+  let precio = null
+  let ordenar = null
+  //condiciones para busqueda
+  let buscarBy = buscarPor || 'titulo'
+  //condiciones para filtrar
+  let whereCategorias = {}
+  let whereTags = {}
+  let whereFormatos = {}
+  //condiciones para ordenar
+  let order = null
+  //condiciones para paginacion
+  let limit = limite || Infinity
+  let offset = pagina || 1
+  //condiciones general
+  let where = null
 
   try {
     //busqueda de solo carrito
     if (carrito) {
-      const condicion = carrito.split(',')
+      const where = carrito
+        ? {
+            id: {
+              [Op.in]: JSON.parse(carrito),
+            },
+          }
+        : null
+
       const librosToCar = await Libro.findAll({
-        where: {
-          id: {
-            [Op.in]: condicion,
-          },
-        },
+        where,
       })
       return res.status(200).json({ librosToCar })
     }
 
-    // Busqueda con filtros
-    if (categorias || tags || titulo) {
-      /*let whereCategorias;
-      if(categorias){
-        if(categorias.includes(',')){
-          whereCategorias=categorias
-        }
-      }*/
-
-      const whereCategorias = categorias.includes(',')
-        ? null
-        : categorias
-        ? { id: categorias }
+    //condiciones para todos los where
+    if (categorias) {
+      categoriasIds = JSON.parse(categorias)
+      whereCategorias = categorias
+        ? {
+            id: {
+              [Op.in]: categoriasIds,
+            },
+          }
         : null
-
-      const whereTags = tags.includes(',') ? null : tags ? { id: tags } : null
-
-      const libros = await Libro.findAndCountAll({
-        include: [
-          {
-            model: Categoria,
-            as: 'CategoriaLibro',
-            where: whereCategorias,
-          },
-          {
-            model: Tag,
-            as: 'TagLibro',
-            where: whereTags,
-          },
-        ],
-        where: {
-          titulo: {
-            [Op.iLike]: `%${titulo}%`,
-          },
-          precio: {
-            [Op.between]: [precioMin, precioMax],
-          },
-        },
-        distinct: true,
-        order: [[`${orden}`, `${direcion}`]],
-        limit: categorias.includes(',') ? null : limit,
-        offset: categorias.includes(',') ? null : offset * limit,
-      })
-
-      //Filtra tanto cuando mandan categorias y tags al mismo tiempo
-      if (categorias.includes(',') && tags.includes(',')) {
-        let tagsFilter = tags.split(',').sort()
-        let categoriasFilter = categorias.split(',').sort()
-        const librosEncontrados = libros.rows
-          .map((libro) => {
-            let flag = true
-            const idsCategorias = libro.CategoriaLibro.map((el) => el.id).sort()
-            categoriasFilter.forEach((l) => {
-              if (!idsCategorias.includes(parseInt(l))) {
-                flag = false
-              }
-            })
-            const idsTags = libro.TagLibro.map((el) => el.id).sort()
-            tagsFilter.forEach((l) => {
-              if (!idsTags.includes(parseInt(l))) {
-                flag = false
-              }
-            })
-
-            return flag && libro
-          })
-          .filter((el) => el)
-        //Paginamos los libros encontrados
-        const data = librosEncontrados.slice(
-          limit * offset,
-          limit * (offset + 1)
-        )
-        //devolvemos la info
-        if (data.length === 0)
-          return res.status(404).json({ msg: 'No hay libros' })
-        return res.status(200).json({
-          count: librosEncontrados.length,
-          libros: data,
-        })
-      }
-
-      if (categorias.includes(',')) {
-        let categoriasFilter = categorias.split(',').sort()
-        console.log(libros.rows.slice(0, 1))
-        const arr = libros.rows
-          .map((libro) => {
-            let flag = true
-            const ids = libro.CategoriaLibro.map((el) => el.id).sort()
-            categoriasFilter.forEach((l) => {
-              if (!ids.includes(parseInt(l))) {
-                flag = false
-              }
-            })
-            return flag ? libro : false
-          })
-          .filter((el) => el)
-        console.log(arr.slice(0, 1))
-        const data = arr.slice(limit * offset, limit * (offset + 1))
-
-        if (data.length === 0)
-          return res.status(404).json({ msg: 'No hay libros' })
-        return res.status(200).json({
-          count: arr.length,
-          libros: data,
-        })
-      }
-
-      if (tags.includes(',')) {
-        let tagsFilter = tags.split(',').sort()
-        const arr = libros.rows
-          .map((libro) => {
-            let flag = true
-            const ids = libro.TagLibro.map((el) => el.id).sort()
-            tagsFilter.forEach((l) => {
-              if (!ids.includes(parseInt(l))) {
-                flag = false
-              }
-            })
-            return flag ? libro : false
-          })
-          .filter((el) => el)
-
-        const data = arr.slice(limit * offset, limit * (offset + 1))
-
-        if (data.length === 0)
-          return res.status(404).json({ msg: 'No hay libros' })
-        return res.status(200).json({
-          count: arr.length,
-          libros: data,
-        })
-      }
-
-      if (!libros.rows.length)
-        return res.status(404).json({ msg: 'No hay libros' })
-      return res.status(200).json({ count: libros.count, libros: libros.rows })
-    } else {
-      // Busqueda sin filtros
-      const libros = await Libro.findAndCountAll({
-        include: [
-          {
-            model: Categoria,
-            as: 'CategoriaLibro',
-          },
-          {
-            model: Tag,
-            as: 'TagLibro',
-          },
-        ],
-        where: {
-          precio: {
-            [Op.between]: [precioMin, precioMax],
-          },
-        },
-        order: [[`${orden}`, `${direcion}`]],
-        distinct: true,
-        limit: limit,
-        offset: offset * limit,
-      })
-
-      if (!libros.rows.length)
-        return res.status(404).json({ msg: 'No hay libros' })
-      return res.status(200).json({ count: libros.count, libros: libros.rows })
     }
+
+    if (tags) {
+      tagsIds = JSON.parse(tags)
+      whereTags = tags
+        ? {
+            id: {
+              [Op.in]: tagsIds,
+            },
+          }
+        : null
+    }
+
+    if (formatos) {
+      formatosIds = JSON.parse(formatos)
+      whereFormatos = formatos
+        ? {
+            id: {
+              [Op.in]: formatosIds,
+            },
+          }
+        : null
+    }
+
+    if (search) {
+      where = search
+        ? { ...where, [buscarBy]: { [Op.iLike]: `%${search}%` } }
+        : null
+    }
+
+    if (precios) {
+      precio = JSON.parse(precios)
+      where = precios
+        ? {
+            ...where,
+            precio: {
+              [Op.between]: [precio?.min ?? 0, precio?.max ?? Infinity],
+            },
+          }
+        : null
+    }
+
+    if (orden) {
+      ordenar = JSON.parse(orden)
+      order = orden ? [[ordenar.valor, ordenar.dir]] : null
+    }
+
+    //busqueda c/s filtros
+    const librosBD = await Libro.findAll({
+      include: [
+        {
+          attributes: ['id', 'nombre', 'miniatura'],
+          model: Categoria,
+          as: 'CategoriaLibro',
+          where: whereCategorias,
+          through: { attributes: [] },
+        },
+        {
+          attributes: ['id', 'nombre'],
+          model: Tag,
+          as: 'TagLibro',
+          where: whereTags,
+          through: { attributes: [] },
+        },
+        {
+          attributes: ['id', 'nombre'],
+          model: Formato,
+          as: 'FormatoLibro',
+          where: whereFormatos,
+          through: { attributes: [] },
+        },
+      ],
+      where,
+      order,
+    })
+
+    let librosEncontrados = []
+    // metodos de array predefinidos
+    for (const libro of librosBD) {
+      const existe1 = await libro.hasCategoriaLibro(categoriasIds)
+      const existe2 = await libro.hasTagLibro(tagsIds)
+      const existe3 = await libro.hasFormatoLibro(formatosIds)
+      if (existe1 && existe2 && existe3) {
+        librosEncontrados.push(libro)
+      }
+    }
+    // metodos para el paginado
+    const libros = librosEncontrados.slice(limit * (offset - 1), limit * offset)
+    return res.status(200).json({
+      count: librosEncontrados.length,
+      libros,
+    })
   } catch (error) {
     next(error)
   }
@@ -202,22 +164,27 @@ const getById = async (req, res, next) => {
   const { id } = req.params
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
-    const libro = await Libro.findOne({
+    const libro = await Libro.findByPk(id, {
       include: [
         {
+          attributes: ['id', 'nombre', 'miniatura'],
           model: Categoria,
           as: 'CategoriaLibro',
           through: { attributes: [] },
         },
         {
+          attributes: ['id', 'nombre'],
           model: Tag,
           as: 'TagLibro',
           through: { attributes: [] },
         },
+        {
+          attributes: ['id', 'nombre'],
+          model: Formato,
+          as: 'FormatoLibro',
+          through: { attributes: [] },
+        },
       ],
-      where: {
-        id,
-      },
     })
     if (!libro) return res.status(404).json({ msg: 'libro no encontrado' })
     res.status(200).json({ libro })
@@ -227,12 +194,15 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { titulo, autor, resumen, precio, stock, isAvail, categorias, tags } =
+  const { titulo, autor, resumen, precio, stock, categorias, tags, formatos } =
     req.body
   try {
-    if (!categorias)
+    if (!categorias.length > 0)
       return res.status(400).json({ msg: 'Categorias no provistos' })
-    if (!tags) return res.status(400).json({ msg: 'Tags no provistos' })
+    if (!tags.length > 0)
+      return res.status(400).json({ msg: 'Tags no provistos' })
+    if (!formatos.length > 0)
+      return res.status(400).json({ msg: 'Formato no provisto' })
     if (!titulo) return res.status(400).json({ msg: 'Titulo no provisto' })
     if (!autor) return res.status(400).json({ msg: 'Autor no provisto' })
     if (!resumen) return res.status(400).json({ msg: 'Resumen no provisto' })
@@ -246,8 +216,9 @@ const create = async (req, res, next) => {
 
     libro.addCategoriaLibro(categorias)
     libro.addTagLibro(tags)
+    libro.addFormatoLibro(formatos)
 
-    res.status(201).json({ libro, msg: 'Libro creado' })
+    res.status(201).json({ msg: 'Libro creado', libro })
   } catch (error) {
     next(error)
   }
@@ -255,36 +226,72 @@ const create = async (req, res, next) => {
 
 const updateById = async (req, res, next) => {
   const { id } = req.params
-  const { titulo, autor, resumen, precio, stock, isAvail, categorias, tags } =
-    req.body
+
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
 
-    const libro = await Libro.findByPk(id)
-    if (!libro) return res.status(404).json({ msg: 'Libro no encontrado' })
-
-    await conn.query('DELETE FROM "Categoria_Libro" WHERE "LibroId" = :id', {
-      type: conn.QueryTypes.DELETE,
-      replacements: { id },
+    const libro = await Libro.findByPk(id, {
+      include: [
+        {
+          attributes: ['id', 'nombre', 'miniatura'],
+          model: Categoria,
+          as: 'CategoriaLibro',
+          through: {
+            attributes: [],
+          },
+        },
+        {
+          attributes: ['id', 'nombre'],
+          model: Tag,
+          as: 'TagLibro',
+          through: {
+            attributes: [],
+          },
+        },
+        {
+          attributes: ['id', 'nombre'],
+          model: Formato,
+          as: 'FormatoLibro',
+          through: {
+            attributes: [],
+          },
+        },
+      ],
     })
-    await conn.query('DELETE FROM "Tag_Libro" WHERE "LibroId" = :id', {
-      type: conn.QueryTypes.DELETE,
-      replacements: { id },
+    if (!libro) return res.status(404).json({ msg: 'libro no encontrado' })
+
+    const Formatos = await libro.getFormatoLibro({ joinTableAttributes: [] })
+    const Tags = await libro.getTagLibro({ joinTableAttributes: [] })
+    const Categorias = await libro.getCategoriaLibro({
+      joinTableAttributes: [],
     })
 
-    const libroUpdate = await libro.update(req.body, {
-      where: { id },
+    const libroUpdate = await libro.update({
+      titulo: req.body.titulo ?? libro.titulo,
+      autor: req.body.autor ?? libro.autor,
+      resumen: req.body.resumen ?? libro.resumen,
+      precio: req.body.precio ?? libro.precio,
+      stock: req.body.stock ?? libro.stock,
+      isAvail: req.body.isAvail ?? libro.isAvail,
+      editorial: req.body.editorial ?? libro.editorial,
+      fechaPublicacion: req.body.fechaPublicacion ?? libro.fechaPublicacion,
+      paginas: req.body.paginas ?? libro.paginas,
+      lenguaje: req.body.lenguaje ?? libro.lenguaje,
+      portada: req.body.portada ?? libro.portada,
     })
 
-    if (categorias) {
-      libro.addCategoriaLibro(categorias)
-    }
+    if (!libroUpdate)
+      return res.status(200).json({ msg: 'No se pudo actualizar el libro' })
 
-    if (tags) {
-      libro.addTagLibro(tags)
-    }
+    if (req.body.categorias) libro.removeCategoriaLibro(Categorias)
+    if (req.body.tags) libro.removeTagLibro(Tags)
+    if (req.body.formatos) libro.removeFormatoLibro(Formatos)
 
-    res.status(200).json({ libro: libroUpdate, msg: 'Libro actualizado' })
+    libro.addCategoriaLibro(req.body.categorias)
+    libro.addTagLibro(req.body.tags)
+    libro.addFormatoLibro(req.body.formatos)
+
+    res.status(200).json({ msg: 'Libro actualizado', libro: libroUpdate })
   } catch (error) {
     next(error)
   }
@@ -307,28 +314,31 @@ const deleteById = async (req, res, next) => {
 
 // Cargar datos a la DB
 const createBulk = async (req, res, next) => {
-  const { libros, categorias, tags } = req.body
+  const { libros, categorias, tags, formatos } = req.body
 
   try {
     if (!libros) return res.status(400).json({ msg: 'Libros no provistos' })
     if (!categorias)
       return res.status(400).json({ msg: 'Categorias no provistos' })
     if (!tags) return res.status(400).json({ msg: 'Tags no provistos' })
+    if (!formatos) return res.status(400).json({ msg: 'Formatos no provistos' })
 
     const newlibros = await Libro.bulkCreate(libros, {
       include: ['CategoriaLibro', 'TagLibro'],
     })
     const newCategorias = await Categoria.bulkCreate(categorias)
     const newTags = await Tag.bulkCreate(tags)
+    const newFormatos = await Formato.bulkCreate(formatos)
 
     if (
       newlibros.length === 0 ||
       newCategorias.length === 0 ||
-      newTags.length === 0
+      newTags.length === 0 ||
+      newFormatos.length === 0
     )
-      return res
-        .status(200)
-        .json({ msg: 'No se pudo crear los libros, categorias y tags' })
+      return res.status(200).json({
+        msg: 'No se pudo crear los libros, categorias, tags y formatos',
+      })
 
     newlibros.forEach((libro) => {
       libros.forEach((bodyLibro) => {
@@ -339,6 +349,9 @@ const createBulk = async (req, res, next) => {
           bodyLibro.tags.forEach((tag) => {
             libro.addTagLibro(tag)
           })
+          bodyLibro.formatos.forEach((formato) => {
+            libro.addFormatoLibro(formato)
+          })
         }
       })
     })
@@ -347,6 +360,7 @@ const createBulk = async (req, res, next) => {
       libros: newlibros,
       categorias: newCategorias,
       tags: newTags,
+      formatos: newFormatos,
       msg: 'Libros creados',
     })
   } catch (error) {
@@ -361,4 +375,5 @@ module.exports = {
   updateById,
   deleteById,
   createBulk,
+  getAllRemasterizado: getAll,
 }
