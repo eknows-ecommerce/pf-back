@@ -30,6 +30,7 @@ module.exports = (sequelize) => {
     editorial: DataTypes.STRING,
     fechaPublicacion: DataTypes.DATE,
     paginas: DataTypes.INTEGER,
+
     lenguaje: DataTypes.STRING,
     portada: DataTypes.STRING,
   })
