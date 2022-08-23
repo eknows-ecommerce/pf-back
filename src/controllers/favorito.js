@@ -51,6 +51,7 @@ const createByUser = async (req, res, next) => {
 
 const deleteByUser = async (req, res, next) => {
   const { libroId, usuarioId } = req.body
+  console.log({ libroId, usuarioId })
   try {
     if (!usuarioId)
       return res.status(400).json({ msg: 'Id de usuario no provisto' })

@@ -7,8 +7,8 @@ const {
 
 const router = Router()
 
-router.get('/usuario/:usuarioId', getByUser)
-router.post('/usuario/:usuarioId', createByUser)
-router.delete('/usuario/:usuarioId', deleteByUser)
+router.get('/:usuarioId', getByUser)
+router.post('/', createByUser)
+router.delete('/', deleteByUser)
 
 module.exports = router
