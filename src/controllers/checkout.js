@@ -11,7 +11,6 @@ const create = async (req, res, next) => {
     type_method,
     email,
     fechaEntrega,
-    UsuarioId,
   } = req.body
 
   try {
@@ -51,7 +50,7 @@ const create = async (req, res, next) => {
       estado: description.estado,
       descuento: description.descuento,
       fechaEntrega: fechaEntrega ?? new Date(),
-      UsuarioId,
+      UsuarioId: description.UsuarioId,
     })
 
     if (!pedido)
