@@ -178,6 +178,7 @@ const createBulk = async (req, res, next) => {
   }
 }
 
+
 module.exports = {
   getAll,
   getById,
