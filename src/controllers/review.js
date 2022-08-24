@@ -15,6 +15,7 @@ const getAll = async (req, res, next) => {
 const create = async (req, res, next) => {
   const { titulo, comentario, rating, LibroId, UsuarioId } = req.body
   try {
+    console.log(req.body)
     if (!titulo) return res.status(400).json({ msg: 'Titulo no provisto' })
     if (!comentario)
       return res.status(400).json({ msg: 'Comentario no provisto' })
@@ -32,10 +33,9 @@ const create = async (req, res, next) => {
       where: { UsuarioId },
     })
 
-    /*const existe = await usuario.hasPedido(pedido)
-
+    const existe = await usuario.hasPedido(pedido)
     if (!existe)
-      return res.status(404).json({ msg: 'No hay pedidos para ese usuario' })*/
+      return res.status(404).json({ msg: 'No hay pedidos para ese usuario' })
 
     const existeReview = await usuario.hasReviewLibro(libro)
     if (existeReview)
@@ -127,19 +127,15 @@ const getByLibro = async (req, res, next) => {
   try {
     if (!LibroId) return res.status(400).json({ msg: 'Libro Id no provisto' })
     const libro = await Libro.findByPk(LibroId, {
-      attributes: ['id'],
       include: {
-        attributes: ['id', 'name'],
+        attributes: [['name','UsuarioName']],
         model: Usuario,
         as: 'ReviewLibro',
       }
     })
-
     if (!libro) return res.status(404).json({ msg: 'Libro no encontrado' })
-    //const reviews = await Review.findAndCountAll({ where: { LibroId } })
-
     const count = await libro.countReviewLibro()
-    if (!count> 0)
+    if (!count > 0)
       return res.status(404).json({ msg: 'No hay reviews' })
     res.status(200).json({ count, libro })
   } catch (error) {
@@ -162,6 +158,7 @@ const getByUsuario = async (req, res, next) => {
 module.exports = {
   getAll,
   getByUsuario,
+  getByLibro,
   create,
   updateById,
   deleteById,
