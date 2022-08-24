@@ -25,9 +25,9 @@ const create = async (req, res, next) => {
     let voucher = 'Detalle: '
     description.libros.forEach(
       (libro) =>
-        (voucher += `LibroId:${libro.id} Precio:${libro.precio} Cantidad:${libro.cantidad} Total:${amount}`)
+        (voucher += `LibroId:${libro.id} - Precio:${libro.precio} - Cantidad:${libro.cantidad}`)
     )
-
+    voucher += ` Total:${amount}`
     const paymentIntent = await stripe.paymentIntents.create({
       payment_method_types: [type_method ?? 'card'],
       payment_method: id,
