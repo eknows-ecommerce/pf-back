@@ -127,19 +127,18 @@ const getByLibro = async (req, res, next) => {
   try {
     if (!LibroId) return res.status(400).json({ msg: 'Libro Id no provisto' })
     const libro = await Libro.findByPk(LibroId, {
-      attributes: ['id'],
       include: {
-        attributes: ['id', 'name'],
+        attributes: [['name','UsuarioName']],
         model: Usuario,
         as: 'ReviewLibro',
       }
     })
-
     if (!libro) return res.status(404).json({ msg: 'Libro no encontrado' })
+    //const { ReviewLibro: reviews } = libro
     //const reviews = await Review.findAndCountAll({ where: { LibroId } })
-
     const count = await libro.countReviewLibro()
-    if (!count> 0)
+    //reviews.map((r)=>({Review}=r))
+    if (!count > 0)
       return res.status(404).json({ msg: 'No hay reviews' })
     res.status(200).json({ count, libro })
   } catch (error) {
@@ -162,6 +161,7 @@ const getByUsuario = async (req, res, next) => {
 module.exports = {
   getAll,
   getByUsuario,
+  getByLibro,
   create,
   updateById,
   deleteById,

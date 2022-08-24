@@ -56,6 +56,37 @@ const getById = async (req, res, next) => {
   }
 }
 
+const isPedido = async (req, res, next) => {
+  const { UsuarioId, LibroId } = req.params
+  try {
+    if (!UsuarioId)
+      return res.status(400).json({ msg: 'Id usuario no provisto' })
+    if (!LibroId)
+      return res.status(400).json({ msg: 'Id libro no provisto' })
+    const usuario = await Usuario.findByPk(UsuarioId)
+    if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrado' })
+    //const existe = usuario.hasPedido(LibroId)
+    const existe = await usuario.getPedidos({
+      include: [
+        {
+          attributes: ['id'],
+          model: Libro,
+          as: 'DetalleLibro',
+          where: {
+            id: LibroId
+          },
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+    })
+    return res.status(200).json(existe.length>0)
+  } catch (error) {
+    next(error)
+  }
+}
+
 const getByUser = async (req, res, next) => {
   const { usuarioId } = req.params
   try {
@@ -184,4 +215,5 @@ module.exports = {
   deleteById,
   createBulk,
   getByUser,
+  isPedido,
 }
