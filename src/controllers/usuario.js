@@ -102,6 +102,8 @@ const update = async (req, res, next) => {
     isBan,
   } = req.body
 
+  console.log(id, req.body)
+
   try {
     if (!id) return res.status(400).json({ msg: 'Id no provisto' })
     const usuario = await Usuario.findByPk(id)

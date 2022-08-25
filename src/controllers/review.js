@@ -128,15 +128,14 @@ const getByLibro = async (req, res, next) => {
     if (!LibroId) return res.status(400).json({ msg: 'Libro Id no provisto' })
     const libro = await Libro.findByPk(LibroId, {
       include: {
-        attributes: [['name','UsuarioName']],
+        attributes: [['name', 'UsuarioName']],
         model: Usuario,
         as: 'ReviewLibro',
-      }
+      },
     })
     if (!libro) return res.status(404).json({ msg: 'Libro no encontrado' })
     const count = await libro.countReviewLibro()
-    if (!count > 0)
-      return res.status(404).json({ msg: 'No hay reviews' })
+    if (!count > 0) return res.status(404).json({ msg: 'No hay reviews' })
     res.status(200).json({ count, libro })
   } catch (error) {
     next(error)
@@ -147,9 +146,18 @@ const getByUsuario = async (req, res, next) => {
   const { UsuarioId } = req.params
   try {
     if (!UsuarioId) return res.status(400).json({ msg: 'Id no provisto' })
-    const review = await Review.findByPk(UsuarioId)
-    if (!review) return res.status(404).json({ msg: 'Review no encontrado' })
-    res.status(200).json({ review })
+
+    const usuario = await Usuario.findByPk(UsuarioId)
+
+    if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrado' })
+
+    const reviews = await usuario.getReviewLibro()
+
+    if (!reviews) return res.status(404).json({ msg: 'Reviews no encontradas' })
+
+    const count = await usuario.countReviewLibro()
+
+    res.status(200).json({ count, reviews })
   } catch (error) {
     next(error)
   }
