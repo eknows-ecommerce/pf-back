@@ -59,6 +59,9 @@ const create = async (req, res, next) => {
     if (description.libros.length > 0) {
       description.libros.forEach(async ({ id, cantidad }) => {
         const libro = await Libro.findByPk(id)
+        await libro.update({
+          stock: libro.stock - cantidad,
+        })
         pedido.addDetalleLibro(libro, { through: { cantidad } })
       })
     }

@@ -61,8 +61,7 @@ const isPedido = async (req, res, next) => {
   try {
     if (!UsuarioId)
       return res.status(400).json({ msg: 'Id usuario no provisto' })
-    if (!LibroId)
-      return res.status(400).json({ msg: 'Id libro no provisto' })
+    if (!LibroId) return res.status(400).json({ msg: 'Id libro no provisto' })
     const usuario = await Usuario.findByPk(UsuarioId)
     if (!usuario) return res.status(404).json({ msg: 'Usuario no encontrado' })
     //const existe = usuario.hasPedido(LibroId)
@@ -73,7 +72,7 @@ const isPedido = async (req, res, next) => {
           model: Libro,
           as: 'DetalleLibro',
           where: {
-            id: LibroId
+            id: LibroId,
           },
           through: {
             attributes: [],
@@ -81,7 +80,7 @@ const isPedido = async (req, res, next) => {
         },
       ],
     })
-    return res.status(200).json(existe.length>0)
+    return res.status(200).json(existe.length > 0)
   } catch (error) {
     next(error)
   }
@@ -143,6 +142,9 @@ const create = async (req, res, next) => {
     if (libros.length > 0) {
       libros.forEach(async ({ id, cantidad }) => {
         const libro = await Libro.findByPk(id)
+        await libro.update({
+          stock: libro.stock - cantidad,
+        })
         pedido.addDetalleLibro(libro, { through: { cantidad } })
       })
     }
